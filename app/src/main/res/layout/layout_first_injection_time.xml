@@ -4,45 +4,53 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".LayoutInitialSettingsActivity"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".LayoutFirstInjectionTimeActivity"
     android:background="@drawable/initial_settings_bg">
 
-    <EditText
+
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/name_text_view_hint"
-        android:id="@+id/nameTextView"
+        android:text="@string/date_text_view"
+        android:id="@+id/dateTextView"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:width="@dimen/initial_settings_text_view_width"
-        android:textAlignment="center"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="40dp"
         android:textSize="@dimen/text_size_medium"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/doctor_name_text_view_hint"
-        android:id="@+id/doctorNameTextView"
-        android:layout_below="@+id/nameTextView"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/dateEditText"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/dateTextView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:layout_alignLeft="@id/nameTextView"
-        android:layout_alignRight="@id/nameTextView"
-        android:textAlignment="center"
+        android:textSize="@dimen/text_size_medium"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/time_text_view"
+        android:id="@+id/timeTextView"
+        android:layout_below="@+id/dateEditText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp"
         android:textSize="@dimen/text_size_medium"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/nurse_name_text_view"
-        android:id="@+id/nurseNameTextView"
-        android:layout_below="@+id/doctorNameTextView"
+        android:inputType="time"
+        android:ems="10"
+        android:id="@+id/editText2"
+        android:layout_below="@+id/timeTextView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:layout_alignLeft="@id/nameTextView"
-        android:layout_alignRight="@id/nameTextView"
-        android:textAlignment="center"
+        android:layout_marginTop="30dp"
         android:textSize="@dimen/text_size_medium"/>
 
     <Button

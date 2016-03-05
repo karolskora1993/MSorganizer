@@ -1,7 +1,9 @@
-package com.karolskora.msorgranizer;
+package com.karolskora.msorgranizer.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.karolskora.msorgranizer.R;
 
 public class InitialSettingsActivity extends Activity {
 
