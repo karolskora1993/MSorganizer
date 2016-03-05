@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MS organizer</string>
+    <string name="name_text_view_hint">podaj swoje imię i nazwisko</string>
+    <string name="doctor_name_text_view_hint">podaj imie i nazwisko swojego lekarza</string>
+    <string name="nurse_name_text_view">podaj imię i nazwisko swojej pielęgniarki</string>
+    <string name="intial_settings_button_next_text">przejdź dalej</string>
+    <string name="title_activity_about">AboutActivity</string>
+    <string name="about_interferon">"Interferon Beta- 1B" stosowany jest w leczeniu stwardnienia rozsianego. Wstrzykuje się go podskórnie co drugi dzień.\nDla osągnięcia optymalnych wyników leczenia należy ściśle przestrzegać zaleceń lekarza odnośnie odstępów między kolejnymi injekcjami leku. Bardzo ważne jest, aby stosować lek regularnie, bez żadnych przerw. Niniejszy dzienniczek ma za zadanie pomóc Tobie i lekarzowi monitorować odstępy między kolejnymi wstrzyknięciami i kontrolować przebieg leczenia.\nMiejsce wstrzyknięcia należy regularnie zmieniać, aby zmniejszyć ryzyko wystąpenia odczynów skórnych w miejscach podania leku. Każde pole do wstrzyknięcia można wykorzytać najwyżej raz na 2 tygodnie.\nJak wynika z zebranych doświadczeń, najlepiej jest wybierać najbardziej odległe miejsca w obrębie danej okolicy.\nSkontaktuj się natychmiast ze swoim lekarzem albo pielęgniarką, jeśli w miejscu wstrzyknięcia pojawią się objawy niepożądane, jak zaczerwienienie, ból, obrzęk albo zgrubienie.\nWażne jest zachowanie ciągłości leczenia, ale jeśli zapomnisz to nie znaczy, że całe leczenie pójdzie na marne. Dobrze jest wstrzykiwać lek o tej samej porze dnia, dlatego też jeśli we wtorek rano zapomnisz sobie, że nie zrobiłeś zastrzyku w poniedziałek wieczorem, to po prostu poczekaj i zrób zastrzyk we wtorek wieczorem. W ten sposób następna injekcja wypadnie w czwartek wieczorem po upływnie 48 godzin.\nJeśli potrzebujesz dodatkowych informacji, jesli masz pytania albo jeśtli potrzebujesz wsparcia i pomocy, skontaktuj się z lekarzem prowadzącym lub pielęgniarką.
+    </string>
+    <string name="about_interferon_header">Drogi Pacjencie,\nDroga Pacjentko</string>
+</resources>
