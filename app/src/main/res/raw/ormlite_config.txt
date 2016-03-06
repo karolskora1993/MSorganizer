@@ -1,0 +1,20 @@
+#
+# generated on 2016/03/06 03:34:45
+#
+# --table-start--
+dataClass=com.karolskora.msorgranizer.models.User
+tableName=user
+# --table-fields-start--
+# --field-start--
+fieldName=name
+id=true
+# --field-end--
+# --field-start--
+fieldName=doctorName
+# --field-end--
+# --field-start--
+fieldName=nurseName
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################

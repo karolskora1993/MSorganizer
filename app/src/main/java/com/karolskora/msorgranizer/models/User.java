@@ -13,6 +13,8 @@ public class User {
     @DatabaseField
     private String nurseName;
 
+    public User(){}
+
     public String getName() {
         return name;
     }

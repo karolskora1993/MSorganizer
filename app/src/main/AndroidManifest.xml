@@ -9,18 +9,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity android:name=".activities.InitialSettingsActivity" >
+        </activity>
+        <activity android:name=".activities.AboutActivity">
+        </activity>
+        <activity android:name=".activities.FirstInjectionTimeActivity" >
+        </activity>
+        <activity android:name=".activities.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".activities.AboutActivity"
-            android:label="@string/title_activity_about"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity android:name=".activities.FirstInjectionTimeActivity" >
         </activity>
     </application>
 

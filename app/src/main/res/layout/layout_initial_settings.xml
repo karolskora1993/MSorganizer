@@ -4,8 +4,8 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".LayoutInitialSettingsActivity"
-    android:background="@drawable/initial_settings_bg">
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context="com.karolskora.msorgranizer.activities.InitialSettingsActivity"
+    android:background="@drawable/bg_yellow">
 
     <EditText
         android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/nurse_name_text_view"
+        android:hint="@string/nurse_name_text_view_hint"
         android:id="@+id/nurseNameTextView"
         android:layout_below="@+id/doctorNameTextView"
         android:layout_centerHorizontal="true"
