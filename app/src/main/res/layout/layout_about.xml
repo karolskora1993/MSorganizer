@@ -42,7 +42,8 @@
             android:textSize="@dimen/text_size_medium"
             android:layout_below="@+id/aboutTextView"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp" />
+            android:layout_marginTop="40dp"
+            android:onClick="onButtonNextClick"/>
 
     </RelativeLayout>
 

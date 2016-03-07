@@ -1,6 +1,7 @@
 package com.karolskora.msorgranizer.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -14,4 +15,9 @@ public class AboutActivity extends Activity {
         setContentView(R.layout.layout_about);
     }
 
+    public void onButtonNextClick(View view) {
+
+        Intent intent = new Intent(this, FirstInjectionTimeActivity.class);
+        startActivity(intent);
+    }
 }

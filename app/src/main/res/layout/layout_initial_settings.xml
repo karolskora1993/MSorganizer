@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/name_text_view_hint"
-        android:id="@+id/nameTextView"
+        android:id="@+id/nameTextEdit"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
@@ -23,12 +23,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/doctor_name_text_view_hint"
-        android:id="@+id/doctorNameTextView"
-        android:layout_below="@+id/nameTextView"
+        android:id="@+id/doctorNameTextEdit"
+        android:layout_below="@+id/nameTextEdit"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:layout_alignLeft="@id/nameTextView"
-        android:layout_alignRight="@id/nameTextView"
+        android:layout_alignLeft="@id/nameTextEdit"
+        android:layout_alignRight="@id/nameTextEdit"
         android:textAlignment="center"
         android:textSize="@dimen/text_size_medium"/>
 
@@ -36,12 +36,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/nurse_name_text_view_hint"
-        android:id="@+id/nurseNameTextView"
-        android:layout_below="@+id/doctorNameTextView"
+        android:id="@+id/nurseNameTextEdit"
+        android:layout_below="@+id/doctorNameTextEdit"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:layout_alignLeft="@id/nameTextView"
-        android:layout_alignRight="@id/nameTextView"
+        android:layout_alignLeft="@id/nameTextEdit"
+        android:layout_alignRight="@id/nameTextEdit"
         android:textAlignment="center"
         android:textSize="@dimen/text_size_medium"/>
 
@@ -55,5 +55,6 @@
         android:layout_marginBottom="80dp"
         android:background="@color/initial_settings_button_next_color"
         android:width="200dp"
-        android:textSize="@dimen/text_size_medium" />
+        android:textSize="@dimen/text_size_medium"
+        android:onClick="onButtonNextClick"/>
 </RelativeLayout>

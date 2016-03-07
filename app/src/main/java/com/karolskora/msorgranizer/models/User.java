@@ -15,6 +15,12 @@ public class User {
 
     public User(){}
 
+    public User(String name, String doctorName, String nurseName) {
+        this.name = name;
+        this.doctorName = doctorName;
+        this.nurseName = nurseName;
+    }
+
     public String getName() {
         return name;
     }

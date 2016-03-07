@@ -11,4 +11,10 @@ public class InjectionsSchedule {
 
     @DatabaseField
     private Date firstInjectionDate;
+
+    @DatabaseField
+    private int totalNumberOfInjections;
+
+    @DatabaseField
+    private int round;
 }
