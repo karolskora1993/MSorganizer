@@ -56,5 +56,5 @@
         android:background="@color/initial_settings_button_next_color"
         android:width="200dp"
         android:textSize="@dimen/text_size_medium"
-        android:onClick="onButtonNextClick"/>
+        android:onClick="onButtonNextClick" />
 </RelativeLayout>

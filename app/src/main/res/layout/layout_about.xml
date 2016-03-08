@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:text="@string/intial_settings_button_next_text"
             android:id="@+id/initialSettingsButtonNext"
-            android:background="@drawable/button"
+            android:background="@color/initial_settings_button_next_color"
             android:width="2000dp"
             android:textSize="@dimen/text_size_medium"
             android:layout_below="@+id/aboutTextView"
