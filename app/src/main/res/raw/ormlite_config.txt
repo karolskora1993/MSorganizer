@@ -1,5 +1,5 @@
 #
-# generated on 2016/03/06 03:34:45
+# generated on 2016/03/08 03:17:50
 #
 # --table-start--
 dataClass=com.karolskora.msorgranizer.models.User
@@ -14,6 +14,26 @@ fieldName=doctorName
 # --field-end--
 # --field-start--
 fieldName=nurseName
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.karolskora.msorgranizer.models.InjectionsSchedule
+tableName=injections_schedule
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=firstInjectionDate
+# --field-end--
+# --field-start--
+fieldName=totalNumberOfInjections
+# --field-end--
+# --field-start--
+fieldName=round
 # --field-end--
 # --table-fields-end--
 # --table-end--

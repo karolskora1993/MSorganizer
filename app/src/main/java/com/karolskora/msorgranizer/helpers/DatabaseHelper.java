@@ -12,6 +12,7 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.karolskora.msorgranizer.R;
+import com.karolskora.msorgranizer.models.InjectionsSchedule;
 import com.karolskora.msorgranizer.models.User;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
@@ -21,6 +22,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private Dao<User, String> userDao = null;
     private RuntimeExceptionDao<User, String> userRuntimeDao = null;
+
+    private Dao<InjectionsSchedule, Integer> injectionsScheduleDao = null;
+    private RuntimeExceptionDao<InjectionsSchedule, Integer> injectionsScheduleRuntimeDao = null;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
@@ -32,6 +36,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             Log.i(DatabaseHelper.class.getName(), "onCreate");
             TableUtils.createTable(connectionSource, User.class);
+            TableUtils.createTable(connectionSource, InjectionsSchedule.class);
+
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
             throw new RuntimeException(e);
@@ -44,6 +50,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             Log.i(DatabaseHelper.class.getName(), "onUpgrade");
             TableUtils.dropTable(connectionSource, User.class, true);
+            TableUtils.dropTable(connectionSource, InjectionsSchedule.class, true);
+
             onCreate(db, connectionSource);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Can't drop databases", e);
@@ -52,12 +60,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
 
-    public Dao<User, String> getDao() throws SQLException {
+    /*public Dao<User, String> getDao() throws SQLException {
         if (userDao == null) {
             userDao = getDao(User.class);
         }
         return userDao;
-    }
+    }*/
 
     public RuntimeExceptionDao<User, String> getUserDao() {
         if (userRuntimeDao == null) {
@@ -66,10 +74,26 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return userRuntimeDao;
     }
 
+    /*public Dao<InjectionsSchedule, Integer> getDao() throws SQLException {
+        if (injectionsScheduleDao == null) {
+            injectionsScheduleDao = getDao(InjectionsSchedule.class);
+        }
+        return injectionsScheduleDao;
+    }*/
+
+    public RuntimeExceptionDao<InjectionsSchedule, Integer> getInjectionsScheduleDao() {
+        if (injectionsScheduleRuntimeDao == null) {
+            injectionsScheduleRuntimeDao = getRuntimeExceptionDao(InjectionsSchedule.class);
+        }
+        return injectionsScheduleRuntimeDao;
+    }
+
     @Override
     public void close() {
         super.close();
         userDao = null;
         userRuntimeDao = null;
+        injectionsScheduleDao=null;
+        injectionsScheduleRuntimeDao=null;
     }
 }

@@ -1,6 +1,7 @@
 package com.karolskora.msorgranizer.helpers;
 
 import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;
+import com.karolskora.msorgranizer.models.InjectionsSchedule;
 import com.karolskora.msorgranizer.models.User;
 
 import java.io.File;
@@ -10,6 +11,7 @@ public class DatabaseConfigUtil extends OrmLiteConfigUtil {
 
     private static final Class<?>[] classes = new Class[] {
             User.class,
+            InjectionsSchedule.class
     };
 
     public static void main(String[] args) throws Exception {

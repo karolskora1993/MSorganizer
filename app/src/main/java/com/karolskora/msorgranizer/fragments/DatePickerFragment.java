@@ -6,7 +6,14 @@ import android.app.DialogFragment;
 import android.os.Bundle;
 import android.widget.DatePicker;
 
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.karolskora.msorgranizer.activities.FirstInjectionTimeActivity;
+import com.karolskora.msorgranizer.helpers.DatabaseHelper;
+import com.karolskora.msorgranizer.models.InjectionsSchedule;
+
 import java.util.Calendar;
+import java.util.Date;
 
 public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
@@ -22,6 +29,25 @@ public class DatePickerFragment extends DialogFragment
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        
+
+        Bundle bundle =this.getArguments();
+
+        int hour=bundle.getInt(FirstInjectionTimeActivity.HOUR);
+        int minute=bundle.getInt(FirstInjectionTimeActivity.MINUTE);
+
+        year=view.getYear();
+        month=view.getMonth();
+        day=view.getDayOfMonth();
+
+        Date firstInjectionDate=new Date(year,month,day,hour,minute);
+
+        InjectionsSchedule schedule=new InjectionsSchedule(firstInjectionDate);
+
+        DatabaseHelper dbHelper= OpenHelperManager.getHelper(getActivity(), DatabaseHelper.class);
+
+        RuntimeExceptionDao<InjectionsSchedule, Integer> injectionsScheduleDao =dbHelper.getInjectionsScheduleDao();
+        injectionsScheduleDao.create(schedule);
+
+        OpenHelperManager.releaseHelper();
     }
 }

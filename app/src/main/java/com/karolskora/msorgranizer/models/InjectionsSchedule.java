@@ -9,6 +9,9 @@ import java.util.Date;
 @DatabaseTable(tableName = "injections_schedule")
 public class InjectionsSchedule {
 
+    @DatabaseField(generatedId = true)
+    private int id;
+
     @DatabaseField
     private Date firstInjectionDate;
 
@@ -17,4 +20,12 @@ public class InjectionsSchedule {
 
     @DatabaseField
     private int round;
+
+    public InjectionsSchedule(){}
+
+    public InjectionsSchedule(Date firstInjectionDate){
+        this.firstInjectionDate=firstInjectionDate;
+        this.totalNumberOfInjections=0;
+        this.round=0;
+    }
 }
