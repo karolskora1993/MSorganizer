@@ -3,12 +3,15 @@ package com.karolskora.msorgranizer.fragments;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.DatePicker;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.karolskora.msorgranizer.activities.FirstInjectionTimeActivity;
+import com.karolskora.msorgranizer.activities.MainActivity;
 import com.karolskora.msorgranizer.helpers.DatabaseHelper;
 import com.karolskora.msorgranizer.models.InjectionsSchedule;
 
@@ -40,6 +43,7 @@ public class DatePickerFragment extends DialogFragment
         day=view.getDayOfMonth();
 
         Date firstInjectionDate=new Date(year,month,day,hour,minute);
+        Log.i(this.getClass().toString(), "Próba zapisania ustawień powiadomień do bazy danych");
 
         InjectionsSchedule schedule=new InjectionsSchedule(firstInjectionDate);
 
@@ -49,5 +53,9 @@ public class DatePickerFragment extends DialogFragment
         injectionsScheduleDao.create(schedule);
 
         OpenHelperManager.releaseHelper();
+        Log.i(this.getClass().toString(),"Zapisano ustawienia w bazie danych");
+
+        Intent intent=new Intent(getActivity(), MainActivity.class);
+        startActivity(intent);
     }
 }

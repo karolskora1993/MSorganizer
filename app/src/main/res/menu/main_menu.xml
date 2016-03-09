@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/itemMain"
+        android:title="@string/menu_main" />
+    <item android:id="@+id/itemHistory"
+        android:title="@string/menu_history" />
+    <item android:id="@+id/itemReserve"
+        android:title="@string/menu_reserve" />
+    <item android:id="@+id/itemSettings"
+        android:title="@string/menu_settings">
+        <menu>
+            <item android:id="@+id/itemAppSettings"
+                android:title="@string/menu_app_settings" />
+            <item android:id="@+id/itemScheduleSettings"
+                android:title="@string/menu_schedule_settings" />
+        </menu>
+    </item>
+
+    <item android:id="@+id/itemHelp"
+        android:title="@string/menu_help" />
+    <item android:id="@+id/itemAbout"
+        android:title="@string/menu_about" />
+</menu>

@@ -1,5 +1,5 @@
 #
-# generated on 2016/03/08 03:17:50
+# generated on 2016/03/09 04:31:46
 #
 # --table-start--
 dataClass=com.karolskora.msorgranizer.models.User
