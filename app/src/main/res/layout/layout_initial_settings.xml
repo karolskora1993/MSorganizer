@@ -5,7 +5,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context="com.karolskora.msorgranizer.activities.InitialSettingsActivity"
-    android:background="@drawable/bg_yellow">
+    android:background="@drawable/bg">
 
     <EditText
         android:layout_width="wrap_content"
@@ -18,7 +18,7 @@
         android:layout_marginTop="100dp"
         android:width="@dimen/initial_settings_text_view_width"
         android:textAlignment="center"
-        android:textSize="@dimen/text_size_medium"/>
+        android:textSize="@dimen/text_size_medium" />
 
     <EditText
         android:layout_width="wrap_content"
