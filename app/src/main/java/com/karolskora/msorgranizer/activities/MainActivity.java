@@ -1,7 +1,11 @@
 package com.karolskora.msorgranizer.activities;
 
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.os.SystemClock;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,12 +14,14 @@ import android.view.MenuItem;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.karolskora.msorgranizer.R;
+import com.karolskora.msorgranizer.broadcastReceivers.InjectionTimeAlarmReceiver;
 import com.karolskora.msorgranizer.helpers.DatabaseHelper;
 import com.karolskora.msorgranizer.models.User;
 
 import java.util.List;
 
 public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+
 
     private DatabaseHelper dbHelper;
 
@@ -63,6 +69,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                 return super.onOptionsItemSelected(item);
         }
     }
+
 
     public User getUser(){
 

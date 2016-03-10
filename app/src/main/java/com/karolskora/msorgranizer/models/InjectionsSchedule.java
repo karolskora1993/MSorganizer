@@ -3,6 +3,7 @@ package com.karolskora.msorgranizer.models;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -28,4 +29,10 @@ public class InjectionsSchedule {
         this.totalNumberOfInjections=0;
         this.round=0;
     }
+
+    public long getInjectionTime(){
+
+        return this.firstInjectionDate.getTime();
+    }
+
 }

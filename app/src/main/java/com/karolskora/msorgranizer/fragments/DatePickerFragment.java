@@ -11,6 +11,7 @@ import android.widget.DatePicker;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.karolskora.msorgranizer.activities.FirstInjectionTimeActivity;
+import com.karolskora.msorgranizer.activities.LaunchNotificationActivity;
 import com.karolskora.msorgranizer.activities.MainActivity;
 import com.karolskora.msorgranizer.helpers.DatabaseHelper;
 import com.karolskora.msorgranizer.models.InjectionsSchedule;
@@ -55,7 +56,7 @@ public class DatePickerFragment extends DialogFragment
         OpenHelperManager.releaseHelper();
         Log.i(this.getClass().toString(),"Zapisano ustawienia w bazie danych");
 
-        Intent intent=new Intent(getActivity(), MainActivity.class);
+        Intent intent=new Intent(getActivity(), LaunchNotificationActivity.class);
         startActivity(intent);
     }
 }
