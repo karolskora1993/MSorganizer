@@ -51,7 +51,7 @@ public class LaunchNotificationActivity extends OrmLiteBaseActivity<DatabaseHelp
 
 
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, this.getInjectionTime(), 48 * 60 * 60 * 1000, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, this.getInjectionTime(), 0, pendingIntent);
         Log.i(this.getClass().toString(), "Ustawienie cyklicznego powiadomienia o zastrzyku");
 
     }
@@ -64,8 +64,7 @@ public class LaunchNotificationActivity extends OrmLiteBaseActivity<DatabaseHelp
 
         InjectionsSchedule schedule=injectionsSchedueDao.queryForAll().iterator().next();
 
-        Log.i(this.getClass().toString(), "czas zastrzyku pobrany z bazy:"+schedule.getInjectionTime());
-
+        Log.d(this.getClass().toString(), "czas zastrzyku pobrany z bazy:"+schedule.getInjectionTime());
 
         return schedule.getInjectionTime();
     }

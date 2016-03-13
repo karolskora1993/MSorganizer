@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.karolskora.msorgranizer.R;
 
-public class AboutActivity extends Activity {
+public class AboutAppActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

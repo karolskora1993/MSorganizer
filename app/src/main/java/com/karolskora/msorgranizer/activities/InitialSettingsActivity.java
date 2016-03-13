@@ -2,18 +2,21 @@ package com.karolskora.msorgranizer.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.helpers.DatabaseHelper;
 import com.karolskora.msorgranizer.models.User;
 
-public class InitialSettingsActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+public class InitialSettingsActivity extends FragmentActivity {
 
 
     @Override
@@ -39,15 +42,21 @@ public class InitialSettingsActivity extends OrmLiteBaseActivity<DatabaseHelper>
             toast.show();
         }
         else {
-            Log.i(this.getClass().toString(), "Próba zapisania danych do bazy");
-
-            RuntimeExceptionDao<User, String> userDao = getHelper().getUserDao();
-
-            userDao.create(new User(name, doctorName, nurseName));
-            Log.i(this.getClass().toString(), "Zapisano dane do bazy");
-
-            Intent intent = new Intent(this, AboutActivity.class);
+            this.saveData(name, doctorName, nurseName);
+            Intent intent = new Intent(this, AboutAppActivity.class);
             startActivity(intent);
         }
+    }
+
+    public void saveData(String name, String doctorName, String nurseName){
+        Log.i(this.getClass().toString(), "Próba zapisania danych do bazy");
+
+        DatabaseHelper dbHelper=(DatabaseHelper) OpenHelperManager.getHelper(this, DatabaseHelper.class);
+        RuntimeExceptionDao<User, String> userDao = dbHelper.getUserDao();
+
+        userDao.create(new User(name, doctorName, nurseName));
+
+        OpenHelperManager.releaseHelper();
+        Log.i(this.getClass().toString(), "Zapisano dane do bazy");
     }
 }

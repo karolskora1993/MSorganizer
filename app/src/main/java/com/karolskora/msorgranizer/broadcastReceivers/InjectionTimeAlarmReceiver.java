@@ -20,6 +20,5 @@ public class InjectionTimeAlarmReceiver extends BroadcastReceiver {
         Notification notification = intent.getParcelableExtra(LaunchNotificationActivity.NOTIFICATION);
         int id = intent.getIntExtra(LaunchNotificationActivity.NOTIFICATION_ID,0);
         notificationManager.notify(id, notification);
-
     }
 }

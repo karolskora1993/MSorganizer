@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@drawable/bg">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/name_text_view_hint"
+        android:singleLine="true"
+        android:id="@+id/nameTextEdit"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:width="@dimen/initial_settings_text_view_width"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_size_medium" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/doctor_name_text_view_hint"
+        android:id="@+id/doctorNameTextEdit"
+        android:layout_below="@+id/nameTextEdit"
+        android:singleLine="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:layout_alignLeft="@id/nameTextEdit"
+        android:layout_alignRight="@id/nameTextEdit"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_size_medium"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/nurse_name_text_view_hint"
+        android:id="@+id/nurseNameTextEdit"
+        android:layout_below="@+id/doctorNameTextEdit"
+        android:layout_centerHorizontal="true"
+        android:singleLine="true"
+        android:layout_marginTop="40dp"
+        android:layout_alignLeft="@id/nameTextEdit"
+        android:layout_alignRight="@id/nameTextEdit"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_size_medium"/>
+
+</RelativeLayout>

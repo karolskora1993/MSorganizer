@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Holo.Light.DarkActionBar">
         <activity android:name=".activities.InitialSettingsActivity" />
-        <activity android:name=".activities.AboutActivity" />
+        <activity android:name=".activities.AboutAppActivity" />
         <activity android:name=".activities.FirstInjectionTimeActivity" />
         <activity android:name=".activities.MainActivity">
             <intent-filter>

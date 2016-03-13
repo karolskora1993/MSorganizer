@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.karolskora.msorgranizer.R;
-import com.karolskora.msorgranizer.broadcastReceivers.InjectionTimeAlarmReceiver;
 import com.karolskora.msorgranizer.helpers.DatabaseHelper;
 import com.karolskora.msorgranizer.models.User;
 
