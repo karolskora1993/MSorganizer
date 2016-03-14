@@ -10,9 +10,11 @@ import android.widget.DatePicker;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.karolskora.msorgranizer.activities.AboutAppActivity;
 import com.karolskora.msorgranizer.activities.FirstInjectionTimeActivity;
 import com.karolskora.msorgranizer.activities.LaunchNotificationActivity;
 import com.karolskora.msorgranizer.activities.MainActivity;
+import com.karolskora.msorgranizer.activities.UserInformationsActivity;
 import com.karolskora.msorgranizer.helpers.DatabaseHelper;
 import com.karolskora.msorgranizer.models.InjectionsSchedule;
 
@@ -21,6 +23,11 @@ import java.util.Date;
 
 public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
+
+    public static final String TIME_IN_MILIS="time_in_milis";
+
+
+
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -36,6 +43,11 @@ public class DatePickerFragment extends DialogFragment
 
         Bundle bundle =this.getArguments();
 
+        String name=getActivity().getIntent().getStringExtra(UserInformationsActivity.USER_NAME);
+        String doctorName=getActivity().getIntent().getStringExtra(UserInformationsActivity.DOCTOR_NAME);
+        String nurseName=getActivity().getIntent().getStringExtra(UserInformationsActivity.NURSE_NAME);
+
+
         int hour=bundle.getInt(FirstInjectionTimeActivity.HOUR);
         int minute=bundle.getInt(FirstInjectionTimeActivity.MINUTE);
 
@@ -44,21 +56,13 @@ public class DatePickerFragment extends DialogFragment
         day=view.getDayOfMonth();
 
         Calendar calendar=Calendar.getInstance();
-        calendar.set(year,month,day,hour,minute);
+        calendar.set(year, month, day, hour, minute);
 
-        InjectionsSchedule schedule=new InjectionsSchedule(calendar.getTimeInMillis());
-
-        DatabaseHelper dbHelper= OpenHelperManager.getHelper(getActivity(), DatabaseHelper.class);
-
-        RuntimeExceptionDao<InjectionsSchedule, Integer> injectionsScheduleDao =dbHelper.getInjectionsScheduleDao();
-        injectionsScheduleDao.create(schedule);
-
-        OpenHelperManager.releaseHelper();
-        Log.i(this.getClass().toString(), "Data i czas powiadomien zapisany do bazy. rok:" + year + "miesiac:" + month + "dzien:" + day + "godzina:" + hour + "minuta:" + minute
-                + "w milisekundach: "+calendar.getTimeInMillis());
-
-
-        Intent intent=new Intent(getActivity(), LaunchNotificationActivity.class);
+        Intent intent=new Intent(getActivity(), AboutAppActivity.class);
+        intent.putExtra(TIME_IN_MILIS, calendar.getTimeInMillis());
+        intent.putExtra(UserInformationsActivity.USER_NAME, name);
+        intent.putExtra(UserInformationsActivity.DOCTOR_NAME, doctorName);
+        intent.putExtra(UserInformationsActivity.NURSE_NAME, nurseName);
         startActivity(intent);
     }
 }

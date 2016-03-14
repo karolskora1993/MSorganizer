@@ -18,6 +18,11 @@ import com.karolskora.msorgranizer.models.User;
 
 public class UserInformationsActivity extends FragmentActivity {
 
+    public static final String USER_NAME="user_name";
+    public static final String DOCTOR_NAME="doctor_name";
+    public static final String NURSE_NAME="nurse_name";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,21 +47,11 @@ public class UserInformationsActivity extends FragmentActivity {
             toast.show();
         }
         else {
-            this.saveData(name, doctorName, nurseName);
-            Intent intent = new Intent(this, AboutAppActivity.class);
+            Intent intent = new Intent(this, FirstInjectionTimeActivity.class);
+            intent.putExtra(USER_NAME, name);
+            intent.putExtra(DOCTOR_NAME, doctorName);
+            intent.putExtra(NURSE_NAME, nurseName);
             startActivity(intent);
         }
-    }
-
-    public void saveData(String name, String doctorName, String nurseName){
-        Log.i(this.getClass().toString(), "Próba zapisania danych do bazy");
-
-        DatabaseHelper dbHelper=(DatabaseHelper) OpenHelperManager.getHelper(this, DatabaseHelper.class);
-        RuntimeExceptionDao<User, String> userDao = dbHelper.getUserDao();
-
-        userDao.create(new User(name, doctorName, nurseName));
-
-        OpenHelperManager.releaseHelper();
-        Log.i(this.getClass().toString(), "Zapisano dane do bazy");
     }
 }
