@@ -16,7 +16,7 @@ import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.helpers.DatabaseHelper;
 import com.karolskora.msorgranizer.models.User;
 
-public class InitialSettingsActivity extends FragmentActivity {
+public class UserInformationsActivity extends FragmentActivity {
 
 
     @Override

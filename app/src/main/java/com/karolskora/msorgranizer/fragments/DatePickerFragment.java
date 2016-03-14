@@ -43,10 +43,10 @@ public class DatePickerFragment extends DialogFragment
         month=view.getMonth();
         day=view.getDayOfMonth();
 
-        Date firstInjectionDate=new Date(year,month,day,hour,minute);
-        Log.i(this.getClass().toString(), "Próba zapisania ustawień powiadomień do bazy danych");
+        Calendar calendar=Calendar.getInstance();
+        calendar.set(year,month,day,hour,minute);
 
-        InjectionsSchedule schedule=new InjectionsSchedule(firstInjectionDate);
+        InjectionsSchedule schedule=new InjectionsSchedule(calendar.getTimeInMillis());
 
         DatabaseHelper dbHelper= OpenHelperManager.getHelper(getActivity(), DatabaseHelper.class);
 
@@ -54,7 +54,9 @@ public class DatePickerFragment extends DialogFragment
         injectionsScheduleDao.create(schedule);
 
         OpenHelperManager.releaseHelper();
-        Log.i(this.getClass().toString(),"Zapisano ustawienia w bazie danych");
+        Log.i(this.getClass().toString(), "Data i czas powiadomien zapisany do bazy. rok:" + year + "miesiac:" + month + "dzien:" + day + "godzina:" + hour + "minuta:" + minute
+                + "w milisekundach: "+calendar.getTimeInMillis());
+
 
         Intent intent=new Intent(getActivity(), LaunchNotificationActivity.class);
         startActivity(intent);

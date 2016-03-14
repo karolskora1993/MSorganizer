@@ -1,11 +1,6 @@
 package com.karolskora.msorgranizer.activities;
 
-import android.app.AlarmManager;
-import android.app.Notification;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.os.SystemClock;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,7 +25,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
         User user=getUser();
         if(user==null) {
-            Intent intent = new Intent(this, InitialSettingsActivity.class);
+            Intent intent = new Intent(this, UserInformationsActivity.class);
             startActivity(intent);
         }
         else {

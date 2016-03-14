@@ -60,13 +60,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
 
-    /*public Dao<User, String> getDao() throws SQLException {
-        if (userDao == null) {
-            userDao = getDao(User.class);
-        }
-        return userDao;
-    }*/
-
     public RuntimeExceptionDao<User, String> getUserDao() {
         if (userRuntimeDao == null) {
             userRuntimeDao = getRuntimeExceptionDao(User.class);
@@ -74,12 +67,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return userRuntimeDao;
     }
 
-    /*public Dao<InjectionsSchedule, Integer> getDao() throws SQLException {
-        if (injectionsScheduleDao == null) {
-            injectionsScheduleDao = getDao(InjectionsSchedule.class);
-        }
-        return injectionsScheduleDao;
-    }*/
 
     public RuntimeExceptionDao<InjectionsSchedule, Integer> getInjectionsScheduleDao() {
         if (injectionsScheduleRuntimeDao == null) {
