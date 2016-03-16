@@ -20,7 +20,27 @@
     <string name="menu_schedule_settings">opcje przypomnień</string>
     <string name="menu_help">pomoc</string>
     <string name="menu_about">o aplikacji</string>
+    <string-array name="titles">
+        <item>ekran główny</item>
+        <item>historia</item>
+        <item>zarządzanie lekiem</item>
+        <item>ustawienia</item>
+        <item>pomoc</item>
+        <item>o aplikacji</item>
+    </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="open_drawer">otworz</string>
+    <string name="close_drawer">zamknij</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

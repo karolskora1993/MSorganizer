@@ -5,21 +5,14 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.DatePicker;
 
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.karolskora.msorgranizer.activities.AboutAppActivity;
 import com.karolskora.msorgranizer.activities.FirstInjectionTimeActivity;
-import com.karolskora.msorgranizer.activities.LaunchNotificationActivity;
-import com.karolskora.msorgranizer.activities.MainActivity;
 import com.karolskora.msorgranizer.activities.UserInformationsActivity;
-import com.karolskora.msorgranizer.helpers.DatabaseHelper;
-import com.karolskora.msorgranizer.models.InjectionsSchedule;
+
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {

@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="initial_settings_button_next_color">#4C9900</color>
+    <color name="drawer_bg_color">#FFFFFF</color>
 </resources>
