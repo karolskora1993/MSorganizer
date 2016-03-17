@@ -38,6 +38,9 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     private ListView drawerList;
     private ActionBarDrawerToggle drawerToggle;
 
+    public void onButtonSaveUserInfoClick(View view) {
+    }
+
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener{
 

@@ -1,13 +1,24 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.karolskora.msorgranizer.fragments.SettingsFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    tools:context="com.karolskora.msorgranizer.fragments.SettingsFragment"
+    android:background="@drawable/bg">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="settings" />
+        android:orientation="vertical"
+        android:columnCount="2">
+        <ListView
+            android:id="@+id/settingsListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/settings_array"></ListView>
 
-</FrameLayout>
+        <FrameLayout
+            android:id="@+id/settingsFragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></FrameLayout>
+    </LinearLayout>
+</ScrollView>

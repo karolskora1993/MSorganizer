@@ -3,7 +3,8 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.karolskora.msorgranizer.activities.MainActivity">
+    tools:context="com.karolskora.msorgranizer.activities.MainActivity"
+    android:background="@drawable/bg">
 
     <FrameLayout
         android:id="@+id/content_frame"

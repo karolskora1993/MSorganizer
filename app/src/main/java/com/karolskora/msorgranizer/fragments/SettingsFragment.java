@@ -1,30 +1,81 @@
 package com.karolskora.msorgranizer.fragments;
 
 
-import android.os.Bundle;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import com.karolskora.msorgranizer.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class SettingsFragment extends Fragment {
-
-
-    public SettingsFragment() {
-        // Required empty public constructor
-    }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        AdapterView.OnItemClickListener listener =new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                FragmentTransaction ft=getActivity().getFragmentManager().beginTransaction();
+
+                if(position==0)
+                {
+                    ft.replace(R.id.settingsFragmentContainer, new UserSettingsFragment());
+                }
+                else if(position==1){
+                    ft.replace(R.id.settingsFragmentContainer, new NotificationSettingsFragment());
+                }
+                else if(position==3){
+                    ft.replace(R.id.settingsFragmentContainer, new AppSettingsFragment());
+                }
+
+                ft.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        };
+
+        ListView listView=(ListView)getActivity().findViewById(R.id.settingsListView);
+        listView.setOnItemClickListener(listener);
+        setListViewHeightBasedOnChildren(listView);
+    }
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
+
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, AbsListView.LayoutParams.WRAP_CONTENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+    }
 }
+
