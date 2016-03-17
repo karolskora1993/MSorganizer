@@ -24,7 +24,8 @@ public class AboutAppActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_about);
-        this.saveData();
+        saveData();
+        scheduleNotification();
     }
 
     public void onButtonNextClick(View view) {
@@ -54,10 +55,11 @@ public class AboutAppActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         injectionsScheduleDao.create(new InjectionsSchedule(timeInMilis));
         Log.d(this.getClass().toString(), "Zapisano czas notyfikacji do bazy danych: " + timeInMilis + "milis");
 
-        this.scheduleNotification(timeInMilis);
     }
 
-    private void scheduleNotification(long injectionTime) {
+    private void scheduleNotification() {
+
+        long injectionTime=getIntent().getLongExtra(DatePickerFragment.TIME_IN_MILIS, 0);
 
         Intent broadcastIntent = new Intent(this, InjectionTimeAlarmReceiver.class);
 
@@ -67,4 +69,5 @@ public class AboutAppActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, injectionTime, AlarmManager.INTERVAL_DAY * 2, pendingIntent);
         Log.d(this.getClass().toString(), "alarm ustawiony na czas w milisekundach: "+injectionTime);
     }
+
 }

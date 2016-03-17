@@ -25,12 +25,15 @@
             android:name=".broadcastReceivers.InjectionTimeAlarmReceiver"
             android:enabled="true"
             android:exported="true" />
+
         <activity android:name=".activities.InjectionActivity" />
 
         <service
             android:name=".services.NotificationService"
             android:enabled="true"
             android:exported="true" />
+
+        <activity android:name=".activities.DatabaseOperations"></activity>
     </application>
 
 </manifest>

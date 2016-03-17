@@ -11,7 +11,7 @@
     <string name="date_text_view">podaj datę pierwszego zastrzyku</string>
     <string name="time_text_view">podaj godzinę zastrzyków</string>
 
-    <string name="about_app">aplikacja ma na celu ułatwienie i lepsze zorganizowanie przyjmowania leku. Podaj godzinę, o której chcesz dostawać przypomnienie o aplikacji leku, a następnie datę pierwszego zastrzyku</string>
+    <string name="firstInjection_text">aplikacja ma na celu ułatwienie i lepsze zorganizowanie przyjmowania leku. Podaj godzinę, o której chcesz dostawać przypomnienie o aplikacji leku, a następnie datę pierwszego zastrzyku</string>
     <string name="menu_main">ekran główny</string>
     <string name="menu_history">historia</string>
     <string name="menu_reserve">zarządzaj lekiem</string>
