@@ -20,6 +20,8 @@ public class FirstInjectionTimeActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_first_injection_time);
+        TimePicker timePicker=(TimePicker)findViewById(R.id.timePicker);
+        timePicker.setIs24HourView(true);
 
     }
 

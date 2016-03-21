@@ -42,12 +42,12 @@ import java.util.List;
 public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 
-    private  DatabaseHelper dbHelper;
+    private DatabaseHelper dbHelper;
     private String[] titles;
     private ListView drawerList;
     private ActionBarDrawerToggle drawerToggle;
 
-    private class DrawerItemClickListener implements ListView.OnItemClickListener{
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
 
 
         @Override
@@ -94,11 +94,9 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
             getActionBar().setDisplayHomeAsUpEnabled(true);
             getActionBar().setHomeButtonEnabled(true);
+            if (savedInstanceState == null)
+                selectItem(0);
         }
-
-
-        if (savedInstanceState == null)
-            selectItem(0);
     }
 
     @Override
@@ -150,31 +148,30 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     }
 
 
-    private void selectItem(int position){
+    private void selectItem(int position) {
 
         Fragment fragment;
-        switch(position)
-        {
+        switch (position) {
             case 1:
-                fragment=new HistoryFragment();
+                fragment = new HistoryFragment();
                 break;
             case 2:
-                fragment=new ReserveFragment();
+                fragment = new ReserveFragment();
                 break;
             case 3:
-                fragment=new SettingsFragment();
+                fragment = new SettingsFragment();
                 break;
             case 4:
-                fragment=new HelpFragment();
+                fragment = new HelpFragment();
                 break;
             case 5:
-                fragment=new AboutFragment();
+                fragment = new AboutFragment();
                 break;
             default:
-                fragment=new MainFragment();
+                fragment = new MainFragment();
         }
 
-        FragmentTransaction ft= getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.content_frame, fragment);
         ft.addToBackStack(null);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
@@ -182,31 +179,30 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
         setActionBarTitle(position);
 
-        DrawerLayout drawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.closeDrawer(drawerList);
     }
 
-    public void setActionBarTitle(int position){
+    public void setActionBarTitle(int position) {
         String title;
-        if(position==0){
-            title=getResources().getString(R.string.app_name);
-        }
-        else
-            title=this.titles[position];
+        if (position == 0) {
+            title = getResources().getString(R.string.app_name);
+        } else
+            title = this.titles[position];
 
         getActionBar().setTitle(title);
 
     }
 
-    public  User getUser(){
+    public User getUser() {
 
-        dbHelper=getHelper();
+        dbHelper = getHelper();
 
-        RuntimeExceptionDao<User, String> userDao=dbHelper.getUserDao();
+        RuntimeExceptionDao<User, String> userDao = dbHelper.getUserDao();
 
-        List<User> users= userDao.queryForAll();
+        List<User> users = userDao.queryForAll();
 
-        if(users.isEmpty())
+        if (users.isEmpty())
             return null;
         else
             return users.iterator().next();
@@ -214,17 +210,17 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
     public void onButtonSaveUserInfoClick(View view) {
 
-        EditText nameTextEdit = (EditText)findViewById(R.id.nameTextEdit);
-        String name=nameTextEdit.getText().toString();
+        EditText nameTextEdit = (EditText) findViewById(R.id.nameTextEdit);
+        String name = nameTextEdit.getText().toString();
 
-        EditText doctorNameTextEdit = (EditText)findViewById(R.id.doctorNameTextEdit);
-        String doctorName=doctorNameTextEdit.getText().toString();
+        EditText doctorNameTextEdit = (EditText) findViewById(R.id.doctorNameTextEdit);
+        String doctorName = doctorNameTextEdit.getText().toString();
 
-        EditText nurseNameTextEdit = (EditText)findViewById(R.id.nurseNameTextEdit);
-        String nurseName=nurseNameTextEdit.getText().toString();
+        EditText nurseNameTextEdit = (EditText) findViewById(R.id.nurseNameTextEdit);
+        String nurseName = nurseNameTextEdit.getText().toString();
 
-        dbHelper=getHelper();
-        RuntimeExceptionDao<User, String> userDao=dbHelper.getUserDao();
+        dbHelper = getHelper();
+        RuntimeExceptionDao<User, String> userDao = dbHelper.getUserDao();
         userDao.delete(getUser());
 
         userDao.create(new User(name, doctorName, nurseName));
@@ -233,23 +229,21 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
     public void onButtonSaveNotificationSettingsClick(View view) {
 
-        TimePicker time=(TimePicker)findViewById(R.id.timePicker);
+        TimePicker time = (TimePicker) findViewById(R.id.timePicker);
         int hour, minute;
-        if(Build.VERSION.SDK_INT < 23) {
+        if (Build.VERSION.SDK_INT < 23) {
             hour = time.getCurrentHour();
             minute = time.getCurrentMinute();
-        }
-        else
-        {
+        } else {
             hour = time.getHour();
             minute = time.getMinute();
         }
 
-        dbHelper=getHelper();
+        dbHelper = getHelper();
 
-        RuntimeExceptionDao<InjectionsSchedule, Integer> injectionSchedulesDao=dbHelper.getInjectionsScheduleDao();
+        RuntimeExceptionDao<InjectionsSchedule, Integer> injectionSchedulesDao = dbHelper.getInjectionsScheduleDao();
 
-        Calendar calendar=Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(getInjectionsSchedule().getInjectionTime());
         injectionSchedulesDao.delete(getInjectionsSchedule());
 
@@ -275,13 +269,13 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         Log.d(this.getClass().toString(), "nieaktualna notyfikacja usunieta");
 
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, injectionTime, AlarmManager.INTERVAL_DAY * 2, pendingIntent);
-        Log.d(this.getClass().toString(), "alarm ustawiony na nowy czas w milisekundach: "+injectionTime);
+        Log.d(this.getClass().toString(), "alarm ustawiony na nowy czas w milisekundach: " + injectionTime);
     }
 
-    public InjectionsSchedule getInjectionsSchedule(){
-        dbHelper=getHelper();
+    public InjectionsSchedule getInjectionsSchedule() {
+        dbHelper = getHelper();
 
-        RuntimeExceptionDao<InjectionsSchedule, Integer> injectionSchedulesDao=dbHelper.getInjectionsScheduleDao();
+        RuntimeExceptionDao<InjectionsSchedule, Integer> injectionSchedulesDao = dbHelper.getInjectionsScheduleDao();
 
         return injectionSchedulesDao.queryForAll().iterator().next();
     }
