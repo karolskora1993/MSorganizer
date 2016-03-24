@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:width="200dp"
-        android:background="@color/initial_settings_button_next_color"
+        android:background="@drawable/button"
         android:onClick="onButtonSaveNotificationSettingsClick"
         android:text="@string/save_text"
         android:textSize="@dimen/text_size_medium"

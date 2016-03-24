@@ -42,9 +42,6 @@ public class SettingsFragment extends Fragment {
                 else if(position==1){
                     ft.replace(R.id.settingsFragmentContainer, new NotificationSettingsFragment());
                 }
-                else if(position==3){
-                    ft.replace(R.id.settingsFragmentContainer, new AppSettingsFragment());
-                }
 
                 ft.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 ft.addToBackStack(null);
