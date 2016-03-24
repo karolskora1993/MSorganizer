@@ -33,7 +33,7 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".activities.DatabaseOperations"></activity>
+        <activity android:name=".activities.DatabaseOperations" />
     </application>
 
 </manifest>

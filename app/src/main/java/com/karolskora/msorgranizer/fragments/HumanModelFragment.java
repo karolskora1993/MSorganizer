@@ -1,4 +1,4 @@
-package com.karolskora.msorgranizer.activities;
+package com.karolskora.msorgranizer.fragments;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -8,18 +8,18 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLDisplay;
 import javax.microedition.khronos.opengles.GL10;
 
-import android.app.Activity;
-import android.app.DialogFragment;
+import android.app.Fragment;
 import android.content.res.AssetManager;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 
-import com.karolskora.msorgranizer.R;
-import com.karolskora.msorgranizer.fragments.DatePickerFragment;
-import com.karolskora.msorgranizer.fragments.TimePickerFragment;
+import com.karolskora.msorgranizer.activities.InjectionActivity;
 import com.threed.jpct.Camera;
 import com.threed.jpct.FrameBuffer;
 import com.threed.jpct.Light;
@@ -33,7 +33,7 @@ import com.threed.jpct.util.MemoryHelper;
 
 import com.threed.jpct.*;
 
-public class InjectionActivity extends Activity {
+public class HumanModelFragment extends Fragment {
 
     private static InjectionActivity master = null;
 
@@ -60,14 +60,14 @@ public class InjectionActivity extends Activity {
     private String thingName = "model.3DS";
     private int thingScale = 50;
 
-
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (master != null) {
-            copy(master);
+
         }
-        mGLView = (GLSurfaceView)findViewById(R.id.glSurfaceView);
+        mGLView = new GLSurfaceView(getActivity().getApplication());
+
         mGLView.setEGLConfigChooser(new GLSurfaceView.EGLConfigChooser() {
             public EGLConfig chooseConfig(EGL10 egl, EGLDisplay display) {
 
@@ -81,23 +81,24 @@ public class InjectionActivity extends Activity {
 
         renderer = new MyRenderer();
         mGLView.setRenderer(renderer);
-        setContentView(mGLView);
+
+        return mGLView;
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         mGLView.onPause();
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         mGLView.onResume();
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
     }
 
@@ -146,20 +147,12 @@ public class InjectionActivity extends Activity {
             Log.e(this.getClass().toString(),e.getMessage());
         }
 
-        return super.onTouchEvent(me);
+        return getActivity().onTouchEvent(me);
     }
 
     protected boolean isFullscreenOpaque() {
         return true;
     }
-
-    public void postpone(View view) {
-
-        DialogFragment newFragment = new TimePickerFragment();
-        newFragment.show(getFragmentManager(), "timePicker");
-    }
-
-
 
     class MyRenderer implements GLSurfaceView.Renderer {
 
@@ -208,7 +201,7 @@ public class InjectionActivity extends Activity {
 
                 if (master == null) {
                     Log.d(this.getClass().toString(),"Zapisywanie aktywności");
-                    master = InjectionActivity.this;
+                    master = (InjectionActivity)HumanModelFragment.this.getActivity();
                 }
             }
         }
@@ -261,4 +254,5 @@ public class InjectionActivity extends Activity {
         }
 
     }
+
 }

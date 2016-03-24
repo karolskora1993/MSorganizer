@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.karolskora.msorgranizer.activities.InjectionActivity"
+    android:background="@drawable/bg">
+
+    <android.opengl.GLSurfaceView
+        android:id="@+id/glSurfaceView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff"
+        android:layout_above="@+id/buttonInject"/>
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="@string/button_inject_text"
+        android:id="@+id/buttonInject"
+        android:background="@drawable/button"
+        android:textSize="@dimen/text_size_medium"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="5dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/buttonPostpone"
+        android:id="@+id/buttonPostpone"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/buttonInject"
+        android:layout_toEndOf="@+id/buttonInject"
+        android:background="@drawable/button"
+        android:textSize="@dimen/text_size_medium"
+        android:onClick="postpone"/>
+
+</RelativeLayout>

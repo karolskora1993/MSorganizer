@@ -18,7 +18,8 @@
         android:layout_marginTop="100dp"
         android:width="@dimen/initial_settings_text_view_width"
         android:textAlignment="center"
-        android:textSize="@dimen/text_size_medium" />
+        android:textSize="@dimen/text_size_medium"
+        />
 
     <EditText
         android:layout_width="wrap_content"

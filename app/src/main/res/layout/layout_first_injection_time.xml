@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:text="@string/intial_settings_button_next_text"
         android:id="@+id/initialSettingsButtonNext"
-        android:background="@color/initial_settings_button_next_color"
+        android:background="@drawable/button"
         android:width="200dp"
         android:textSize="@dimen/text_size_medium"
         android:onClick="onButtonNextClick"

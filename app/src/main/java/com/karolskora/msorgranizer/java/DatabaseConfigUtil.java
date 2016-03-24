@@ -1,4 +1,4 @@
-package com.karolskora.msorgranizer.helpers;
+package com.karolskora.msorgranizer.java;
 
 import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;
 import com.karolskora.msorgranizer.models.InjectionsSchedule;

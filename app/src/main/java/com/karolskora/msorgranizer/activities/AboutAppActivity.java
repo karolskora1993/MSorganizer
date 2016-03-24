@@ -1,9 +1,7 @@
 package com.karolskora.msorgranizer.activities;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.app.admin.DeviceAdminInfo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,7 +12,7 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.broadcastReceivers.InjectionTimeAlarmReceiver;
 import com.karolskora.msorgranizer.fragments.DatePickerFragment;
-import com.karolskora.msorgranizer.helpers.DatabaseHelper;
+import com.karolskora.msorgranizer.java.DatabaseHelper;
 import com.karolskora.msorgranizer.models.InjectionsSchedule;
 import com.karolskora.msorgranizer.models.User;
 

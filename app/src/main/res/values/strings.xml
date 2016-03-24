@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">MS organizer</string>
+    <string name="about_app">Aplikacja pozwala na zdefiniowanie harmonogramu powiadomień o zbliżającym się czasie aplikacji leku oraz wskazuje miejsce wykonania zastrzyku. Użytkownik ma możliwość wprowadzić dodatkowe informacje takie jak ewentualne niepożądane objawy czy problemy w aplikacji zastrzyku. Dodatkowo możliwe jest zarządzanie posiadanymi zasobami leku, przypominanie o kończącym się ich zapasie oraz przeglądanie historii terapii wraz ze szczegółowymi informacjami o objawach czy innych dolegliwościach towarzyszących terapii. Aplikacja pozwala dodatkowo na wygenerowaniu łatwego w interpretacji raportu dla lekarza prowadzącego bądź pielęgniarki.</string>
     <string name="name_text_view_hint">podaj swoje imię i nazwisko</string>
     <string name="doctor_name_text_view_hint">podaj imie i nazwisko swojego lekarza</string>
     <string name="nurse_name_text_view_hint">podaj imię i nazwisko swojej pielęgniarki</string>
@@ -10,22 +11,12 @@
     <string name="about_interferon_header">Drogi Pacjencie,\nDroga Pacjentko</string>
     <string name="date_text_view">podaj datę pierwszego zastrzyku</string>
     <string name="time_text_view">podaj godzinę zastrzyków</string>
-
     <string name="firstInjection_text">aplikacja ma na celu ułatwienie i lepsze zorganizowanie przyjmowania leku. Podaj godzinę, o której chcesz dostawać przypomnienie o aplikacji leku, a następnie datę pierwszego zastrzyku</string>
-    <string name="menu_main">ekran główny</string>
-    <string name="menu_history">historia</string>
-    <string name="menu_reserve">zarządzaj lekiem</string>
-    <string name="menu_settings">opcje</string>
-    <string name="menu_app_settings">opcje aplikacji</string>
-    <string name="menu_schedule_settings">opcje przypomnień</string>
-    <string name="menu_help">pomoc</string>
-    <string name="menu_about">o aplikacji</string>
     <string-array name="titles">
         <item>ekran główny</item>
         <item>historia</item>
         <item>zarządzanie lekiem</item>
         <item>ustawienia</item>
-        <item>pomoc</item>
         <item>o aplikacji</item>
     </string-array>
     <string name="open_drawer">otworz</string>
@@ -35,10 +26,8 @@
     <string-array name="settings_array">
         <item>ustawienia użytkownika</item>
         <item>ustawienia powiadomień</item>
-        <item>ustawienia aplikacji</item>
     </string-array>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="save_text">zapisz zmiany</string>
+    <string name="button_inject_text">wykonaj zastrzyk</string>
+    <string name="buttonPostpone">odłóż</string>
 </resources>

@@ -2,19 +2,13 @@ package com.karolskora.msorgranizer.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.karolskora.msorgranizer.R;
-import com.karolskora.msorgranizer.helpers.DatabaseHelper;
-import com.karolskora.msorgranizer.models.User;
 
 public class UserInformationsActivity extends FragmentActivity {
 

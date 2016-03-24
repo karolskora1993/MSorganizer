@@ -26,7 +26,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="50dp"
         android:width="200dp"
-        android:background="@color/initial_settings_button_next_color"
+        android:background="@drawable/button"
         android:onClick="onButtonNextClick"
         android:text="@string/intial_settings_button_next_text"
         android:textSize="@dimen/text_size_medium" />

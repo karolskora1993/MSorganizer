@@ -1,5 +1,6 @@
 package com.karolskora.msorgranizer.activities;
 
+import android.app.ActionBar;
 import android.app.AlarmManager;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -13,11 +14,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TimePicker;
@@ -27,12 +26,11 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.broadcastReceivers.InjectionTimeAlarmReceiver;
 import com.karolskora.msorgranizer.fragments.AboutFragment;
-import com.karolskora.msorgranizer.fragments.HelpFragment;
 import com.karolskora.msorgranizer.fragments.HistoryFragment;
 import com.karolskora.msorgranizer.fragments.MainFragment;
 import com.karolskora.msorgranizer.fragments.ReserveFragment;
 import com.karolskora.msorgranizer.fragments.SettingsFragment;
-import com.karolskora.msorgranizer.helpers.DatabaseHelper;
+import com.karolskora.msorgranizer.java.DatabaseHelper;
 import com.karolskora.msorgranizer.models.InjectionsSchedule;
 import com.karolskora.msorgranizer.models.User;
 
@@ -121,32 +119,6 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (drawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        switch (item.getItemId()) {
-            case R.id.itemMain:
-                return true;
-            case R.id.itemHistory:
-                return true;
-            case R.id.itemReserve:
-                return true;
-            case R.id.itemAppSettings:
-                return true;
-            case R.id.itemScheduleSettings:
-                return true;
-            case R.id.itemHelp:
-                return true;
-            case R.id.itemAbout:
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
 
     private void selectItem(int position) {
 
@@ -162,9 +134,6 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                 fragment = new SettingsFragment();
                 break;
             case 4:
-                fragment = new HelpFragment();
-                break;
-            case 5:
                 fragment = new AboutFragment();
                 break;
             default:
@@ -190,7 +159,9 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         } else
             title = this.titles[position];
 
-        getActionBar().setTitle(title);
+        ActionBar ab=getActionBar();
+        if(ab!=null)
+            ab.setTitle(title);
 
     }
 
