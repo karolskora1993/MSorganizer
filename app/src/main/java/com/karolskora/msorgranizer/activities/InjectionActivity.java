@@ -2,6 +2,7 @@ package com.karolskora.msorgranizer.activities;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.util.Calendar;
 
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
@@ -10,6 +11,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
@@ -20,6 +22,8 @@ import android.view.View;
 import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.fragments.DatePickerFragment;
 import com.karolskora.msorgranizer.fragments.TimePickerFragment;
+import com.karolskora.msorgranizer.java.DatabaseQueries;
+import com.karolskora.msorgranizer.java.PointFinder;
 import com.threed.jpct.Camera;
 import com.threed.jpct.FrameBuffer;
 import com.threed.jpct.Light;
@@ -58,15 +62,16 @@ public class InjectionActivity extends Activity {
     InputStream is;
 
     private String thingName = "model.3DS";
-    private int thingScale = 50;
+    private int thingScale = 35;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (master != null) {
             copy(master);
         }
+        setContentView(R.layout.layout_injection);
+
         mGLView = (GLSurfaceView)findViewById(R.id.glSurfaceView);
         mGLView.setEGLConfigChooser(new GLSurfaceView.EGLConfigChooser() {
             public EGLConfig chooseConfig(EGL10 egl, EGLDisplay display) {
@@ -81,7 +86,6 @@ public class InjectionActivity extends Activity {
 
         renderer = new MyRenderer();
         mGLView.setRenderer(renderer);
-        setContentView(mGLView);
     }
 
     @Override
@@ -130,13 +134,13 @@ public class InjectionActivity extends Activity {
 
         if (me.getAction() == MotionEvent.ACTION_MOVE) {
             float xd = me.getX() - xpos;
-            float yd = me.getY() - ypos;
+           // float yd = me.getY() - ypos;
 
             xpos = me.getX();
-            ypos = me.getY();
+           // ypos = me.getY();
 
             touchTurn = xd / -100f;
-            touchTurnUp = yd / -100f;
+          //  touchTurnUp = yd / -100f;
             return true;
         }
 
@@ -159,6 +163,15 @@ public class InjectionActivity extends Activity {
         newFragment.show(getFragmentManager(), "timePicker");
     }
 
+    public void inject(View view) {
+        Calendar calendar=Calendar.getInstance();
+        int[] injectionPoint= PointFinder.findPoint(this);
+        DatabaseQueries.addInjection(this, calendar.getTimeInMillis(), injectionPoint[0], injectionPoint[1]);
+        Log.d(this.getClass().toString(), "zastrzyk dodany do bazy");
+
+        Intent intent=new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
 
     class MyRenderer implements GLSurfaceView.Renderer {
@@ -196,7 +209,7 @@ public class InjectionActivity extends Activity {
                 world.addObject(cube);
 
                 Camera cam = world.getCamera();
-                cam.moveCamera(Camera.CAMERA_MOVEOUT, 60);
+                cam.moveCamera(Camera.CAMERA_MOVEOUT, 40);
                 cam.lookAt(cube.getTransformedCenter());
 
                 SimpleVector sv = new SimpleVector();

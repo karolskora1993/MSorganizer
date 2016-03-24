@@ -7,7 +7,7 @@
         android:icon="@mipmap/ic"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme">
         <activity android:name=".activities.UserInformationsActivity" />
         <activity android:name=".activities.AboutAppActivity" />
         <activity android:name=".activities.FirstInjectionTimeActivity" />
@@ -16,7 +16,6 @@
             android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -32,8 +31,6 @@
             android:name=".services.NotificationService"
             android:enabled="true"
             android:exported="true" />
-
-        <activity android:name=".activities.DatabaseOperations" />
     </application>
 
 </manifest>

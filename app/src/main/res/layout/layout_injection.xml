@@ -10,7 +10,6 @@
         android:id="@+id/glSurfaceView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#fff"
         android:layout_above="@+id/buttonInject"/>
     <Button
         android:layout_width="200dp"
@@ -22,7 +21,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginRight="5dp"/>
+        android:layout_marginRight="5dp"
+        android:onClick="inject"/>
 
     <Button
         android:layout_width="match_parent"

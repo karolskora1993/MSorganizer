@@ -22,7 +22,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="5dp"
         android:width="@dimen/initial_settings_text_view_width"
-        android:textSize="@dimen/text_size_medium" />
+        android:textSize="@dimen/text_size_medium"
+        android:textAlignment="center" />
 
     <TextView
         android:layout_width="wrap_content"

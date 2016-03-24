@@ -14,27 +14,24 @@ public class Injection {
     @DatabaseField
     private int point;
 
-    public long getTimeInMilis() {
-        return timeInMilis;
+    public Injection(){}
+
+    public Injection(long timeInMilis, int area, int point){
+        this.timeInMilis=timeInMilis;
+        this.area=area;
+        this.point=point;
     }
 
-    public void setTimeInMilis(long timeInMilis) {
-        this.timeInMilis = timeInMilis;
+    public long getTimeInMilis() {
+        return timeInMilis;
     }
 
     public int getArea() {
         return area;
     }
 
-    public void setArea(int area) {
-        this.area = area;
-    }
-
     public int getPoint() {
         return point;
     }
 
-    public void setPoint(int point) {
-        this.point = point;
-    }
 }

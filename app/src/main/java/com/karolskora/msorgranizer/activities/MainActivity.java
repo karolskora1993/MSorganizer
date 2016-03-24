@@ -1,6 +1,5 @@
 package com.karolskora.msorgranizer.activities;
 
-import android.app.ActionBar;
 import android.app.AlarmManager;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -11,17 +10,20 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.broadcastReceivers.InjectionTimeAlarmReceiver;
@@ -31,13 +33,14 @@ import com.karolskora.msorgranizer.fragments.MainFragment;
 import com.karolskora.msorgranizer.fragments.ReserveFragment;
 import com.karolskora.msorgranizer.fragments.SettingsFragment;
 import com.karolskora.msorgranizer.java.DatabaseHelper;
+import com.karolskora.msorgranizer.java.DatabaseQueries;
 import com.karolskora.msorgranizer.models.InjectionsSchedule;
 import com.karolskora.msorgranizer.models.User;
 
 import java.util.Calendar;
 import java.util.List;
 
-public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+public class MainActivity extends AppCompatActivity {
 
 
     private DatabaseHelper dbHelper;
@@ -58,42 +61,67 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.layout_main);
+
+        titles = getResources().getStringArray(R.array.titles);
+        drawerList = (ListView) findViewById(R.id.drawer);
+        drawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, titles));
+        drawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerToggle = new ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                R.string.open_drawer,
+                R.string.close_drawer
+        ) {
+
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+        };
+
+        drawerLayout.addDrawerListener(drawerToggle);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        if (savedInstanceState == null)
+            selectItem(0);
+
         User user = getUser();
         if (user == null) {
             Intent intent = new Intent(this, UserInformationsActivity.class);
             startActivity(intent);
-        } else {
-            setContentView(R.layout.layout_main);
-            titles = getResources().getStringArray(R.array.titles);
-            drawerList = (ListView) findViewById(R.id.drawer);
-            if (drawerList == null)
-                Log.d(this.getClass().toString(), "null");
-            drawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, titles));
-            drawerList.setOnItemClickListener(new DrawerItemClickListener());
+        }
+    }
 
-            DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-            drawerToggle = new ActionBarDrawerToggle(
-                    this,
-                    drawerLayout,
-                    R.string.open_drawer,
-                    R.string.close_drawer
-            ) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-                public void onDrawerClosed(View view) {
-                    super.onDrawerClosed(view);
-                }
-
-                public void onDrawerOpened(View drawerView) {
-                    super.onDrawerOpened(drawerView);
-                }
-            };
-
-            drawerLayout.setDrawerListener(drawerToggle);
-
-            getActionBar().setDisplayHomeAsUpEnabled(true);
-            getActionBar().setHomeButtonEnabled(true);
-            if (savedInstanceState == null)
-                selectItem(0);
+        if (drawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        switch (item.getItemId()) {
+            case R.id.itemMain:
+                return true;
+            case R.id.itemHistory:
+                return true;
+            case R.id.itemReserve:
+                return true;
+            case R.id.itemAppSettings:
+                return true;
+            case R.id.itemScheduleSettings:
+                return true;
+            case R.id.itemHelp:
+                return true;
+            case R.id.itemAbout:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -159,15 +187,13 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         } else
             title = this.titles[position];
 
-        ActionBar ab=getActionBar();
-        if(ab!=null)
-            ab.setTitle(title);
+        getSupportActionBar().setTitle(title);
 
     }
 
     public User getUser() {
 
-        dbHelper = getHelper();
+        dbHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
 
         RuntimeExceptionDao<User, String> userDao = dbHelper.getUserDao();
 
@@ -190,12 +216,10 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         EditText nurseNameTextEdit = (EditText) findViewById(R.id.nurseNameTextEdit);
         String nurseName = nurseNameTextEdit.getText().toString();
 
-        dbHelper = getHelper();
-        RuntimeExceptionDao<User, String> userDao = dbHelper.getUserDao();
-        userDao.delete(getUser());
-
-        userDao.create(new User(name, doctorName, nurseName));
+        DatabaseQueries.updateUser(this, name, doctorName, nurseName);
         Log.d(this.getClass().toString(), "zmiany danych użytkownika zapisane");
+        Toast toast = Toast.makeText(this, "zmieniono ustawienia użytkownika", Toast.LENGTH_LONG);
+        toast.show();
     }
 
     public void onButtonSaveNotificationSettingsClick(View view) {
@@ -210,7 +234,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             minute = time.getMinute();
         }
 
-        dbHelper = getHelper();
+        dbHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
 
         RuntimeExceptionDao<InjectionsSchedule, Integer> injectionSchedulesDao = dbHelper.getInjectionsScheduleDao();
 
@@ -224,6 +248,8 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
         Log.d(this.getClass().toString(), "zmiana czasu notyfikacji zapisana");
         scheduleNewNotification(calendar.getTimeInMillis());
+        Toast toast = Toast.makeText(this, "Zmieniono ustawienia notyfikacji", Toast.LENGTH_LONG);
+        toast.show();
 
     }
 
@@ -244,7 +270,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     }
 
     public InjectionsSchedule getInjectionsSchedule() {
-        dbHelper = getHelper();
+        dbHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
 
         RuntimeExceptionDao<InjectionsSchedule, Integer> injectionSchedulesDao = dbHelper.getInjectionsScheduleDao();
 

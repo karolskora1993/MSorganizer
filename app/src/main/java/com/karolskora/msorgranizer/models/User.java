@@ -33,15 +33,9 @@ public class User {
         return doctorName;
     }
 
-    public void setDoctorName(String doctorName) {
-        this.doctorName = doctorName;
-    }
 
     public String getNurseName() {
         return nurseName;
     }
 
-    public void setNurseName(String nurseName) {
-        this.nurseName = nurseName;
-    }
 }

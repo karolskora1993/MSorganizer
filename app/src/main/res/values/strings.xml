@@ -19,6 +19,15 @@
         <item>ustawienia</item>
         <item>o aplikacji</item>
     </string-array>
+
+    <string name="menu_main">ekran główny</string>
+    <string name="menu_history">historia</string>
+    <string name="menu_reserve">zarządzaj lekiem</string>
+    <string name="menu_settings">opcje</string>
+    <string name="menu_app_settings">opcje aplikacji</string>
+    <string name="menu_schedule_settings">opcje przypomnień</string>
+    <string name="menu_help">pomoc</string>
+    <string name="menu_about">o aplikacji</string>
     <string name="open_drawer">otworz</string>
     <string name="close_drawer">zamknij</string>
     <string name="title_activity_main">MainActivity</string>
