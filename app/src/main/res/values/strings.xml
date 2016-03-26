@@ -39,4 +39,13 @@
     <string name="save_text">zapisz zmiany</string>
     <string name="button_inject_text">wykonaj zastrzyk</string>
     <string name="buttonPostpone">odłóż</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="injection_date_text">data zastrzyku:</string>
+    <string name="injection_point_text">miejsce:</string>
+    <string name="symptons_text">objawy</string>
+    <string name="temperature_text">gorączka</string>
+    <string name="trembles_text">dreszcze</string>
+    <string name="ache_text">ból mięsni</string>
 </resources>

@@ -66,7 +66,14 @@ public class MainFragment extends Fragment {
             int hours = (int) (timeToInjection / (1000 * 60 * 60));
             int minutes = (int) ((timeToInjection - (hours * 60 * 60 * 1000)) / (60  * 1000));
             String time;
-            if(timeToInjection>24*60*60*1000)
+            if(timeToInjection>=48*60*60*1000)
+            {
+                int days=2;
+                hours=hours-24;
+                time = days+"dni \n"+ hours + "godzin\n" + minutes + "minut";
+
+            }
+            else if(timeToInjection>=24*60*60*1000)
             {
                 int days=1;
                 hours=hours-24;
@@ -74,7 +81,8 @@ public class MainFragment extends Fragment {
 
             }
             else
-                time = hours + "godzin\n" + minutes + "minut";            return time;
+                time = hours + "godzin\n" + minutes + "minut";
+            return time;
         }
         else{
             Calendar currentTime = Calendar.getInstance();
