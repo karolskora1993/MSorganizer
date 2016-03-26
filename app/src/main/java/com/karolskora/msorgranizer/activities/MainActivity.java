@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private String[] titles;
     private ListView drawerList;
     private ActionBarDrawerToggle drawerToggle;
+    private User user;
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
 
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null)
             selectItem(0);
 
-        User user = getUser();
+        user = getUser();
         if (user == null) {
             Intent intent = new Intent(this, UserInformationsActivity.class);
             startActivity(intent);

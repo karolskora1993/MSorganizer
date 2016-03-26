@@ -11,7 +11,7 @@ public class PointFinder {
     public static int[] findPoint(Context activity){
         Injection lastInjection=DatabaseQueries.getLatestInjection(activity);
 
-        int area, point;
+        int area=0, point=0;
         if(lastInjection==null) {
             area = 1;
             point = 1;
@@ -24,8 +24,6 @@ public class PointFinder {
                 area=1;
                 if(lastPoint==6)
                     point=1;
-                else
-                    point=lastPoint+1;
             }
             else {
             area = lastArea + 1;

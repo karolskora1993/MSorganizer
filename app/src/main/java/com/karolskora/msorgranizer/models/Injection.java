@@ -7,7 +7,7 @@ import com.j256.ormlite.table.DatabaseTable;
 
 public class Injection {
 
-    @DatabaseField(generatedId = true)
+    @DatabaseField(id = true)
     private long timeInMilis;
     @DatabaseField
     private int area;

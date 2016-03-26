@@ -2,13 +2,16 @@ package com.karolskora.msorgranizer.java;
 
 
 import android.content.Context;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.karolskora.msorgranizer.models.Injection;
+import com.karolskora.msorgranizer.models.InjectionsSchedule;
 import com.karolskora.msorgranizer.models.User;
 
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,13 +24,22 @@ public class DatabaseQueries {
 
     private DatabaseQueries(){}
 
+    public static InjectionsSchedule getInjectionsSchedule(Context activity){
+        if(dbHelper==null)
+            dbHelper= OpenHelperManager.getHelper(activity,DatabaseHelper.class);
+
+        RuntimeExceptionDao<InjectionsSchedule, Integer> injectionsScheduleDao=dbHelper.getInjectionsScheduleDao();
+        InjectionsSchedule injectionsSchedule=injectionsScheduleDao.queryForAll().iterator().next();
+
+        return injectionsSchedule;
+    }
+
     public static List<Injection> getInjections(Context activity){
         if(dbHelper==null)
             dbHelper= OpenHelperManager.getHelper(activity,DatabaseHelper.class);
 
         RuntimeExceptionDao<Injection, Long> injetionDao=dbHelper.getInjectionDao();
         List<Injection> injections=injetionDao.queryForAll();
-        OpenHelperManager.releaseHelper();
         return injections;
     }
 
@@ -35,10 +47,17 @@ public class DatabaseQueries {
         if(dbHelper==null)
             dbHelper= OpenHelperManager.getHelper(activity,DatabaseHelper.class);
 
-        RuntimeExceptionDao<Injection, Long> injetionDao=dbHelper.getInjectionDao();
-        List<Injection> injections=injetionDao.queryForAll();
+        RuntimeExceptionDao<Injection, Long> injetcionDao=dbHelper.getInjectionDao();
+        List<Injection> injections=injetcionDao.queryForAll();
+        Iterator<Injection> injectionsIterator=injections.iterator();
 
-        OpenHelperManager.releaseHelper();
+        Calendar lastInjectionTime=Calendar.getInstance();
+        while (injectionsIterator.hasNext()) {
+            lastInjectionTime.setTimeInMillis(injectionsIterator.next().getTimeInMilis());
+            Log.d(DatabaseQueries.class.toString(), "zastrzyk:" + lastInjectionTime.get(Calendar.YEAR) + " miesiac:" + lastInjectionTime.get(Calendar.MONTH) +
+                    "dzien: " + lastInjectionTime.get(Calendar.DAY_OF_MONTH));
+        }
+
         if(!injections.isEmpty())
             return injections.get(injections.size()-1);
         else
@@ -53,8 +72,6 @@ public class DatabaseQueries {
         RuntimeExceptionDao<User, String> userDao = dbHelper.getUserDao();
 
         List<User> users = userDao.queryForAll();
-        OpenHelperManager.releaseHelper();
-
 
         if (users.isEmpty())
             return null;
@@ -71,8 +88,8 @@ public class DatabaseQueries {
 
         userDao.create(new User(name, doctorName, nurseName));
         Log.d(DatabaseQueries.class.toString(), "zmiany danych użytkownika zapisane");
-        OpenHelperManager.releaseHelper();
     }
+
     public static void addInjection(Context activity, long timeInMilis, int area, int point) {
 
         if(dbHelper==null)
@@ -80,6 +97,9 @@ public class DatabaseQueries {
 
         RuntimeExceptionDao<Injection, Long> injectionDao = dbHelper.getInjectionDao();
         injectionDao.create(new Injection(timeInMilis, area, point));
-        OpenHelperManager.releaseHelper();
+        Calendar lastInjectionTime=Calendar.getInstance();
+        lastInjectionTime.setTimeInMillis(timeInMilis);
+        Log.d(DatabaseQueries.class.toString(), "ostatni zastrzyk zapisany do bazy, rok:" + lastInjectionTime.get(Calendar.YEAR) + " miesiac:" + lastInjectionTime.get(Calendar.MONTH) +
+                "dzien: " + lastInjectionTime.get(Calendar.DAY_OF_MONTH));
     }
 }

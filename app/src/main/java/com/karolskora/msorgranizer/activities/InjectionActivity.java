@@ -167,8 +167,6 @@ public class InjectionActivity extends Activity {
         Calendar calendar=Calendar.getInstance();
         int[] injectionPoint= PointFinder.findPoint(this);
         DatabaseQueries.addInjection(this, calendar.getTimeInMillis(), injectionPoint[0], injectionPoint[1]);
-        Log.d(this.getClass().toString(), "zastrzyk dodany do bazy");
-
         Intent intent=new Intent(this, MainActivity.class);
         startActivity(intent);
     }
