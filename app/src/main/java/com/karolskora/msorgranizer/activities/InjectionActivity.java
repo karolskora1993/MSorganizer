@@ -45,7 +45,7 @@ public class InjectionActivity extends Activity {
     private MyRenderer renderer = null;
     private FrameBuffer fb = null;
     private World world = null;
-    private RGBColor back = new RGBColor(50, 50, 100);
+    private RGBColor back = new RGBColor(255, 255, 255);
 
     private float touchTurn = 0;
     private float touchTurnUp = 0;
@@ -58,8 +58,6 @@ public class InjectionActivity extends Activity {
 
     private Light sun = null;
 
-    AssetManager assMan;
-    InputStream is;
 
     private String thingName = "model.3DS";
     private int thingScale = 35;
