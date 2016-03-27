@@ -5,11 +5,12 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.GridLayout;
 import android.widget.TextView;
 
 import com.karolskora.msorgranizer.R;
@@ -50,6 +51,7 @@ public class InjectionDetailsFragment extends Fragment {
         setDate();
         setSymptoms();
         setRenderer();
+        Log.d(this.getClass().toString(), "next");
 
     }
     @Override
@@ -96,19 +98,17 @@ public class InjectionDetailsFragment extends Fragment {
     private void setRenderer(){
         Activity owner=getActivity();
         mGLView = (GLSurfaceView)owner.findViewById(R.id.glSurfaceView);
-        mGLView.setEGLConfigChooser(new GLSurfaceView.EGLConfigChooser() {
-            public EGLConfig chooseConfig(EGL10 egl, EGLDisplay display) {
+            mGLView.setEGLConfigChooser(new GLSurfaceView.EGLConfigChooser() {
+                public EGLConfig chooseConfig(EGL10 egl, EGLDisplay display) {
 
-                int[] attributes = new int[] { EGL10.EGL_DEPTH_SIZE, 16, EGL10.EGL_NONE };
-                EGLConfig[] configs = new EGLConfig[1];
-                int[] result = new int[1];
-                egl.eglChooseConfig(display, attributes, configs, 1, result);
-                return configs[0];
-            }
-        });
-
-        GLSurfaceView.Renderer renderer = new ModelRenderer(getActivity(), view);
-        mGLView.setRenderer(renderer);
-
+                    int[] attributes = new int[]{EGL10.EGL_DEPTH_SIZE, 16, EGL10.EGL_NONE};
+                    EGLConfig[] configs = new EGLConfig[1];
+                    int[] result = new int[1];
+                    egl.eglChooseConfig(display, attributes, configs, 1, result);
+                    return configs[0];
+                }
+            });
+            GLSurfaceView.Renderer renderer = new ModelRenderer(getActivity(), view);
+            mGLView.setRenderer(renderer);
     }
 }

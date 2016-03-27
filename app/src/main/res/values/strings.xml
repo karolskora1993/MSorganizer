@@ -48,4 +48,5 @@
     <string name="temperature_text">gorączka</string>
     <string name="trembles_text">dreszcze</string>
     <string name="ache_text">ból mięsni</string>
+    <string name="last_injection_text">szczegóły ostatniego zastrzyku:</string>
 </resources>

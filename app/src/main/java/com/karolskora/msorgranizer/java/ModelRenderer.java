@@ -25,7 +25,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class ModelRenderer implements GLSurfaceView.Renderer {
     private FrameBuffer fb = null;
-    private RGBColor back = new RGBColor(255, 255, 255);
+    private RGBColor back = new RGBColor(63, 81, 181);
 
     private float touchTurn = 0;
     private float touchTurnUp = 0;

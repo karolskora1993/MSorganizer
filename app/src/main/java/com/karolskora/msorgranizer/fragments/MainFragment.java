@@ -1,6 +1,7 @@
 package com.karolskora.msorgranizer.fragments;
 
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -38,6 +39,22 @@ public class MainFragment extends Fragment {
 
             TextView timeTextView = (TextView) owner.findViewById(R.id.timeToInjectionTextView);
             timeTextView.setText(getTimeToInjection());
+
+            Injection injection = DatabaseQueries.getLatestInjection(getActivity());
+            if(injection!=null) {
+                Fragment fragment = new InjectionDetailsFragment();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(HistoryFragment.INJECTION, injection);
+                fragment.setArguments(bundle);
+                FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+                ft.replace(R.id.lastInjectionDetails, fragment);
+                ft.commit();
+            }
+            else
+            {
+                TextView text=(TextView)owner.findViewById(R.id.lastInjectionTextView);
+                text.setText("");
+            }
         }
     }
     private String getTimeToInjection(){
@@ -56,20 +73,19 @@ public class MainFragment extends Fragment {
             notificationTime.set(Calendar.YEAR, lastInjectionTime.get(Calendar.YEAR));
             notificationTime.set(Calendar.MONTH, lastInjectionTime.get(Calendar.MONTH));
             notificationTime.set(Calendar.DAY_OF_MONTH, lastInjectionTime.get(Calendar.DAY_OF_MONTH));
-            notificationTime.setTimeInMillis(notificationTime.getTimeInMillis()+47*60*60*1000);
+            notificationTime.setTimeInMillis(notificationTime.getTimeInMillis() + 47 * 60 * 60 * 1000);
             Log.d(getClass().toString(), "Czas najblizszej notyfikacji, rok:" + notificationTime.get(Calendar.YEAR) + " miesiac:" + notificationTime.get(Calendar.MONTH) +
                     "dzien: " + notificationTime.get(Calendar.DAY_OF_MONTH)+ "godzina:"+notificationTime.get(Calendar.HOUR_OF_DAY)+"minuta:"+
                     notificationTime.get(Calendar.MINUTE));
 
             Long timeToInjection = notificationTime.getTimeInMillis() -currentTime.getTimeInMillis();
-            Log.d(getClass().toString(), "czas do notyfikacji w milis:"+timeToInjection);
             int hours = (int) (timeToInjection / (1000 * 60 * 60));
             int minutes = (int) ((timeToInjection - (hours * 60 * 60 * 1000)) / (60  * 1000));
             String time;
             if(timeToInjection>=48*60*60*1000)
             {
                 int days=2;
-                hours=hours-24;
+                hours=hours-48;
                 time = days+"dni \n"+ hours + "godzin\n" + minutes + "minut";
 
             }
@@ -86,18 +102,23 @@ public class MainFragment extends Fragment {
         }
         else{
             Calendar currentTime = Calendar.getInstance();
-            Log.d(getClass().toString(), "Obecny czas:" + currentTime.get(Calendar.YEAR) + " miesiac:" + currentTime.get(Calendar.MONTH) +
-                    "dzien: " + currentTime.get(Calendar.DAY_OF_MONTH));
-            Long timeToInjection = currentTime.getTimeInMillis() - injectionsSchedule.getInjectionTime();
+            Long timeToInjection = injectionsSchedule.getInjectionTime()-currentTime.getTimeInMillis();
 
-            int hours = (int) (timeToInjection / 1000 * 60 * 60);
-            int minutes = (int) ((timeToInjection - hours * 60 * 60 * 1000) / 60 * 60 * 1000);
+            int hours = (int) (timeToInjection / (1000 * 60 * 60));
+            int minutes = (int) ((timeToInjection - (hours * 60 * 60 * 1000)) / (60 * 1000));
             String time;
-            if(timeToInjection>24*60*60*1000)
+            if(timeToInjection>=48*60*60*1000)
+            {
+                int days=2;
+                hours=hours-48;
+                time = days+"dni \n"+ hours + "godzin\n" + minutes + "minut";
+
+            }
+            else if(timeToInjection>24*60*60*1000)
             {
                 int days=1;
                 hours=hours-(24*60*60*1000);
-                time = days+"dni \n"+ hours + "godzin\n" + minutes + "minut";
+                time = days+"dzień \n"+ hours + "godzin\n" + minutes + "minut";
 
             }
             else

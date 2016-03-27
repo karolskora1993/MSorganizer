@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,8 @@ import java.util.List;
 
 
 public class HistoryFragment extends Fragment {
-    public static String INJECTION="injection";
+    public static String INJECTION = "injection";
+    public static String ID = "id";
 
 
     @Override
@@ -34,20 +36,13 @@ public class HistoryFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        List<Injection> injections= DatabaseQueries.getInjections(getActivity());
-        Iterator<Injection> injectionIterator=injections.iterator();
-
-        while(injectionIterator.hasNext()){
-            Injection injection=injectionIterator.next();
-            Activity owner=getActivity();
-            Fragment fragment=new InjectionDetailsFragment();
-            Bundle bundle=new Bundle();
-            bundle.putSerializable(HistoryFragment.INJECTION, injection);
-            fragment.setArguments(bundle);
-            FragmentTransaction ft=getActivity().getFragmentManager().beginTransaction();
-            ft.add(R.id.historyLayout, fragment);
-            ft.commit();
-        }
-
+        Injection injection = DatabaseQueries.getLatestInjection(getActivity());
+        Fragment fragment = new InjectionDetailsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(HistoryFragment.INJECTION, injection);
+        fragment.setArguments(bundle);
+        FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+        ft.add(R.id.historyLayout, fragment);
+        ft.commit();
     }
 }

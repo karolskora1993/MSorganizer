@@ -2,7 +2,6 @@ package com.karolskora.msorgranizer.java;
 
 
 import android.content.Context;
-import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -15,9 +14,7 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by apple on 24.03.2016.
- */
+
 public class DatabaseQueries {
 
     private static DatabaseHelper dbHelper;
@@ -54,8 +51,6 @@ public class DatabaseQueries {
         Calendar lastInjectionTime=Calendar.getInstance();
         while (injectionsIterator.hasNext()) {
             lastInjectionTime.setTimeInMillis(injectionsIterator.next().getTimeInMilis());
-            Log.d(DatabaseQueries.class.toString(), "zastrzyk:" + lastInjectionTime.get(Calendar.YEAR) + " miesiac:" + lastInjectionTime.get(Calendar.MONTH) +
-                    "dzien: " + lastInjectionTime.get(Calendar.DAY_OF_MONTH));
         }
 
         if(!injections.isEmpty())
@@ -99,7 +94,7 @@ public class DatabaseQueries {
         injectionDao.create(new Injection(timeInMilis, area, point));
         Calendar lastInjectionTime=Calendar.getInstance();
         lastInjectionTime.setTimeInMillis(timeInMilis);
-        Log.d(DatabaseQueries.class.toString(), "ostatni zastrzyk zapisany do bazy, rok:" + lastInjectionTime.get(Calendar.YEAR) + " miesiac:" + lastInjectionTime.get(Calendar.MONTH) +
+        Log.d(DatabaseQueries.class.toString(), "nowy zastrzyk zapisany do bazy, rok:" + lastInjectionTime.get(Calendar.YEAR) + " miesiac:" + lastInjectionTime.get(Calendar.MONTH) +
                 "dzien: " + lastInjectionTime.get(Calendar.DAY_OF_MONTH));
     }
 }

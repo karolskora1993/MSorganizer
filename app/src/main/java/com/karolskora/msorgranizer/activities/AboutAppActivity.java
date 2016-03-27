@@ -16,6 +16,8 @@ import com.karolskora.msorgranizer.java.DatabaseHelper;
 import com.karolskora.msorgranizer.models.InjectionsSchedule;
 import com.karolskora.msorgranizer.models.User;
 
+import java.util.Calendar;
+
 public class AboutAppActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
     @Override
@@ -58,14 +60,16 @@ public class AboutAppActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     private void scheduleNotification() {
 
         long injectionTime=getIntent().getLongExtra(DatePickerFragment.TIME_IN_MILIS, 0);
-
         Intent broadcastIntent = new Intent(this, InjectionTimeAlarmReceiver.class);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, injectionTime, AlarmManager.INTERVAL_DAY * 2, pendingIntent);
-        Log.d(this.getClass().toString(), "alarm ustawiony na czas w milisekundach: "+injectionTime);
-    }
+
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTimeInMillis(injectionTime);
+        Log.d(this.getClass().toString(), "Notyfikacja ustawiona na czas rok:" + calendar.get(Calendar.YEAR) + " miesiac: " + calendar.get(Calendar.MONTH) +
+                " dzien: " + calendar.get(Calendar.DAY_OF_MONTH) + " godzina: " + calendar.get(Calendar.HOUR) + " minuta: " + calendar.get(Calendar.MINUTE));    }
 
 }

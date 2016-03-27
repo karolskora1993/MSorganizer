@@ -34,6 +34,7 @@ import com.karolskora.msorgranizer.fragments.ReserveFragment;
 import com.karolskora.msorgranizer.fragments.SettingsFragment;
 import com.karolskora.msorgranizer.java.DatabaseHelper;
 import com.karolskora.msorgranizer.java.DatabaseQueries;
+import com.karolskora.msorgranizer.models.Injection;
 import com.karolskora.msorgranizer.models.InjectionsSchedule;
 import com.karolskora.msorgranizer.models.User;
 
@@ -218,7 +219,6 @@ public class MainActivity extends AppCompatActivity {
         String nurseName = nurseNameTextEdit.getText().toString();
 
         DatabaseQueries.updateUser(this, name, doctorName, nurseName);
-        Log.d(this.getClass().toString(), "zmiany danych użytkownika zapisane");
         Toast toast = Toast.makeText(this, "zmieniono ustawienia użytkownika", Toast.LENGTH_LONG);
         toast.show();
     }
@@ -238,17 +238,25 @@ public class MainActivity extends AppCompatActivity {
         dbHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
 
         RuntimeExceptionDao<InjectionsSchedule, Integer> injectionSchedulesDao = dbHelper.getInjectionsScheduleDao();
+        InjectionsSchedule injectionsSchedule=injectionSchedulesDao.queryForAll().iterator().next();
 
+        Injection lastInjection =DatabaseQueries.getLatestInjection(this);
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(getInjectionsSchedule().getInjectionTime());
-        injectionSchedulesDao.delete(getInjectionsSchedule());
+        calendar.setTimeInMillis(lastInjection.getTimeInMilis());
+        Log.d(this.getClass().toString(), "Data ostatniego zastrzyku: rok:" + calendar.get(Calendar.YEAR) + " miesiac: " + calendar.get(Calendar.MONTH) +
+                " dzien: " + calendar.get(Calendar.DAY_OF_MONTH) + " godzina: " + calendar.get(Calendar.HOUR) + " minuta: " + calendar.get(Calendar.MINUTE));
 
+        injectionSchedulesDao.delete(injectionsSchedule);
+
+        calendar.setTimeInMillis(calendar.getTimeInMillis() + 48 * 60 * 60 * 1000);
         calendar.set(Calendar.HOUR, hour);
         calendar.set(Calendar.MINUTE, minute);
         injectionSchedulesDao.create(new InjectionsSchedule(calendar.getTimeInMillis()));
 
-        Log.d(this.getClass().toString(), "zmiana czasu notyfikacji zapisana");
+        Log.d(this.getClass().toString(), "Nowy czas notyfikacji: rok:" + calendar.get(Calendar.YEAR)+" miesiac: "+calendar.get(Calendar.MONTH)+
+                " dzien: "+calendar.get(Calendar.DAY_OF_MONTH)+" godzina: "+calendar.get(Calendar.HOUR)+" minuta: "+calendar.get(Calendar.MINUTE));
         scheduleNewNotification(calendar.getTimeInMillis());
+
         Toast toast = Toast.makeText(this, "Zmieniono ustawienia notyfikacji", Toast.LENGTH_LONG);
         toast.show();
 
@@ -261,13 +269,9 @@ public class MainActivity extends AppCompatActivity {
         Intent broadcastIntent = new Intent(this, InjectionTimeAlarmReceiver.class);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.cancel(pendingIntent);
-        Log.d(this.getClass().toString(), "nieaktualna notyfikacja usunieta");
-
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, injectionTime, AlarmManager.INTERVAL_DAY * 2, pendingIntent);
-        Log.d(this.getClass().toString(), "alarm ustawiony na nowy czas w milisekundach: " + injectionTime);
     }
 
     public InjectionsSchedule getInjectionsSchedule() {

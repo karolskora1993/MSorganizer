@@ -26,4 +26,19 @@
         android:textSize="@dimen/text_size_xlarge"
         android:textColor="@color/initial_settings_button_next_color"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/last_injection_text"
+        android:id="@+id/lastInjectionTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_above="@+id/lastInjectionDetails"
+        android:textSize="@dimen/text_size_medium"/>
+
+    <FrameLayout
+        android:id="@+id/lastInjectionDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
 </RelativeLayout>
