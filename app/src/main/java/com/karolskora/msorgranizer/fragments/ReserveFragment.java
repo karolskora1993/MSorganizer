@@ -1,30 +1,41 @@
 package com.karolskora.msorgranizer.fragments;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.karolskora.msorgranizer.R;
+import com.karolskora.msorgranizer.java.DatabaseQueries;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class ReserveFragment extends Fragment {
 
-
-    public ReserveFragment() {
-        // Required empty public constructor
-    }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_reserve, container, false);
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Activity owner=getActivity();
+        int doses= DatabaseQueries.getDoses(getActivity());
+        int notificationDoses=DatabaseQueries.getNotificationDoses(getActivity());
+
+        EditText dosesEditText=(EditText)owner.findViewById(R.id.dosesFragmentEditText);
+
+        dosesEditText.setText(String.valueOf(doses));
+
+        EditText notificationDosesEditText=(EditText)owner.findViewById(R.id.notificationDosesFragmentEditText);
+
+        notificationDosesEditText.setText(String.valueOf(notificationDoses));
+    }
 }

@@ -1,5 +1,5 @@
 #
-# generated on 2016/03/26 10:35:35
+# generated on 2016/03/31 03:57:38
 #
 # --table-start--
 dataClass=com.karolskora.msorgranizer.models.User
@@ -20,7 +20,7 @@ fieldName=nurseName
 #################################
 # --table-start--
 dataClass=com.karolskora.msorgranizer.models.Notification
-tableName=injections_schedule
+tableName=notification
 # --table-fields-start--
 # --field-start--
 fieldName=id
@@ -29,11 +29,48 @@ generatedId=true
 # --field-start--
 fieldName=notificationTime
 # --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.karolskora.msorgranizer.models.Injection
+tableName=injection
+# --table-fields-start--
 # --field-start--
-fieldName=totalNumberOfInjections
+fieldName=timeInMilis
+id=true
 # --field-end--
 # --field-start--
-fieldName=round
+fieldName=area
+# --field-end--
+# --field-start--
+fieldName=point
+# --field-end--
+# --field-start--
+fieldName=temperature
+# --field-end--
+# --field-start--
+fieldName=trembles
+# --field-end--
+# --field-start--
+fieldName=ache
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.karolskora.msorgranizer.models.DrugSupply
+tableName=drug_suply
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=doses
+# --field-end--
+# --field-start--
+fieldName=notificationDoses
 # --field-end--
 # --table-fields-end--
 # --table-end--

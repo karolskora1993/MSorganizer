@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView drawerList;
     private ActionBarDrawerToggle drawerToggle;
     private User user;
+
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
 
@@ -220,6 +222,17 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseQueries.updateUser(this, name, doctorName, nurseName);
         Toast toast = Toast.makeText(this, "zmieniono ustawienia użytkownika", Toast.LENGTH_LONG);
+        toast.show();
+    }
+    public void onButtonSaveClick(View view) {
+        EditText dosesEditText=(EditText)findViewById(R.id.dosesFragmentEditText);
+        EditText notificationDosesEditText=(EditText)findViewById(R.id.notificationDosesFragmentEditText);
+
+        int doses=Integer.parseInt(dosesEditText.getText().toString());
+        int notificationDoses=Integer.parseInt(notificationDosesEditText.getText().toString());
+
+        DatabaseQueries.updateDoses(this, doses, notificationDoses);
+        Toast toast = Toast.makeText(this, "Zapisano ustawienia leku", Toast.LENGTH_LONG);
         toast.show();
     }
 

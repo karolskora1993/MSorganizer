@@ -143,6 +143,20 @@ public class DatabaseQueries {
 
         drugSupplyDao.create(newDrugSupply);
     }
+    public static void updateDoses(Context activity, int doses, int notificationDoses){
+        if(dbHelper==null)
+            dbHelper= OpenHelperManager.getHelper(activity,DatabaseHelper.class);
+
+        RuntimeExceptionDao<DrugSupply, Integer> drugSupplyDao = dbHelper.getDrugSupplyDao();
+
+        DrugSupply drugSupply=drugSupplyDao.queryForAll().iterator().next();
+
+        drugSupplyDao.delete(drugSupply);
+
+        DrugSupply newDrugSupply=new DrugSupply(doses, notificationDoses);
+
+        drugSupplyDao.create(newDrugSupply);
+    }
     public static void setDoses(Context activity, int doses, int notificationDoses){
         if(dbHelper==null)
             dbHelper= OpenHelperManager.getHelper(activity,DatabaseHelper.class);

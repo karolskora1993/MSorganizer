@@ -26,7 +26,8 @@
         android:id="@+id/dosesEditText"
         android:hint="@string/drug_supply_hint"
         android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:singleLine="true"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -46,6 +47,7 @@
         android:layout_below="@+id/textView2"
         android:hint="@string/notification_doses_hint"
         android:layout_centerHorizontal="true"
+        android:singleLine="true"
         />
 
     <Button

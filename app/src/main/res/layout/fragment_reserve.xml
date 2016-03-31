@@ -1,13 +1,53 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.karolskora.msorgranizer.fragments.ReserveFragment">
+    tools:context="com.karolskora.msorgranizer.fragments.ReserveFragment"
+    android:background="@drawable/bg">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="reserveFragment" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Obecna ilość dawek leku:"
+        android:id="@+id/textView3"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/text_size_medium"/>
 
-</FrameLayout>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dosesFragmentEditText"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ilość dawek przy której program przypomina o uzupełneniu"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/dosesFragmentEditText"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/text_size_medium"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/notificationDosesFragmentEditText"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/textView4"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_text"
+        android:id="@+id/button3"
+        android:layout_below="@+id/notificationDosesFragmentEditText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp"
+        android:background="@drawable/button"
+        android:onClick="onButtonSaveClick"/>
+</RelativeLayout>

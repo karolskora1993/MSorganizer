@@ -13,8 +13,8 @@ import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.fragments.DatePickerFragment;
 
 public class DrugSupplyActivity extends AppCompatActivity {
-    public static final String DOSES="doses";
-    public static final String NOTIFICATION_DOSES="notification_doses";
+    public static final String DOSES = "doses";
+    public static final String NOTIFICATION_DOSES = "notification_doses";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,34 +23,34 @@ public class DrugSupplyActivity extends AppCompatActivity {
     }
 
     public void onButtonNextClick(View view) {
-            EditText dosesEditText = (EditText)findViewById(R.id.dosesEditText);
-            int doses=Integer.getInteger(dosesEditText.getText().toString());
+        EditText dosesEditText = (EditText) findViewById(R.id.dosesEditText);
 
-            EditText notificationDosesEditText = (EditText)findViewById(R.id.notificationDosesEditText);
-            int notificationDoses=Integer.parseInt(notificationDosesEditText.getText().toString());
+        int doses = Integer.parseInt(dosesEditText.getText().toString());
 
-            if(dosesEditText.getText().toString().equals("") || notificationDosesEditText.getText().toString().equals("")) {
-                Toast toast = Toast.makeText(this, "Wypełnij wszystkie dane", Toast.LENGTH_LONG);
-                toast.show();
-            }
-            else {
+        EditText notificationDosesEditText = (EditText) findViewById(R.id.notificationDosesEditText);
+        int notificationDoses = Integer.parseInt(notificationDosesEditText.getText().toString());
 
-                Intent intent=getIntent();
+        if (dosesEditText.getText().toString().equals("") || notificationDosesEditText.getText().toString().equals("")) {
+            Toast toast = Toast.makeText(this, "Wypełnij wszystkie dane", Toast.LENGTH_LONG);
+            toast.show();
+        } else {
 
-                String name=intent.getStringExtra(UserInformationsActivity.USER_NAME);
-                String doctorName=intent.getStringExtra(UserInformationsActivity.DOCTOR_NAME);
-                String nurseName=intent.getStringExtra(UserInformationsActivity.NURSE_NAME);
+            Intent intent = getIntent();
 
-                long timeInMilis=intent.getLongExtra(DatePickerFragment.TIME_IN_MILIS, 0);
-                intent = new Intent(this, AboutAppActivity.class);
-                intent.putExtra(DOSES, doses);
-                intent.putExtra(NOTIFICATION_DOSES, notificationDoses);
+            String name = intent.getStringExtra(UserInformationsActivity.USER_NAME);
+            String doctorName = intent.getStringExtra(UserInformationsActivity.DOCTOR_NAME);
+            String nurseName = intent.getStringExtra(UserInformationsActivity.NURSE_NAME);
 
-                intent.putExtra(DatePickerFragment.TIME_IN_MILIS, timeInMilis);
-                intent.putExtra(UserInformationsActivity.USER_NAME, name);
-                intent.putExtra(UserInformationsActivity.DOCTOR_NAME, doctorName);
-                intent.putExtra(UserInformationsActivity.NURSE_NAME, nurseName);
-                startActivity(intent);
-            }
+            long timeInMilis = intent.getLongExtra(DatePickerFragment.TIME_IN_MILIS, 0);
+            intent = new Intent(this, AboutAppActivity.class);
+            intent.putExtra(DOSES, doses);
+            intent.putExtra(NOTIFICATION_DOSES, notificationDoses);
+
+            intent.putExtra(DatePickerFragment.TIME_IN_MILIS, timeInMilis);
+            intent.putExtra(UserInformationsActivity.USER_NAME, name);
+            intent.putExtra(UserInformationsActivity.DOCTOR_NAME, doctorName);
+            intent.putExtra(UserInformationsActivity.NURSE_NAME, nurseName);
+            startActivity(intent);
+        }
     }
 }
