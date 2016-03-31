@@ -49,4 +49,8 @@
     <string name="trembles_text">dreszcze</string>
     <string name="ache_text">ból mięsni</string>
     <string name="last_injection_text">szczegóły ostatniego zastrzyku:</string>
+    <string name="drug_supply_text">Podaj ilość dawek leku, które posiadasz w tym momencie. Program pomoże Ci zarządzać zapasami leku i poinformuje Cię jeżeli będziesz musiał uzupełnic zapas.</string>
+    <string name="drug_supply_hint">ilosc leku</string>
+    <string name="drug_remaining_text">Wpisz przy ilu dawkach program ma przypominać o uzupełnieniu zapasu</string>
+    <string name="notification_doses_hint">ilość pozostałych dawek</string>
 </resources>

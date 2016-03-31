@@ -19,7 +19,7 @@ fieldName=nurseName
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.karolskora.msorgranizer.models.InjectionsSchedule
+dataClass=com.karolskora.msorgranizer.models.Notification
 tableName=injections_schedule
 # --table-fields-start--
 # --field-start--
@@ -27,7 +27,7 @@ fieldName=id
 generatedId=true
 # --field-end--
 # --field-start--
-fieldName=firstInjectionDateInMilis
+fieldName=notificationTime
 # --field-end--
 # --field-start--
 fieldName=totalNumberOfInjections

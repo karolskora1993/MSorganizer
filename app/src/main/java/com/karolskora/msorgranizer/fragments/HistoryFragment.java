@@ -37,12 +37,14 @@ public class HistoryFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         Injection injection = DatabaseQueries.getLatestInjection(getActivity());
-        Fragment fragment = new InjectionDetailsFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(HistoryFragment.INJECTION, injection);
-        fragment.setArguments(bundle);
-        FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-        ft.add(R.id.historyLayout, fragment);
-        ft.commit();
+        if(injection!=null) {
+            Fragment fragment = new InjectionDetailsFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(HistoryFragment.INJECTION, injection);
+            fragment.setArguments(bundle);
+            FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+            ft.add(R.id.historyLayout, fragment);
+            ft.commit();
+        }
     }
 }

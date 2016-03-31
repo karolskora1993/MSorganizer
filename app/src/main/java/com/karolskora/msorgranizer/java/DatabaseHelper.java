@@ -7,13 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
-import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.karolskora.msorgranizer.R;
+import com.karolskora.msorgranizer.models.DrugSupply;
 import com.karolskora.msorgranizer.models.Injection;
-import com.karolskora.msorgranizer.models.InjectionsSchedule;
+import com.karolskora.msorgranizer.models.Notification;
 import com.karolskora.msorgranizer.models.User;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
@@ -23,9 +23,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private RuntimeExceptionDao<User, String> userRuntimeDao = null;
 
-    private RuntimeExceptionDao<InjectionsSchedule, Integer> injectionsScheduleRuntimeDao = null;
+    private RuntimeExceptionDao<Notification, Integer> injectionsScheduleRuntimeDao = null;
 
     private RuntimeExceptionDao<Injection, Long> injectionRuntimeDao = null;
+
+    private RuntimeExceptionDao<DrugSupply, Integer> drugSupplyRuntimeDao = null;
+
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
@@ -37,8 +40,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             Log.i(DatabaseHelper.class.getName(), "onCreate");
             TableUtils.createTable(connectionSource, User.class);
-            TableUtils.createTable(connectionSource, InjectionsSchedule.class);
+            TableUtils.createTable(connectionSource, Notification.class);
             TableUtils.createTable(connectionSource, Injection.class);
+            TableUtils.createTable(connectionSource, DrugSupply.class);
+
 
 
         } catch (SQLException e) {
@@ -53,8 +58,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             Log.i(DatabaseHelper.class.getName(), "onUpgrade");
             TableUtils.dropTable(connectionSource, User.class, true);
-            TableUtils.dropTable(connectionSource, InjectionsSchedule.class, true);
+            TableUtils.dropTable(connectionSource, Notification.class, true);
             TableUtils.dropTable(connectionSource, Injection.class, true);
+            TableUtils.dropTable(connectionSource, DrugSupply.class, true);
 
 
             onCreate(db, connectionSource);
@@ -73,12 +79,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
 
-    public RuntimeExceptionDao<InjectionsSchedule, Integer> getInjectionsScheduleDao() {
+    public RuntimeExceptionDao<Notification, Integer> getInjectionsScheduleDao() {
         if (injectionsScheduleRuntimeDao == null) {
-            injectionsScheduleRuntimeDao = getRuntimeExceptionDao(InjectionsSchedule.class);
+            injectionsScheduleRuntimeDao = getRuntimeExceptionDao(Notification.class);
         }
         return injectionsScheduleRuntimeDao;
     }
+
 
     public RuntimeExceptionDao<Injection, Long> getInjectionDao() {
         if (injectionRuntimeDao == null) {
@@ -87,11 +94,19 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return injectionRuntimeDao;
     }
 
+    public RuntimeExceptionDao<DrugSupply, Integer> getDrugSupplyDao() {
+        if (drugSupplyRuntimeDao == null) {
+            drugSupplyRuntimeDao = getRuntimeExceptionDao(DrugSupply.class);
+        }
+        return drugSupplyRuntimeDao;
+    }
+
     @Override
     public void close() {
         super.close();
         userRuntimeDao = null;
         injectionsScheduleRuntimeDao=null;
         injectionRuntimeDao=null;
+        drugSupplyRuntimeDao=null;
     }
 }

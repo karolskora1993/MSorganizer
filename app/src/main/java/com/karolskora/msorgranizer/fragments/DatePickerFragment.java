@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.widget.DatePicker;
 
 import com.karolskora.msorgranizer.activities.AboutAppActivity;
+import com.karolskora.msorgranizer.activities.DrugSupplyActivity;
 import com.karolskora.msorgranizer.activities.FirstInjectionTimeActivity;
 import com.karolskora.msorgranizer.activities.UserInformationsActivity;
+import com.karolskora.msorgranizer.models.DrugSupply;
 
 
 import java.util.Calendar;
@@ -51,7 +53,7 @@ public class DatePickerFragment extends DialogFragment
         Calendar calendar=Calendar.getInstance();
         calendar.set(year, month, day, hour, minute);
 
-        Intent intent=new Intent(getActivity(), AboutAppActivity.class);
+        Intent intent=new Intent(getActivity(), DrugSupplyActivity.class);
         intent.putExtra(TIME_IN_MILIS, calendar.getTimeInMillis());
         intent.putExtra(UserInformationsActivity.USER_NAME, name);
         intent.putExtra(UserInformationsActivity.DOCTOR_NAME, doctorName);

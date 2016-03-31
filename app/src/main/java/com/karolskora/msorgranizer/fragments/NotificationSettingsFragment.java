@@ -11,7 +11,7 @@ import android.widget.TimePicker;
 
 import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.activities.MainActivity;
-import com.karolskora.msorgranizer.models.InjectionsSchedule;
+import com.karolskora.msorgranizer.models.Notification;
 
 import java.util.Calendar;
 
@@ -33,10 +33,10 @@ public class NotificationSettingsFragment extends Fragment {
         TimePicker timePicker=(TimePicker)getActivity().findViewById(R.id.timePicker);
         MainActivity mainActivity=(MainActivity)getActivity();
 
-        InjectionsSchedule injectionsSchedule=mainActivity.getInjectionsSchedule();
+        Notification notification =mainActivity.getInjectionsSchedule();
 
         Calendar calendar=Calendar.getInstance();
-        calendar.setTimeInMillis(injectionsSchedule.getInjectionTime());
+        calendar.setTimeInMillis(notification.getInjectionTime());
 
         timePicker.setIs24HourView(true);
         int hour=calendar.get(Calendar.HOUR);

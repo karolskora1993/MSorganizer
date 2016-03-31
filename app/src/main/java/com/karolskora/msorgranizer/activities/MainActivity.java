@@ -35,7 +35,7 @@ import com.karolskora.msorgranizer.fragments.SettingsFragment;
 import com.karolskora.msorgranizer.java.DatabaseHelper;
 import com.karolskora.msorgranizer.java.DatabaseQueries;
 import com.karolskora.msorgranizer.models.Injection;
-import com.karolskora.msorgranizer.models.InjectionsSchedule;
+import com.karolskora.msorgranizer.models.Notification;
 import com.karolskora.msorgranizer.models.User;
 
 import java.util.Calendar;
@@ -237,8 +237,8 @@ public class MainActivity extends AppCompatActivity {
 
         dbHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
 
-        RuntimeExceptionDao<InjectionsSchedule, Integer> injectionSchedulesDao = dbHelper.getInjectionsScheduleDao();
-        InjectionsSchedule injectionsSchedule=injectionSchedulesDao.queryForAll().iterator().next();
+        RuntimeExceptionDao<Notification, Integer> injectionSchedulesDao = dbHelper.getInjectionsScheduleDao();
+        Notification notification =injectionSchedulesDao.queryForAll().iterator().next();
 
         Injection lastInjection =DatabaseQueries.getLatestInjection(this);
         Calendar calendar = Calendar.getInstance();
@@ -246,12 +246,12 @@ public class MainActivity extends AppCompatActivity {
         Log.d(this.getClass().toString(), "Data ostatniego zastrzyku: rok:" + calendar.get(Calendar.YEAR) + " miesiac: " + calendar.get(Calendar.MONTH) +
                 " dzien: " + calendar.get(Calendar.DAY_OF_MONTH) + " godzina: " + calendar.get(Calendar.HOUR) + " minuta: " + calendar.get(Calendar.MINUTE));
 
-        injectionSchedulesDao.delete(injectionsSchedule);
+        injectionSchedulesDao.delete(notification);
 
         calendar.setTimeInMillis(calendar.getTimeInMillis() + 48 * 60 * 60 * 1000);
         calendar.set(Calendar.HOUR, hour);
         calendar.set(Calendar.MINUTE, minute);
-        injectionSchedulesDao.create(new InjectionsSchedule(calendar.getTimeInMillis()));
+        injectionSchedulesDao.create(new Notification(calendar.getTimeInMillis()));
 
         Log.d(this.getClass().toString(), "Nowy czas notyfikacji: rok:" + calendar.get(Calendar.YEAR)+" miesiac: "+calendar.get(Calendar.MONTH)+
                 " dzien: "+calendar.get(Calendar.DAY_OF_MONTH)+" godzina: "+calendar.get(Calendar.HOUR)+" minuta: "+calendar.get(Calendar.MINUTE));
@@ -274,10 +274,10 @@ public class MainActivity extends AppCompatActivity {
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, injectionTime, AlarmManager.INTERVAL_DAY * 2, pendingIntent);
     }
 
-    public InjectionsSchedule getInjectionsSchedule() {
+    public Notification getInjectionsSchedule() {
         dbHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
 
-        RuntimeExceptionDao<InjectionsSchedule, Integer> injectionSchedulesDao = dbHelper.getInjectionsScheduleDao();
+        RuntimeExceptionDao<Notification, Integer> injectionSchedulesDao = dbHelper.getInjectionsScheduleDao();
 
         return injectionSchedulesDao.queryForAll().iterator().next();
     }

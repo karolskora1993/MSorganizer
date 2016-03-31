@@ -14,7 +14,7 @@ import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.activities.MainActivity;
 import com.karolskora.msorgranizer.java.DatabaseQueries;
 import com.karolskora.msorgranizer.models.Injection;
-import com.karolskora.msorgranizer.models.InjectionsSchedule;
+import com.karolskora.msorgranizer.models.Notification;
 
 import java.util.Calendar;
 
@@ -58,7 +58,7 @@ public class MainFragment extends Fragment {
         }
     }
     private String getTimeToInjection(){
-        InjectionsSchedule injectionsSchedule=DatabaseQueries.getInjectionsSchedule(getActivity());
+        Notification notification =DatabaseQueries.getInjectionsSchedule(getActivity());
         Injection lastInjection=DatabaseQueries.getLatestInjection(getActivity());
         if(lastInjection!=null) {
             Calendar lastInjectionTime = Calendar.getInstance();
@@ -68,12 +68,12 @@ public class MainFragment extends Fragment {
                     "dzien: " + currentTime.get(Calendar.DAY_OF_MONTH) + "godzina:" + currentTime.get(Calendar.HOUR_OF_DAY) + "minuta:" + currentTime.get(Calendar.MINUTE));
 
             Calendar notificationTime = Calendar.getInstance();
-            notificationTime.setTimeInMillis(injectionsSchedule.getInjectionTime());
+            notificationTime.setTimeInMillis(notification.getInjectionTime());
 
             notificationTime.set(Calendar.YEAR, lastInjectionTime.get(Calendar.YEAR));
             notificationTime.set(Calendar.MONTH, lastInjectionTime.get(Calendar.MONTH));
             notificationTime.set(Calendar.DAY_OF_MONTH, lastInjectionTime.get(Calendar.DAY_OF_MONTH));
-            notificationTime.setTimeInMillis(notificationTime.getTimeInMillis() + 47 * 60 * 60 * 1000);
+            notificationTime.setTimeInMillis(notificationTime.getTimeInMillis() + 48 * 60 * 60 * 1000);
             Log.d(getClass().toString(), "Czas najblizszej notyfikacji, rok:" + notificationTime.get(Calendar.YEAR) + " miesiac:" + notificationTime.get(Calendar.MONTH) +
                     "dzien: " + notificationTime.get(Calendar.DAY_OF_MONTH)+ "godzina:"+notificationTime.get(Calendar.HOUR_OF_DAY)+"minuta:"+
                     notificationTime.get(Calendar.MINUTE));
@@ -102,7 +102,7 @@ public class MainFragment extends Fragment {
         }
         else{
             Calendar currentTime = Calendar.getInstance();
-            Long timeToInjection = injectionsSchedule.getInjectionTime()-currentTime.getTimeInMillis();
+            Long timeToInjection = notification.getInjectionTime()-currentTime.getTimeInMillis();
 
             int hours = (int) (timeToInjection / (1000 * 60 * 60));
             int minutes = (int) ((timeToInjection - (hours * 60 * 60 * 1000)) / (60 * 1000));
