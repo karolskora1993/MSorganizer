@@ -166,8 +166,8 @@ public class InjectionActivity extends Activity {
 
     public void inject(View view) {
 
-        int doses=DatabaseQueries.getDoses(this);
-        if(doses==0){
+        int doses = DatabaseQueries.getDoses(this);
+        if (doses == 0) {
             AlertDialog ad = new AlertDialog.Builder(this).create();
             ad.setCancelable(false); // This blocks the 'BACK' button
             ad.setMessage("Brak dostępnych dawek leku!");
@@ -180,19 +180,18 @@ public class InjectionActivity extends Activity {
             });
 
             ad.show();
-        }
-        else if(doses<DatabaseQueries.getNotificationDoses(this)){
-            drugSupplyNotification(doses);
-        }
-        else
-        {
-            doses=doses-1;
-            DatabaseQueries.updateDoses(this, doses);
-            Calendar calendar = Calendar.getInstance();
-            int[] injectionPoint = PointFinder.findPoint(this);
-            DatabaseQueries.addInjection(this, calendar.getTimeInMillis(), injectionPoint[0], injectionPoint[1]);
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+        } else {
+            if (doses < DatabaseQueries.getNotificationDoses(this)) {
+                drugSupplyNotification(doses);
+
+                doses = doses - 1;
+                DatabaseQueries.updateDoses(this, doses);
+                Calendar calendar = Calendar.getInstance();
+                int[] injectionPoint = PointFinder.findPoint(this);
+                DatabaseQueries.addInjection(this, calendar.getTimeInMillis(), injectionPoint[0], injectionPoint[1]);
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+            }
         }
     }
     public void drugSupplyNotification(int doses){

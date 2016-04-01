@@ -2,6 +2,7 @@ package com.karolskora.msorgranizer.fragments;
 
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -60,6 +61,37 @@ public class MainFragment extends Fragment {
     private String getTimeToInjection(){
         Notification notification =DatabaseQueries.getInjectionsSchedule(getActivity());
         Injection lastInjection=DatabaseQueries.getLatestInjection(getActivity());
+        Intent intent =getActivity().getIntent();
+        long postponedInectionTime=intent.getLongExtra(TimePickerFragment.POSTPONED_INJECTION_TIME, 0);
+
+        if(postponedInectionTime>0)
+        {
+            Calendar calendar=Calendar.getInstance();
+            Long timeToInjection =  postponedInectionTime-calendar.getTimeInMillis();
+
+            int hours = (int) (timeToInjection / (1000 * 60 * 60));
+            int minutes = (int) ((timeToInjection - (hours * 60 * 60 * 1000)) / (60  * 1000));
+            String time;
+            if(timeToInjection>=48*60*60*1000)
+            {
+                int days=2;
+                hours=hours-48;
+                time = days+"dni \n"+ hours + "godzin\n" + minutes + "minut";
+
+            }
+            else if(timeToInjection>=24*60*60*1000)
+            {
+                int days=1;
+                hours=hours-24;
+                time = days+"dzień \n"+ hours + "godzin\n" + minutes + "minut";
+
+            }
+            else
+                time = hours + "godzin\n" + minutes + "minut";
+            return time;
+
+
+        }
         if(lastInjection!=null) {
             Calendar lastInjectionTime = Calendar.getInstance();
             lastInjectionTime.setTimeInMillis(lastInjection.getTimeInMilis());

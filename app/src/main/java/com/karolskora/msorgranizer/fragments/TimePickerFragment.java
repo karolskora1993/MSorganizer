@@ -13,6 +13,7 @@ import android.util.Log;
 import android.widget.TimePicker;
 
 
+import com.karolskora.msorgranizer.activities.MainActivity;
 import com.karolskora.msorgranizer.broadcastReceivers.PostponedNotification;
 
 import java.util.Calendar;
@@ -21,6 +22,7 @@ public class TimePickerFragment extends DialogFragment
         implements TimePickerDialog.OnTimeSetListener {
 
     private final static  int NOTIFICATION_ID=1;
+    public final static String POSTPONED_INJECTION_TIME="postponedInjectionTime";
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -35,6 +37,8 @@ public class TimePickerFragment extends DialogFragment
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
         Calendar calendar=Calendar.getInstance();
+        calendar.set(Calendar.HOUR, hourOfDay);
+        calendar.set(Calendar.MINUTE, minute);
         long injectionTime=calendar.getTimeInMillis();
 
 
@@ -43,7 +47,10 @@ public class TimePickerFragment extends DialogFragment
 
         AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, injectionTime, pendingIntent);
-        Log.d(this.getClass().toString(), "odłożony alarm ustawiony na czas w milisekundach: "+injectionTime);
+
+        Intent intent=new Intent(getActivity(), MainActivity.class);
+        intent.putExtra(TimePickerFragment.POSTPONED_INJECTION_TIME, injectionTime);
+        startActivity(intent);
 
     }
 

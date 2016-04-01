@@ -14,7 +14,7 @@ import com.karolskora.msorgranizer.activities.InjectionActivity;
 
 public class PostponedNotificationService extends Service {
 
-    private final static  int NOTIFICATION_ID=1;
+    private final static  int NOTIFICATION_ID=2;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -46,7 +46,7 @@ public class PostponedNotificationService extends Service {
     private NotificationCompat.Builder getNotificationBuilder() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setContentTitle("Kolejna dawka leku");
-        builder.setContentText("Zbliża się czas kolejnej dawki leku");
+        builder.setContentText("Zbliża się czas odłożonej dawki leku");
         builder.setSmallIcon(R.drawable.ic_launcher);
         return builder;
     }

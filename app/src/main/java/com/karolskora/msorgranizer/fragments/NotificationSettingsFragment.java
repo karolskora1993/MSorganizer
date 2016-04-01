@@ -38,7 +38,6 @@ public class NotificationSettingsFragment extends Fragment {
         Calendar calendar=Calendar.getInstance();
         calendar.setTimeInMillis(notification.getInjectionTime());
 
-        timePicker.setIs24HourView(true);
         int hour=calendar.get(Calendar.HOUR);
         int minute=calendar.get(Calendar.MINUTE);
         timePicker.setCurrentHour(hour);
