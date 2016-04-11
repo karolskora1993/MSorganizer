@@ -33,7 +33,11 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".activities.DrugSupplyActivity"></activity>
+        <activity android:name=".activities.DrugSupplyActivity" />
+        <activity
+            android:name=".activities.InjectionDetailsActivity"
+            android:parentActivityName=".activities.MainActivity" />
+
     </application>
 
 </manifest>

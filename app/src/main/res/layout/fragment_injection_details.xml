@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="50px"
-    tools:context="com.karolskora.msorgranizer.fragments.InjectionDetailsFragment"
+    tools:context=".fragments.LastInjectionDetailsFragment"
     android:columnCount="2"
     android:rowCount="3">
 

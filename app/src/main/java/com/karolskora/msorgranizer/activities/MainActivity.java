@@ -30,7 +30,7 @@ import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.broadcastReceivers.InjectionTimeAlarmReceiver;
 import com.karolskora.msorgranizer.fragments.AboutFragment;
 import com.karolskora.msorgranizer.fragments.HistoryFragment;
-import com.karolskora.msorgranizer.fragments.InjectionDetailsFragment;
+import com.karolskora.msorgranizer.fragments.LastInjectionDetailsFragment;
 import com.karolskora.msorgranizer.fragments.MainFragment;
 import com.karolskora.msorgranizer.fragments.ReserveFragment;
 import com.karolskora.msorgranizer.fragments.SettingsFragment;
@@ -286,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
         boolean trembles=tremblesCheckBox.isChecked();
         boolean ache=acheCheckBox.isChecked();
 
-        InjectionDetailsFragment fragment = (InjectionDetailsFragment)getFragmentManager().findFragmentByTag("LAST_INJECTION_FRAGMENT");
+        LastInjectionDetailsFragment fragment = (LastInjectionDetailsFragment)getFragmentManager().findFragmentByTag("LAST_INJECTION_FRAGMENT");
 
         Injection injection=fragment.getInjection();
         DatabaseQueries.updateInjection(this, injection, temperature, trembles, ache);

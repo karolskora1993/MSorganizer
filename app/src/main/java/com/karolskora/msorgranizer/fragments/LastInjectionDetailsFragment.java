@@ -24,14 +24,14 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLDisplay;
 
 
-public class InjectionDetailsFragment extends Fragment {
+public class LastInjectionDetailsFragment extends Fragment {
 
     private Injection injection;
     private GLSurfaceView mGLView;
     private View view;
 
 
-    public InjectionDetailsFragment() {
+    public LastInjectionDetailsFragment() {
     }
 
 

@@ -43,7 +43,7 @@ public class MainFragment extends Fragment {
 
             Injection injection = DatabaseQueries.getLatestInjection(getActivity());
             if(injection!=null) {
-                Fragment fragment = new InjectionDetailsFragment();
+                Fragment fragment = new LastInjectionDetailsFragment();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(HistoryFragment.INJECTION, injection);
                 fragment.setArguments(bundle);
