@@ -48,7 +48,7 @@ public class MainFragment extends Fragment {
                 bundle.putSerializable(HistoryFragment.INJECTION, injection);
                 fragment.setArguments(bundle);
                 FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-                ft.replace(R.id.lastInjectionDetails, fragment);
+                ft.replace(R.id.lastInjectionDetails, fragment, "LAST_INJECTION_FRAGMENT");
                 ft.commit();
             }
             else

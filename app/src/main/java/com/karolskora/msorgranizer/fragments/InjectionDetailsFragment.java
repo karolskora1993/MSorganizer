@@ -38,77 +38,75 @@ public class InjectionDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Bundle bundle=getArguments();
-        injection =(Injection)bundle.get(HistoryFragment.INJECTION);
+        Bundle bundle = getArguments();
+        injection = (Injection) bundle.get(HistoryFragment.INJECTION);
 
-        view= inflater.inflate(R.layout.fragment_injection_details, container, false);
+        view = inflater.inflate(R.layout.fragment_injection_details, container, false);
         return view;
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setDate();
-        setSymptoms();
-        setRenderer();
-        Log.d(this.getClass().toString(), "next");
 
-    }
-    @Override
-    public void onPause() {
-        super.onPause();
-        mGLView.onPause();
+        TextView date = (TextView) getActivity().findViewById(R.id.injectionDateTextView);
+        if (date != null) {
+            setDate();
+            setSymptoms();
+            setRenderer();
+        }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mGLView.onResume();
-    }
 
     @Override
     public void onStop() {
         super.onStop();
     }
 
-    private void setDate(){
-        Activity owner=getActivity();
-        TextView date=(TextView)owner.findViewById(R.id.injectionDateTextView);
-        Calendar calendar=Calendar.getInstance();
+    private void setDate() {
+        Activity owner = getActivity();
+        TextView date = (TextView) owner.findViewById(R.id.injectionDateTextView);
+        Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(injection.getTimeInMilis());
-        String injectionDate=calendar.get(Calendar.DAY_OF_MONTH)+"."+calendar.get(Calendar.MONTH)+"."+calendar.get(Calendar.YEAR)+
-                " "+calendar.get(Calendar.HOUR)+":"+calendar.get(Calendar.MINUTE);
+        String injectionDate = calendar.get(Calendar.DAY_OF_MONTH) + "." + calendar.get(Calendar.MONTH) + "." + calendar.get(Calendar.YEAR) +
+                " " + calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);
         date.setText(injectionDate);
     }
-    private void setSymptoms(){
-        boolean temperature =injection.isTemperature();
-        boolean trembles=injection.isTrembles();
-        boolean ache=injection.isAche();
 
-        Activity owner=getActivity();
-        CheckBox temperatureCheckBox=(CheckBox)owner.findViewById(R.id.temperatureCheckBox);
-        CheckBox tremblesCheckBox=(CheckBox)owner.findViewById(R.id.tremblesCheckBox);
-        CheckBox acheCheckBox=(CheckBox)owner.findViewById(R.id.acheCheckBox);
+    private void setSymptoms() {
+        boolean temperature = injection.isTemperature();
+        boolean trembles = injection.isTrembles();
+        boolean ache = injection.isAche();
+
+        Activity owner = getActivity();
+        CheckBox temperatureCheckBox = (CheckBox) owner.findViewById(R.id.temperatureCheckBox);
+        CheckBox tremblesCheckBox = (CheckBox) owner.findViewById(R.id.tremblesCheckBox);
+        CheckBox acheCheckBox = (CheckBox) owner.findViewById(R.id.acheCheckBox);
 
         temperatureCheckBox.setChecked(temperature);
         tremblesCheckBox.setChecked(trembles);
         acheCheckBox.setChecked(ache);
 
     }
-    private void setRenderer(){
-        Activity owner=getActivity();
-        mGLView = (GLSurfaceView)owner.findViewById(R.id.glSurfaceView);
-            mGLView.setEGLConfigChooser(new GLSurfaceView.EGLConfigChooser() {
-                public EGLConfig chooseConfig(EGL10 egl, EGLDisplay display) {
 
-                    int[] attributes = new int[]{EGL10.EGL_DEPTH_SIZE, 16, EGL10.EGL_NONE};
-                    EGLConfig[] configs = new EGLConfig[1];
-                    int[] result = new int[1];
-                    egl.eglChooseConfig(display, attributes, configs, 1, result);
-                    return configs[0];
-                }
-            });
-            GLSurfaceView.Renderer renderer = new ModelRenderer(getActivity(), view);
-            mGLView.setRenderer(renderer);
+    private void setRenderer() {
+        Activity owner = getActivity();
+        mGLView = (GLSurfaceView) owner.findViewById(R.id.glSurfaceView);
+        mGLView.setEGLConfigChooser(new GLSurfaceView.EGLConfigChooser() {
+            public EGLConfig chooseConfig(EGL10 egl, EGLDisplay display) {
+
+                int[] attributes = new int[]{EGL10.EGL_DEPTH_SIZE, 16, EGL10.EGL_NONE};
+                EGLConfig[] configs = new EGLConfig[1];
+                int[] result = new int[1];
+                egl.eglChooseConfig(display, attributes, configs, 1, result);
+                return configs[0];
+            }
+        });
+        GLSurfaceView.Renderer renderer = new ModelRenderer(getActivity(), view);
+        mGLView.setRenderer(renderer);
+    }
+
+    public Injection getInjection() {
+        return injection;
     }
 }

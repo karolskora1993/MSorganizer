@@ -99,6 +99,21 @@ public class DatabaseQueries {
                 "dzien: " + lastInjectionTime.get(Calendar.DAY_OF_MONTH));
     }
 
+    public static void updateInjection(Context activity, Injection injection, boolean temperature, boolean trembles, boolean ache) {
+
+        if(dbHelper==null)
+            dbHelper= OpenHelperManager.getHelper(activity,DatabaseHelper.class);
+
+        RuntimeExceptionDao<Injection, Long> injectionDao = dbHelper.getInjectionDao();
+
+        injection.setTemperature(temperature);
+        injection.setTrembles(trembles);
+        injection.setAche(ache);
+        injectionDao.update(injection);
+
+        Log.d(DatabaseQueries.class.toString(), "Objawy dodane do zastrzyku:");
+    }
+
     public static int getDoses(Context activity) {
 
         if(dbHelper==null)
@@ -113,6 +128,7 @@ public class DatabaseQueries {
         else
             return -1;
     }
+
     public static int getNotificationDoses(Context activity) {
 
         if(dbHelper==null)
@@ -127,6 +143,7 @@ public class DatabaseQueries {
         else
             return 9999;
     }
+
     public static void updateDoses(Context activity, int doses){
         if(dbHelper==null)
             dbHelper= OpenHelperManager.getHelper(activity,DatabaseHelper.class);
@@ -143,6 +160,7 @@ public class DatabaseQueries {
 
         drugSupplyDao.create(newDrugSupply);
     }
+
     public static void updateDoses(Context activity, int doses, int notificationDoses){
         if(dbHelper==null)
             dbHelper= OpenHelperManager.getHelper(activity,DatabaseHelper.class);
@@ -157,6 +175,7 @@ public class DatabaseQueries {
 
         drugSupplyDao.create(newDrugSupply);
     }
+
     public static void setDoses(Context activity, int doses, int notificationDoses){
         if(dbHelper==null)
             dbHelper= OpenHelperManager.getHelper(activity,DatabaseHelper.class);

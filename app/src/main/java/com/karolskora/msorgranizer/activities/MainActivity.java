@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TimePicker;
@@ -29,6 +30,7 @@ import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.broadcastReceivers.InjectionTimeAlarmReceiver;
 import com.karolskora.msorgranizer.fragments.AboutFragment;
 import com.karolskora.msorgranizer.fragments.HistoryFragment;
+import com.karolskora.msorgranizer.fragments.InjectionDetailsFragment;
 import com.karolskora.msorgranizer.fragments.MainFragment;
 import com.karolskora.msorgranizer.fragments.ReserveFragment;
 import com.karolskora.msorgranizer.fragments.SettingsFragment;
@@ -270,6 +272,26 @@ public class MainActivity extends AppCompatActivity {
         scheduleNewNotification(calendar.getTimeInMillis());
 
         Toast toast = Toast.makeText(this, "Zmieniono ustawienia notyfikacji", Toast.LENGTH_LONG);
+        toast.show();
+
+    }
+    public void onButtonSaveSymptomsClick(View view) {
+
+        CheckBox temperatureCheckBox=(CheckBox)findViewById(R.id.temperatureCheckBox);
+        CheckBox tremblesCheckBox=(CheckBox)findViewById(R.id.tremblesCheckBox);
+        CheckBox acheCheckBox=(CheckBox)findViewById(R.id.acheCheckBox);
+
+
+        boolean temperature=temperatureCheckBox.isChecked();
+        boolean trembles=tremblesCheckBox.isChecked();
+        boolean ache=acheCheckBox.isChecked();
+
+        InjectionDetailsFragment fragment = (InjectionDetailsFragment)getFragmentManager().findFragmentByTag("LAST_INJECTION_FRAGMENT");
+
+        Injection injection=fragment.getInjection();
+        DatabaseQueries.updateInjection(this, injection, temperature, trembles, ache);
+
+        Toast toast = Toast.makeText(this, "Zaktualizowano objawy", Toast.LENGTH_LONG);
         toast.show();
 
     }

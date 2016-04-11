@@ -1,4 +1,5 @@
 package com.karolskora.msorgranizer.activities;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -73,11 +74,11 @@ public class InjectionActivity extends Activity {
         }
         setContentView(R.layout.layout_injection);
 
-        mGLView = (GLSurfaceView)findViewById(R.id.glSurfaceView);
+        mGLView = (GLSurfaceView) findViewById(R.id.glSurfaceView);
         mGLView.setEGLConfigChooser(new GLSurfaceView.EGLConfigChooser() {
             public EGLConfig chooseConfig(EGL10 egl, EGLDisplay display) {
 
-                int[] attributes = new int[] { EGL10.EGL_DEPTH_SIZE, 16, EGL10.EGL_NONE };
+                int[] attributes = new int[]{EGL10.EGL_DEPTH_SIZE, 16, EGL10.EGL_NONE};
                 EGLConfig[] configs = new EGLConfig[1];
                 int[] result = new int[1];
                 egl.eglChooseConfig(display, attributes, configs, 1, result);
@@ -135,20 +136,20 @@ public class InjectionActivity extends Activity {
 
         if (me.getAction() == MotionEvent.ACTION_MOVE) {
             float xd = me.getX() - xpos;
-           // float yd = me.getY() - ypos;
+            // float yd = me.getY() - ypos;
 
             xpos = me.getX();
-           // ypos = me.getY();
+            // ypos = me.getY();
 
             touchTurn = xd / -100f;
-          //  touchTurnUp = yd / -100f;
+            //  touchTurnUp = yd / -100f;
             return true;
         }
 
         try {
             Thread.sleep(15);
         } catch (Exception e) {
-            Log.e(this.getClass().toString(),e.getMessage());
+            Log.e(this.getClass().toString(), e.getMessage());
         }
 
         return super.onTouchEvent(me);
@@ -169,34 +170,35 @@ public class InjectionActivity extends Activity {
         int doses = DatabaseQueries.getDoses(this);
         if (doses == 0) {
             AlertDialog ad = new AlertDialog.Builder(this).create();
-            ad.setCancelable(false); // This blocks the 'BACK' button
+            ad.setCancelable(false);
             ad.setMessage("Brak dostępnych dawek leku!");
 
             ad.setButton(AlertDialog.BUTTON_POSITIVE, "uzupełnij", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    //do zrobienia
+                    Intent intent = new Intent(InjectionActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
             });
 
             ad.show();
         } else {
-            if (doses < DatabaseQueries.getNotificationDoses(this)) {
+            if (doses < DatabaseQueries.getNotificationDoses(this))
                 drugSupplyNotification(doses);
 
-                doses = doses - 1;
-                DatabaseQueries.updateDoses(this, doses);
-                Calendar calendar = Calendar.getInstance();
-                int[] injectionPoint = PointFinder.findPoint(this);
-                DatabaseQueries.addInjection(this, calendar.getTimeInMillis(), injectionPoint[0], injectionPoint[1]);
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-            }
+            doses = doses - 1;
+            DatabaseQueries.updateDoses(this, doses);
+            Calendar calendar = Calendar.getInstance();
+            int[] injectionPoint = PointFinder.findPoint(this);
+            DatabaseQueries.addInjection(this, calendar.getTimeInMillis(), injectionPoint[0], injectionPoint[1]);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
     }
-    public void drugSupplyNotification(int doses){
 
-        NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+    public void drugSupplyNotification(int doses) {
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder = this.getNotificationBuilder(doses);
@@ -211,7 +213,7 @@ public class InjectionActivity extends Activity {
     private NotificationCompat.Builder getNotificationBuilder(int doses) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setContentTitle("Zapas leku na wyczerpaniu");
-        builder.setContentText("Pozostało "+doses+ "dawek leku. Uzupełnij zapas");
+        builder.setContentText("Pozostało " + doses + "dawek leku. Uzupełnij zapas");
         builder.setSmallIcon(R.drawable.ic_launcher);
         return builder;
     }
@@ -263,7 +265,7 @@ public class InjectionActivity extends Activity {
                 MemoryHelper.compact();
 
                 if (master == null) {
-                    Log.d(this.getClass().toString(),"Zapisywanie aktywności");
+                    Log.d(this.getClass().toString(), "Zapisywanie aktywności");
                     master = InjectionActivity.this;
                 }
             }
