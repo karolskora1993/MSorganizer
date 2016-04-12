@@ -22,7 +22,7 @@
             android:textSize="@dimen/text_size_big"
             android:textColor="@color/initial_settings_button_next_color"/>
 
-        <TextView
+        <com.karolskora.msorgranizer.java.JustifiedTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/about_interferon"

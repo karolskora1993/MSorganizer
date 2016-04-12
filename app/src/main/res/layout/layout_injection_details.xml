@@ -3,10 +3,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.karolskora.msorgranizer.activities.InjectionDetailsActivity">
+    tools:context="com.karolskora.msorgranizer.activities.InjectionDetailsActivity"
+    android:background="@drawable/bg">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/injection_point_text"
+        android:id="@+id/injectionDate"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="@dimen/text_size_medium"
+        android:padding="10dp"/>
+    <android.opengl.GLSurfaceView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_below="@+id/injectionDate"
+        android:id="@+id/glSurface"
+        android:padding="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/symptons_text"
+        android:textSize="@dimen/text_size_medium"
+        android:layout_below="@id/glSurface"
+        android:id="@+id/symptomsText"
+        android:padding="10dp"/>
+    <CheckBox
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:text="@string/temperature_text"
+        android:id="@+id/temperatureCheckBox"
+        android:layout_below="@id/symptomsText"
+        android:padding="10dp"/>
+    <CheckBox
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:text="@string/trembles_text"
+        android:id="@+id/tremblesCheckBox"
+        android:layout_below="@id/temperatureCheckBox"
+        android:padding="10dp"/>
+    <CheckBox
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:text="@string/ache_text"
+        android:id="@+id/acheCheckBox"
+        android:layout_below="@id/tremblesCheckBox"
+        android:padding="10dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/send_report_button_text"
+        android:id="@+id/button4"
+        android:layout_below="@+id/acheCheckBox"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button"
+        android:onClick="onButtonSendReportClick"/>
 
 </RelativeLayout>

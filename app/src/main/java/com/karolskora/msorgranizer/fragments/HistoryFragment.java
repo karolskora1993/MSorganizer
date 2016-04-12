@@ -55,7 +55,6 @@ public class HistoryFragment extends Fragment {
         AdapterView.OnItemClickListener listener =new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 Intent intent=new Intent(getActivity(), InjectionDetailsActivity.class);
 
                 intent.putExtra(POSITION, position);
@@ -75,13 +74,14 @@ public class HistoryFragment extends Fragment {
 
             String injectionDate = calendar.get(Calendar.DAY_OF_MONTH) + "." + calendar.get(Calendar.MONTH) + "." + calendar.get(Calendar.YEAR);
             String injectionTime=calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);
-            String description="data: "+ injectionDate+" godzina: "+injectionTime;
+            String description="data: "+ injectionDate+"    godzina: "+injectionTime;
 
             listItems.add(description);
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listItems);
         injectionsListView.setAdapter(adapter);
+        injectionsListView.setOnItemClickListener(listener);
 
     }
 }
