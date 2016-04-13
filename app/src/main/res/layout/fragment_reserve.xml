@@ -7,10 +7,10 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.karolskora.msorgranizer.fragments.ReserveFragment"
-    android:background="@drawable/bg">
+    android:background="@drawable/shadow_164319">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Obecna ilość dawek leku:"
         android:id="@+id/textView3"
@@ -19,7 +19,7 @@
         android:textSize="@dimen/text_size_medium"/>
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/dosesFragmentEditText"
         android:layout_below="@+id/textView3"
@@ -27,7 +27,7 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Ilość dawek przy której program przypomina o uzupełneniu"
         android:id="@+id/textView4"
@@ -37,7 +37,7 @@
         android:textSize="@dimen/text_size_medium"/>
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/notificationDosesFragmentEditText"
         android:layout_marginTop="10dp"

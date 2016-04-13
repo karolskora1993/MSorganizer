@@ -1,6 +1,7 @@
 package com.karolskora.msorgranizer.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.opengl.GLSurfaceView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,8 +9,12 @@ import android.view.View;
 import android.widget.CheckBox;
 
 import com.karolskora.msorgranizer.R;
+import com.karolskora.msorgranizer.fragments.HistoryFragment;
+import com.karolskora.msorgranizer.java.DatabaseQueries;
 import com.karolskora.msorgranizer.java.ModelRenderer;
 import com.karolskora.msorgranizer.models.Injection;
+
+import java.util.List;
 
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
@@ -29,6 +34,14 @@ public class InjectionDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.layout_injection_details);
+
+        Intent intent=getIntent();
+        position=intent.getIntExtra(HistoryFragment.POSITION,-1);
+
+        List<Injection> injections= DatabaseQueries.getInjections(this);
+        Injection injection= injections.get(position);
+
+        setSymptoms(injection);
         setRenderer();
 
     }
