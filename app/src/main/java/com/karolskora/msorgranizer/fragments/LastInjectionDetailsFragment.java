@@ -102,7 +102,7 @@ public class LastInjectionDetailsFragment extends Fragment {
                 return configs[0];
             }
         });
-        GLSurfaceView.Renderer renderer = new ModelRenderer(getActivity(), view);
+        GLSurfaceView.Renderer renderer = new ModelRenderer(getActivity(), view, 25, "model.3DS");
         mGLView.setRenderer(renderer);
     }
 

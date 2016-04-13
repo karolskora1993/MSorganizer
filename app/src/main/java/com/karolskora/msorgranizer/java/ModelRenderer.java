@@ -25,7 +25,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class ModelRenderer implements GLSurfaceView.Renderer {
     private FrameBuffer fb = null;
-    private RGBColor back = new RGBColor(63, 81, 181);
+    private RGBColor back = new RGBColor(255, 255, 255, 0);
 
     private float touchTurn = 0;
     private float touchTurnUp = 0;
@@ -40,16 +40,18 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
     private Light sun = null;
 
 
-    private String thingName = "model.3DS";
-    private int thingScale = 25;
+    private String thingName;
+    private int thingScale;
     private Context context;
     private Context master;
 
     private long time = System.currentTimeMillis();
 
-    public ModelRenderer(Context activity, final View view) {
+    public ModelRenderer(Context activity, final View view, int scale, String name) {
         super();
         context=activity;
+        this.thingScale=scale;
+        this.thingName=name;
 
         view.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent me) {
@@ -69,13 +71,10 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
 
                 if (me.getAction() == MotionEvent.ACTION_MOVE) {
                     float xd = me.getX() - xpos;
-                    // float yd = me.getY() - ypos;
 
                     xpos = me.getX();
-                    // ypos = me.getY();
 
                     touchTurn = xd / -100f;
-                    //  touchTurnUp = yd / -100f;
                     return true;
                 }
 
@@ -109,8 +108,7 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
             try {
                 cube = loadModel(thingName, thingScale);
             } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                Log.e(this.getClass().toString(), e.getMessage());
             }
 
             cube.build();
