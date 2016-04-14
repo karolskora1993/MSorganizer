@@ -6,8 +6,10 @@ import android.app.FragmentTransaction;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -29,17 +32,22 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.broadcastReceivers.InjectionTimeAlarmReceiver;
 import com.karolskora.msorgranizer.fragments.AboutFragment;
+import com.karolskora.msorgranizer.fragments.HelpFragment;
 import com.karolskora.msorgranizer.fragments.HistoryFragment;
 import com.karolskora.msorgranizer.fragments.LastInjectionDetailsFragment;
 import com.karolskora.msorgranizer.fragments.MainFragment;
+import com.karolskora.msorgranizer.fragments.ReportFragment;
 import com.karolskora.msorgranizer.fragments.ReserveFragment;
 import com.karolskora.msorgranizer.fragments.SettingsFragment;
 import com.karolskora.msorgranizer.java.DatabaseHelper;
 import com.karolskora.msorgranizer.java.DatabaseQueries;
+import com.karolskora.msorgranizer.java.PdfGenerator;
 import com.karolskora.msorgranizer.models.Injection;
 import com.karolskora.msorgranizer.models.Notification;
 import com.karolskora.msorgranizer.models.User;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -164,9 +172,15 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new ReserveFragment();
                 break;
             case 3:
-                fragment = new SettingsFragment();
+                fragment = new ReportFragment();
                 break;
             case 4:
+                fragment = new SettingsFragment();
+                break;
+            case 5:
+                fragment = new HelpFragment();
+                break;
+            case 6:
                 fragment = new AboutFragment();
                 break;
             default:
@@ -294,6 +308,37 @@ public class MainActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(this, "Zaktualizowano objawy", Toast.LENGTH_LONG);
         toast.show();
 
+    }
+
+    public void onButtonGenerateReportClick(View view) {
+
+        LinearLayout layout=(LinearLayout)findViewById(R.id.layout_report);
+
+        List<Injection> injections=DatabaseQueries.getInjections(this);
+        List<Injection> checkedInjections= new ArrayList<>();
+
+        int size=layout.getChildCount();
+
+        for(int i=0; i<size; i++){
+            CheckBox checkBox =(CheckBox)layout.getChildAt(i);
+
+            if(checkBox.isChecked())
+            {
+                checkedInjections.add(injections.get(i));
+            }
+        }
+
+        Log.d(this.getClass().toString(), "ilosc zastrzykow do raportu:" + checkedInjections.size());
+
+        PdfGenerator.generate(this, checkedInjections);
+
+        Calendar calendar=Calendar.getInstance();
+        String fileName="report_"+ calendar.getTimeInMillis()+"pdf";
+        File file = new File(Environment.getExternalStorageDirectory().getPath() + "/"+fileName);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile(file), "application/pdf");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(intent);
     }
 
 

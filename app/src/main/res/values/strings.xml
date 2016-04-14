@@ -15,8 +15,10 @@
     <string-array name="titles">
         <item>ekran główny</item>
         <item>historia</item>
-        <item>zarządzanie lekiem</item>
+        <item>zarządzaj lekiem</item>
+        <item>generuj raport</item>
         <item>ustawienia</item>
+        <item>pomoc</item>
         <item>o aplikacji</item>
     </string-array>
 
@@ -54,4 +56,5 @@
     <string name="drug_remaining_text">Wpisz przy ilu dawkach program ma przypominać o uzupełnieniu zapasu</string>
     <string name="notification_doses_hint">ilość pozostałych dawek</string>
     <string name="send_report_button_text">wyslij raport</string>
+    <string name="generate_report_text">generuj raport</string>
 </resources>

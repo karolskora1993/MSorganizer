@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.karolskora.msorgranizer.activities.InjectionActivity"
-    android:background="@drawable/bg">
+    android:background="@drawable/bg"
+    android:id="@+id/layout_injection">
 
     <android.opengl.GLSurfaceView
         android:id="@+id/glSurfaceView"
