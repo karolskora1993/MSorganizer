@@ -1,20 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context="com.karolskora.msorgranizer.activities.InjectionDetailsActivity">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/layout_injection_details"
-        android:background="@drawable/bg">
-
+    android:layout_height="match_parent"
+    tools:context="com.karolskora.msorgranizer.activities.InjectionDetailsActivity"
+    android:background="@drawable/bg">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shadow_164319">
+            android:layout_height="match_parent"
+            android:background="@drawable/shadow_164319"
+            android:id="@+id/layout_injection_details">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -76,7 +71,4 @@
                 android:background="@drawable/button"
                 android:onClick="onButtonSendReportClick"/>
         </RelativeLayout>
-
-    </RelativeLayout>
-
 </ScrollView>

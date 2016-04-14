@@ -39,6 +39,7 @@ import com.karolskora.msorgranizer.fragments.MainFragment;
 import com.karolskora.msorgranizer.fragments.ReportFragment;
 import com.karolskora.msorgranizer.fragments.ReserveFragment;
 import com.karolskora.msorgranizer.fragments.SettingsFragment;
+import com.karolskora.msorgranizer.fragments.StatsFragment;
 import com.karolskora.msorgranizer.java.DatabaseHelper;
 import com.karolskora.msorgranizer.java.DatabaseQueries;
 import com.karolskora.msorgranizer.java.PdfGenerator;
@@ -175,12 +176,15 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new ReportFragment();
                 break;
             case 4:
-                fragment = new SettingsFragment();
+                fragment = new StatsFragment();
                 break;
             case 5:
-                fragment = new HelpFragment();
+                fragment = new SettingsFragment();
                 break;
             case 6:
+                fragment = new HelpFragment();
+                break;
+            case 7:
                 fragment = new AboutFragment();
                 break;
             default:
@@ -330,11 +334,11 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(this.getClass().toString(), "ilosc zastrzykow do raportu:" + checkedInjections.size());
 
-        PdfGenerator.generate(this, checkedInjections);
-
         Calendar calendar=Calendar.getInstance();
-        String fileName="report_"+ calendar.getTimeInMillis()+"pdf";
-        File file = new File(Environment.getExternalStorageDirectory().getPath() + "/"+fileName);
+        String fileName="report_"+ calendar.getTimeInMillis()+".pdf";
+        PdfGenerator.generate(this, checkedInjections, fileName);
+
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/"+fileName);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(Uri.fromFile(file), "application/pdf");
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);

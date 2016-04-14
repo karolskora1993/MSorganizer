@@ -6,7 +6,8 @@
     tools:context=".fragments.MainFragment">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/fragment_main">
         <FrameLayout
             android:id="@+id/timeToInjection"
             android:layout_width="match_parent"

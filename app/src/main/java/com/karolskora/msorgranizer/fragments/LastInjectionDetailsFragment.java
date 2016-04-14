@@ -47,7 +47,7 @@ public class LastInjectionDetailsFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+        super.onViewCreated(view, savedInstanceState);
 
         TextView date = (TextView) getActivity().findViewById(R.id.injectionDateTextView);
         if (date != null) {

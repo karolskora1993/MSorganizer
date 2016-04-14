@@ -1,7 +1,6 @@
 package com.karolskora.msorgranizer.fragments;
 
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -33,16 +32,20 @@ public class ToInjectionFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         MainActivity owner=(MainActivity)getActivity();
-        if (owner.getUser()!=null) {
-            TextView textView = (TextView) owner.findViewById(R.id.fragmentMainTextView);
-            String name = "Witaj " + DatabaseQueries.getUser(getActivity()).getName() + ", do następnego zastrzyku pozostało:";
-            textView.setText(name);
+        TextView textView = (TextView) owner.findViewById(R.id.fragmentMainTextView);
 
-            TextView timeTextView = (TextView) owner.findViewById(R.id.timeToInjectionTextView);
-            timeTextView.setText(getTimeToInjection());
+        if(textView!=null) {
+            if (owner.getUser() != null) {
+                String name = "Witaj " + DatabaseQueries.getUser(getActivity()).getName() + ", do następnego zastrzyku pozostało:";
+                textView.setText(name);
 
+                TextView timeTextView = (TextView) owner.findViewById(R.id.timeToInjectionTextView);
+                timeTextView.setText(getTimeToInjection());
+            }
         }
     }
+
+
     private String getTimeToInjection(){
         Notification notification =DatabaseQueries.getInjectionsSchedule(getActivity());
         Injection lastInjection=DatabaseQueries.getLatestInjection(getActivity());

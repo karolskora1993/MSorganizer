@@ -30,32 +30,33 @@ import java.util.List;
  */
 public class PdfGenerator {
 
-    public static void generate(Context context, List<Injection> list){
+    public static void generate(Context context, List<Injection> list, String fileName){
         // create a new document
 
         PrintAttributes printAttrs = new PrintAttributes.Builder().
                 setColorMode(PrintAttributes.COLOR_MODE_COLOR).
                 setMediaSize(PrintAttributes.MediaSize.NA_LETTER).
-                setResolution(new PrintAttributes.Resolution("res", "res", 500, 500)).
+                setResolution(new PrintAttributes.Resolution("zooey", "300x300", 300, 300)).
                 setMinMargins(PrintAttributes.Margins.NO_MARGINS).
                 build();
+        PdfDocument document = new PrintedPdfDocument(context, printAttrs);
 
-        PdfDocument document = new PrintedPdfDocument(context,printAttrs);
+        // crate a page description
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(300, 300, 1).create();
 
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(500, 500, 1).create();
-
+        // create a new page from the PageInfo
         PdfDocument.Page page = document.startPage(pageInfo);
 
-        View content = getContentView(context, list);
-
+        // repaint the user's text into the page
+        View content = getContentView(context,list);
         content.draw(page.getCanvas());
 
+        // do final processing of the page
         document.finishPage(page);
 
+
         try {
-            Calendar calendar=Calendar.getInstance();
-            String fileName="report_"+ calendar.getTimeInMillis()+"pdf";
-            File f = new File(Environment.getExternalStorageDirectory().getPath() + "/"+fileName);
+            File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/"+fileName);
             FileOutputStream fos = new FileOutputStream(f);
             document.writeTo(fos);
             document.close();
