@@ -2,18 +2,25 @@ package com.karolskora.msorgranizer.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.opengl.GLSurfaceView;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.fragments.HistoryFragment;
 import com.karolskora.msorgranizer.java.DatabaseQueries;
 import com.karolskora.msorgranizer.java.ModelRenderer;
+import com.karolskora.msorgranizer.java.PdfGenerator;
 import com.karolskora.msorgranizer.models.Injection;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.microedition.khronos.egl.EGL10;
@@ -23,6 +30,7 @@ import javax.microedition.khronos.egl.EGLDisplay;
 public class InjectionDetailsActivity extends AppCompatActivity {
 
     private int position;
+    private Injection injection;
 
     private GLSurfaceView mGLView;
     private ModelRenderer renderer = null;
@@ -39,7 +47,7 @@ public class InjectionDetailsActivity extends AppCompatActivity {
         position=intent.getIntExtra(HistoryFragment.POSITION,-1);
 
         List<Injection> injections= DatabaseQueries.getInjections(this);
-        Injection injection= injections.get(position);
+        injection= injections.get(position);
 
         setSymptoms(injection);
         setRenderer();
@@ -80,7 +88,30 @@ public class InjectionDetailsActivity extends AppCompatActivity {
 
     public void onButtonSendReportClick(View view) {
 
-        //TO DO
+        List<Injection> injections =new ArrayList<>();
+        injections.add(injection);
+
+
+        PdfGenerator.generate(this,injections );
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[] {"email@example.com"});
+        intent.putExtra(Intent.EXTRA_SUBJECT, "subject here");
+        intent.putExtra(Intent.EXTRA_TEXT, "body text");
+        Calendar calendar=Calendar.getInstance();
+        String fileName="report_"+ calendar.getTimeInMillis()+"pdf";
+        File file = new File(Environment.getExternalStorageDirectory().getPath() + "/"+fileName);
+
+        if (!file.exists() || !file.canRead()) {
+            Toast.makeText(this, "nie można dodać załącznika", Toast.LENGTH_LONG).show();
+        }
+        else {
+            Uri uri = Uri.fromFile(file);
+            intent.putExtra(Intent.EXTRA_STREAM, uri);
+            startActivity(Intent.createChooser(intent, "Wyślij email..."));
+        }
+
     }
 
     private void setRenderer() {
