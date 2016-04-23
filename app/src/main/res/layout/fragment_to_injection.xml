@@ -28,6 +28,5 @@
         android:layout_centerHorizontal="true"
         android:textAlignment="center"
         android:textSize="@dimen/text_size_xlarge"
-        android:textColor="@color/initial_settings_button_next_color"/>
-
+        android:textColor="@color/initial_settings_button_next_color" />
 </RelativeLayout>

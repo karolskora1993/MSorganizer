@@ -32,16 +32,15 @@ public class ToInjectionFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         MainActivity owner=(MainActivity)getActivity();
+
         TextView textView = (TextView) owner.findViewById(R.id.fragmentMainTextView);
 
         if(textView!=null) {
-            if (owner.getUser() != null) {
                 String name = "Witaj " + DatabaseQueries.getUser(getActivity()).getName() + ", do następnego zastrzyku pozostało:";
                 textView.setText(name);
 
                 TextView timeTextView = (TextView) owner.findViewById(R.id.timeToInjectionTextView);
                 timeTextView.setText(getTimeToInjection());
-            }
         }
     }
 
@@ -56,26 +55,11 @@ public class ToInjectionFragment extends Fragment {
         {
             Calendar calendar=Calendar.getInstance();
             Long timeToInjection =  postponedInectionTime-calendar.getTimeInMillis();
-
+            if(timeToInjection<0)
+                return "0h:0min";
             int hours = (int) (timeToInjection / (1000 * 60 * 60));
             int minutes = (int) ((timeToInjection - (hours * 60 * 60 * 1000)) / (60  * 1000));
-            String time;
-            if(timeToInjection>=48*60*60*1000)
-            {
-                int days=2;
-                hours=hours-48;
-                time = days+"dni \n"+ hours + "godzin\n" + minutes + "minut";
-
-            }
-            else if(timeToInjection>=24*60*60*1000)
-            {
-                int days=1;
-                hours=hours-24;
-                time = days+"dzień \n"+ hours + "godzin\n" + minutes + "minut";
-
-            }
-            else
-                time = hours + "godzin\n" + minutes + "minut";
+            String time=hours+"h:"+minutes+"min";
             return time;
 
 
@@ -101,23 +85,11 @@ public class ToInjectionFragment extends Fragment {
             Long timeToInjection = notificationTime.getTimeInMillis() -currentTime.getTimeInMillis();
             int hours = (int) (timeToInjection / (1000 * 60 * 60));
             int minutes = (int) ((timeToInjection - (hours * 60 * 60 * 1000)) / (60  * 1000));
-            String time;
-            if(timeToInjection>=48*60*60*1000)
-            {
-                int days=2;
-                hours=hours-48;
-                time = days+"dni \n"+ hours + "godzin\n" + minutes + "minut";
+            String time=hours+"h:"+minutes+"min";
 
-            }
-            else if(timeToInjection>=24*60*60*1000)
-            {
-                int days=1;
-                hours=hours-24;
-                time = days+"dzień \n"+ hours + "godzin\n" + minutes + "minut";
+            if(timeToInjection<0)
+                return "0h:0min";
 
-            }
-            else
-                time = hours + "godzin\n" + minutes + "minut";
             return time;
         }
         else{

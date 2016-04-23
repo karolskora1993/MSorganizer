@@ -1,9 +1,11 @@
 package com.karolskora.msorgranizer.activities;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.PendingIntent;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -335,14 +337,48 @@ public class MainActivity extends AppCompatActivity {
         Log.d(this.getClass().toString(), "ilosc zastrzykow do raportu:" + checkedInjections.size());
 
         Calendar calendar=Calendar.getInstance();
-        String fileName="report_"+ calendar.getTimeInMillis()+".pdf";
+        String injectionDate = calendar.get(Calendar.DAY_OF_MONTH) + "." + calendar.get(Calendar.MONTH) + "." + calendar.get(Calendar.YEAR);
+        String injectionTime=calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);
+        final String date="data: "+ injectionDate+"    godzina: "+injectionTime;
+
+        final String fileName="report_"+ calendar.getTimeInMillis()+".pdf";
         PdfGenerator.generate(this, checkedInjections, fileName);
 
-        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/"+fileName);
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(file), "application/pdf");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        startActivity(intent);
+        AlertDialog ad = new AlertDialog.Builder(this).create();
+        ad.setCancelable(false);
+        ad.setMessage("Czy chcesz wysłać raport do lekarza?");
+
+        ad.setButton(AlertDialog.BUTTON_POSITIVE, "wyślij", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"email@example.com"});
+                intent.putExtra(Intent.EXTRA_SUBJECT, user.getName() + "-raport");
+                intent.putExtra(Intent.EXTRA_TEXT, "Raport wysłany w dniu " + date);
+                File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileName);
+                Uri uri = Uri.fromFile(file);
+                intent.putExtra(Intent.EXTRA_STREAM, uri);
+                startActivity(Intent.createChooser(intent, "Wyślij email..."));
+            }
+
+        });
+
+        ad.setButton(AlertDialog.BUTTON_NEGATIVE, "wyświetl", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileName);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.fromFile(file), "application/pdf");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(intent);
+            }
+
+        });
+
+        ad.show();
+
     }
 
 

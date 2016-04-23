@@ -45,7 +45,7 @@ public class MainFragment extends Fragment {
                 fragment.setArguments(bundle);
                 FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
                 ft.replace(R.id.lastInjectionDetails, fragment, "LAST_INJECTION_FRAGMENT");
-                ft.add(R.id.timeToInjection, fragment2);
+                ft.replace(R.id.timeToInjection, fragment2);
                 ft.commit();
             }
         }
