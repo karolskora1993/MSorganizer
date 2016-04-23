@@ -50,6 +50,7 @@ public class HistoryFragment extends Fragment {
         List<Injection> injections = DatabaseQueries.getInjections(getActivity());
         ListView injectionsListView=(ListView)getActivity().findViewById(R.id.injectionsListView);
 
+
         List listItems=new ArrayList();
 
         AdapterView.OnItemClickListener listener =new AdapterView.OnItemClickListener() {

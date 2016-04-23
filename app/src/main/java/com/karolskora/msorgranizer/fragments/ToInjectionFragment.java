@@ -28,8 +28,8 @@ public class ToInjectionFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         MainActivity owner=(MainActivity)getActivity();
         TextView textView = (TextView) owner.findViewById(R.id.fragmentMainTextView);

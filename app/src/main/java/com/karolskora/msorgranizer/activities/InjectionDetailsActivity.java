@@ -102,7 +102,7 @@ public class InjectionDetailsActivity extends AppCompatActivity {
 
         String fileName="report_"+ calendar.getTimeInMillis()+".pdf";
 
-        PdfGenerator.generate(this,injections, fileName );
+        PdfGenerator.generate(this,injections, fileName);
 
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
