@@ -45,6 +45,7 @@ public class ReportFragment extends Fragment {
             String injectionTime=calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);
             String description="data: "+ injectionDate+"    godzina: "+injectionTime;
             checkBox.setText(description);
+            checkBox.setTextSize(18f);
 
             LinearLayout layout=(LinearLayout)getActivity().findViewById(R.id.layout_report);
 
