@@ -15,6 +15,8 @@ public class UserInformationsActivity extends FragmentActivity {
     public static final String USER_NAME="user_name";
     public static final String DOCTOR_NAME="doctor_name";
     public static final String NURSE_NAME="nurse_name";
+    public static final String EMAIL="email";
+
 
 
 
@@ -35,7 +37,10 @@ public class UserInformationsActivity extends FragmentActivity {
         EditText nurseNameTextEdit = (EditText)findViewById(R.id.nurseNameTextEdit);
         String nurseName=nurseNameTextEdit.getText().toString();
 
-        if(name.equals("") || doctorName.equals("") || nurseName.equals("")) {
+        EditText emailTextEdit = (EditText)findViewById(R.id.emailTextEdit);
+        String email=emailTextEdit.getText().toString();
+
+        if(name.equals("") || doctorName.equals("") || nurseName.equals("") || email.equals("")) {
             Log.i(this.getClass().toString(), "Wyswietlenie wiadomosci o niepełności danych");
             Toast toast = Toast.makeText(this, "Wypełnij wszystkie dane", Toast.LENGTH_LONG);
             toast.show();
@@ -45,6 +50,8 @@ public class UserInformationsActivity extends FragmentActivity {
             intent.putExtra(USER_NAME, name);
             intent.putExtra(DOCTOR_NAME, doctorName);
             intent.putExtra(NURSE_NAME, nurseName);
+            intent.putExtra(EMAIL, email);
+
             startActivity(intent);
         }
     }

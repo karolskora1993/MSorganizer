@@ -43,6 +43,8 @@ public class AboutAppActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         String name = intent.getStringExtra(UserInformationsActivity.USER_NAME);
         String doctorName = intent.getStringExtra(UserInformationsActivity.DOCTOR_NAME);
         String nurseName = intent.getStringExtra(UserInformationsActivity.NURSE_NAME);
+        String email = intent.getStringExtra(UserInformationsActivity.EMAIL);
+
 
         long timeInMilis = intent.getLongExtra(DatePickerFragment.TIME_IN_MILIS, 0);
 
@@ -52,16 +54,12 @@ public class AboutAppActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         DatabaseHelper dbHelper = getHelper();
 
         RuntimeExceptionDao<User, String> userDao = dbHelper.getUserDao();
-        userDao.create(new User(name, doctorName, nurseName));
-        Log.d(this.getClass().toString(), "Zapisano dane użytkowniak do bazy danych. Imie i nazwisko: " + name + ", imie i nazwisko lekarza: " +
-                doctorName + ", imie i naziwsko pielegniarki: " + nurseName);
+        userDao.create(new User(name, doctorName, nurseName, email));
 
         RuntimeExceptionDao<Notification, Integer> injectionsScheduleDao = dbHelper.getInjectionsScheduleDao();
         injectionsScheduleDao.create(new Notification(timeInMilis));
-        Log.d(this.getClass().toString(), "Zapisano czas notyfikacji do bazy danych: " + timeInMilis + "milis");
 
         DatabaseQueries.setDoses(this, doses, notificationDoses);
-        Log.d(this.getClass().toString(), "Zapisano ustawienia leku w bazie danych. Ilosc leku:" + doses);
     }
 
     private void scheduleNotification() {

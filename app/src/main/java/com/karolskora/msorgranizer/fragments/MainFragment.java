@@ -36,18 +36,21 @@ public class MainFragment extends Fragment {
 
         if (owner.getUser()!=null) {
             Injection injection = DatabaseQueries.getLatestInjection(getActivity());
+
+            Fragment fragment2=new ToInjectionFragment();
+            FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
+            ft.replace(R.id.timeToInjection, fragment2);
+
             if(injection!=null) {
                 Fragment fragment = new LastInjectionDetailsFragment();
-                Fragment fragment2=new ToInjectionFragment();
 
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(HistoryFragment.INJECTION, injection);
                 fragment.setArguments(bundle);
-                FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
                 ft.replace(R.id.lastInjectionDetails, fragment, "LAST_INJECTION_FRAGMENT");
-                ft.replace(R.id.timeToInjection, fragment2);
-                ft.commit();
             }
+
+            ft.commit();
         }
     }
 }

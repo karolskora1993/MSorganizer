@@ -41,6 +41,8 @@ public class DatePickerFragment extends DialogFragment
         String name=getActivity().getIntent().getStringExtra(UserInformationsActivity.USER_NAME);
         String doctorName=getActivity().getIntent().getStringExtra(UserInformationsActivity.DOCTOR_NAME);
         String nurseName=getActivity().getIntent().getStringExtra(UserInformationsActivity.NURSE_NAME);
+        String email=getActivity().getIntent().getStringExtra(UserInformationsActivity.EMAIL);
+
 
 
         int hour=bundle.getInt(FirstInjectionTimeActivity.HOUR);
@@ -58,6 +60,8 @@ public class DatePickerFragment extends DialogFragment
         intent.putExtra(UserInformationsActivity.USER_NAME, name);
         intent.putExtra(UserInformationsActivity.DOCTOR_NAME, doctorName);
         intent.putExtra(UserInformationsActivity.NURSE_NAME, nurseName);
+        intent.putExtra(UserInformationsActivity.EMAIL, email);
+
         startActivity(intent);
     }
 }

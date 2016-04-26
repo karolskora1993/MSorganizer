@@ -32,12 +32,16 @@ public class UserSettingsFragment extends Fragment {
         EditText doctorNameTextEdit = (EditText)getActivity().findViewById(R.id.doctorNameTextEdit);
 
         EditText nurseNameTextEdit = (EditText)getActivity().findViewById(R.id.nurseNameTextEdit);
+
+        EditText emailTextEdit = (EditText)getActivity().findViewById(R.id.nurseNameTextEdit);
+
         MainActivity activity=(MainActivity)getActivity();
         User user =activity.getUser();
 
         nameTextEdit.setText(user.getName());
         doctorNameTextEdit.setText(user.getDoctorName());
         nurseNameTextEdit.setText(user.getNurseName());
+        emailTextEdit.setText(user.getEmail());
     }
 
 }

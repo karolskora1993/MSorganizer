@@ -24,6 +24,8 @@ public class PointFinder {
                 area=1;
                 if(lastPoint==6)
                     point=1;
+                else
+                    point=lastPoint+1;
             }
             else {
             area = lastArea + 1;
@@ -31,7 +33,7 @@ public class PointFinder {
             }
         }
 
-        Log.d(PointFinder.class.toString(), "Miejsce zastrzyku: obszar: " +area+" punkt w obszarze: "+point);
+        Log.d(PointFinder.class.toString(), "Nastepne miejsce: "+ area + " "+ point);
         return new int[]{area,point};
     }
 }

@@ -12,6 +12,7 @@ import com.karolskora.msorgranizer.models.Notification;
 import com.karolskora.msorgranizer.models.User;
 
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class DatabaseQueries {
 
         RuntimeExceptionDao<Injection, Long> injetionDao=dbHelper.getInjectionDao();
         List<Injection> injections=injetionDao.queryForAll();
+        Collections.reverse(injections);
         return injections;
     }
 
@@ -75,14 +77,14 @@ public class DatabaseQueries {
             return users.iterator().next();
     }
 
-    public static void updateUser(Context activity, String name, String doctorName, String nurseName){
+    public static void updateUser(Context activity, String name, String doctorName, String nurseName, String email){
         if(dbHelper==null)
             dbHelper= OpenHelperManager.getHelper(activity,DatabaseHelper.class);
 
         RuntimeExceptionDao<User, String> userDao = dbHelper.getUserDao();
         userDao.delete(DatabaseQueries.getUser(activity));
 
-        userDao.create(new User(name, doctorName, nurseName));
+        userDao.create(new User(name, doctorName, nurseName, email));
         Log.d(DatabaseQueries.class.toString(), "zmiany danych użytkownika zapisane");
     }
 

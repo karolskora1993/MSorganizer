@@ -103,7 +103,7 @@ public class LastInjectionDetailsFragment extends Fragment {
 
         String field="f"+ String.valueOf(injection.getArea()) + String.valueOf(injection.getPoint());
 
-
+        Log.d(this.getClass().toString(), "field: "+field);
         Drawable d = ContextCompat.getDrawable(context, context.getResources().getIdentifier(field, "drawable", context.getPackageName()));
 
         imageView.setImageDrawable(d);

@@ -241,7 +241,10 @@ public class MainActivity extends AppCompatActivity {
         EditText nurseNameTextEdit = (EditText) findViewById(R.id.nurseNameTextEdit);
         String nurseName = nurseNameTextEdit.getText().toString();
 
-        DatabaseQueries.updateUser(this, name, doctorName, nurseName);
+        EditText emailTextEdit = (EditText) findViewById(R.id.emailTextEdit);
+        String email = emailTextEdit.getText().toString();
+
+        DatabaseQueries.updateUser(this, name, doctorName, nurseName, email);
         Toast toast = Toast.makeText(this, "zmieniono ustawienia użytkownika", Toast.LENGTH_LONG);
         toast.show();
     }

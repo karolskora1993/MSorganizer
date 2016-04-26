@@ -58,4 +58,5 @@
     <string name="notification_doses_hint">ilość pozostałych dawek</string>
     <string name="send_report_button_text">wyslij raport</string>
     <string name="generate_report_text">generuj raport</string>
+    <string name="email_text_view_hint">email lekarza lub pielęgniarki</string>
 </resources>

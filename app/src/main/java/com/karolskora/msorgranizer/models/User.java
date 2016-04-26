@@ -12,13 +12,16 @@ public class User {
     private String doctorName;
     @DatabaseField
     private String nurseName;
+    @DatabaseField
+    private String email;
 
     public User(){}
 
-    public User(String name, String doctorName, String nurseName) {
+    public User(String name, String doctorName, String nurseName, String email) {
         this.name = name;
         this.doctorName = doctorName;
         this.nurseName = nurseName;
+        this.email=email;
     }
 
     public String getName() {
@@ -38,4 +41,12 @@ public class User {
         return nurseName;
     }
 
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

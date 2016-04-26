@@ -40,6 +40,8 @@ public class DrugSupplyActivity extends AppCompatActivity {
             String name = intent.getStringExtra(UserInformationsActivity.USER_NAME);
             String doctorName = intent.getStringExtra(UserInformationsActivity.DOCTOR_NAME);
             String nurseName = intent.getStringExtra(UserInformationsActivity.NURSE_NAME);
+            String email = intent.getStringExtra(UserInformationsActivity.EMAIL);
+
 
             long timeInMilis = intent.getLongExtra(DatePickerFragment.TIME_IN_MILIS, 0);
             intent = new Intent(this, AboutAppActivity.class);
@@ -50,6 +52,8 @@ public class DrugSupplyActivity extends AppCompatActivity {
             intent.putExtra(UserInformationsActivity.USER_NAME, name);
             intent.putExtra(UserInformationsActivity.DOCTOR_NAME, doctorName);
             intent.putExtra(UserInformationsActivity.NURSE_NAME, nurseName);
+            intent.putExtra(UserInformationsActivity.EMAIL, email);
+
             startActivity(intent);
         }
     }

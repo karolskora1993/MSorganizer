@@ -50,4 +50,17 @@
         android:textAlignment="center"
         android:textSize="@dimen/text_size_medium"/>
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/email_text_view_hint"
+        android:id="@+id/emailTextEdit"
+        android:layout_below="@+id/nurseNameTextEdit"
+        android:layout_centerHorizontal="true"
+        android:singleLine="true"
+        android:layout_marginTop="40dp"
+        android:layout_alignLeft="@id/nameTextEdit"
+        android:layout_alignRight="@id/nameTextEdit"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_size_medium"/>
 </RelativeLayout>
