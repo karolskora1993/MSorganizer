@@ -79,7 +79,7 @@
             android:onClick="onButtonSaveSymptomsClick"
             android:textSize="@dimen/text_size_medium"/>
 
-        <android.opengl.GLSurfaceView
+        <ImageView
             android:id="@+id/glSurfaceView"
             android:layout_width="160dp"
             android:layout_height="160dp"

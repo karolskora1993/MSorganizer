@@ -3,6 +3,7 @@ package com.karolskora.msorgranizer.java;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
@@ -100,15 +101,23 @@ public class PdfGenerator{
         table.addCell("Objawy:");
 
         try {
-            Drawable d = ContextCompat.getDrawable(context, R.drawable.ic_launcher);
+
+            String field="f"+ String.valueOf(currentInj.getArea()) + String.valueOf(currentInj.getPoint());
+
+            Log.d(PdfGenerator.class.toString(), "Miejsce zastrzyku: "+field);
+
+            Drawable d = ContextCompat.getDrawable(context, context.getResources().getIdentifier(field, "drawable", context.getPackageName()));
 
             BitmapDrawable bitDw = ((BitmapDrawable) d);
 
             Bitmap bmp = bitDw.getBitmap();
 
+            bmp=getResizedBitmap(bmp,200,200);
+
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
             bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+
 
             Image image = Image.getInstance(stream.toByteArray());
 
@@ -145,6 +154,21 @@ public class PdfGenerator{
 
         table.setSpacingAfter(10f);
         return table;
+    }
+
+    public static Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+
+        Bitmap resizedBitmap = Bitmap.createBitmap(
+                bm, 0, 0, width, height, matrix, false);
+        bm.recycle();
+        return resizedBitmap;
     }
 
 }

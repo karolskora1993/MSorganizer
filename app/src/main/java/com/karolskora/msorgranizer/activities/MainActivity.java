@@ -381,6 +381,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void onButtonInjectClick(View view) {
+
+        Intent intent=new Intent(this, InjectionActivity.class);
+
+        startActivity(intent);
+    }
+
 
     private void scheduleNewNotification(long injectionTime) {
 

@@ -3,14 +3,18 @@ package com.karolskora.msorgranizer.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.karolskora.msorgranizer.R;
@@ -53,7 +57,8 @@ public class LastInjectionDetailsFragment extends Fragment {
         if (date != null) {
             setDate();
             setSymptoms();
-            setRenderer();
+            setField();
+           // setRenderer();
         }
     }
 
@@ -89,6 +94,20 @@ public class LastInjectionDetailsFragment extends Fragment {
 
     }
 
+    private void setField(){
+
+        Activity context=getActivity();
+
+
+        ImageView imageView=(ImageView)context.findViewById(R.id.glSurfaceView);
+
+        String field="f"+ String.valueOf(injection.getArea()) + String.valueOf(injection.getPoint());
+
+
+        Drawable d = ContextCompat.getDrawable(context, context.getResources().getIdentifier(field, "drawable", context.getPackageName()));
+
+        imageView.setImageDrawable(d);
+    }
     private void setRenderer() {
         Activity owner = getActivity();
         mGLView = (GLSurfaceView) owner.findViewById(R.id.glSurfaceView);
