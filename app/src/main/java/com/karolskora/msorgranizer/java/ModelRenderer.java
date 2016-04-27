@@ -25,6 +25,7 @@ import com.threed.jpct.util.MemoryHelper;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashSet;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -123,6 +124,7 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
             world.addObject(cube);
 
 
+
             Camera cam = world.getCamera();
             cam.moveCamera(Camera.CAMERA_MOVEOUT, 40);
             cam.lookAt(cube.getTransformedCenter());
@@ -131,24 +133,28 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
             sv.set(cube.getTransformedCenter());
             sv.y -= 100;
             sv.z -= 100;
+
+
             sun.setPosition(sv);
             MemoryHelper.compact();
 
-            Drawable d1 = ContextCompat.getDrawable(context, context.getResources().getIdentifier("lens1", "drawable", context.getPackageName()));
-            Drawable d2 = ContextCompat.getDrawable(context, context.getResources().getIdentifier("lens2", "drawable", context.getPackageName()));
-            Drawable d3 = ContextCompat.getDrawable(context, context.getResources().getIdentifier("lens3", "drawable", context.getPackageName()));
-            Drawable d4 = ContextCompat.getDrawable(context, context.getResources().getIdentifier("lens4", "drawable", context.getPackageName()));
+
+            HashSet<String> names=TextureManager.getInstance().getNames();
+            for (String s:names){
+                Log.d(this.getClass().toString(),s);
+            }
+
+            try {
+                TextureManager.getInstance().replaceTexture("HAND.PNG", new Texture(context.getAssets().open("skin.png")));
+                TextureManager.getInstance().replaceTexture("BODY.PNG", new Texture(context.getAssets().open("skin.png")));
+                TextureManager.getInstance().replaceTexture("LOWR.PNG", new Texture(context.getAssets().open("skin.png")));
+                TextureManager.getInstance().replaceTexture("HEAD.PNG", new Texture(context.getAssets().open("skin.png")));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
 
-            TextureManager.getInstance().addTexture("burst",  new Texture(d1));
-            TextureManager.getInstance().addTexture("halo1", new Texture(d2));
-            TextureManager.getInstance().addTexture("halo2", new Texture(d3));
-            TextureManager.getInstance().addTexture("halo3", new Texture(d4));
-
-
-            LensFlare point=new LensFlare(sv, "burst", "halo1", "halo2", "halo3");
-
-            point.render(fb);
 
             master=context;
         }

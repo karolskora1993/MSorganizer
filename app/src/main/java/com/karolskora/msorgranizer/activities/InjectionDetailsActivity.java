@@ -2,13 +2,17 @@ package com.karolskora.msorgranizer.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.opengl.GLSurfaceView;
 import android.os.Environment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.karolskora.msorgranizer.R;
@@ -16,6 +20,7 @@ import com.karolskora.msorgranizer.fragments.HistoryFragment;
 import com.karolskora.msorgranizer.java.DatabaseQueries;
 import com.karolskora.msorgranizer.java.ModelRenderer;
 import com.karolskora.msorgranizer.java.PdfGenerator;
+import com.karolskora.msorgranizer.java.PointFinder;
 import com.karolskora.msorgranizer.models.Injection;
 import com.karolskora.msorgranizer.models.User;
 
@@ -52,6 +57,7 @@ public class InjectionDetailsActivity extends AppCompatActivity {
 
         setSymptoms(injection);
         setRenderer();
+        setImage();
 
     }
 
@@ -138,6 +144,18 @@ public class InjectionDetailsActivity extends AppCompatActivity {
         View view=findViewById(R.id.layout_injection_details);
         GLSurfaceView.Renderer renderer = new ModelRenderer(this, view, 25, "model.3DS");
         mGLView.setRenderer(renderer);
+    }
+
+    private void setImage(){
+
+        ImageView imageView=(ImageView)findViewById(R.id.injectionPointImageView);
+
+        String field="f"+ String.valueOf(injection.getArea()) + String.valueOf(injection.getPoint());
+
+        Log.d(this.getClass().toString(), "field: " + field);
+        Drawable d = ContextCompat.getDrawable(this, this.getResources().getIdentifier(field, "drawable", this.getPackageName()));
+
+        imageView.setImageDrawable(d);
     }
 
 
