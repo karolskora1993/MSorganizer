@@ -17,18 +17,22 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.fragments.TimePickerFragment;
 import com.karolskora.msorgranizer.java.DatabaseQueries;
 import com.karolskora.msorgranizer.java.ModelRenderer;
 import com.karolskora.msorgranizer.java.PointFinder;
+import com.karolskora.msorgranizer.models.Injection;
 import com.threed.jpct.Camera;
 import com.threed.jpct.FrameBuffer;
 import com.threed.jpct.Light;
@@ -46,11 +50,14 @@ public class InjectionActivity extends Activity {
 
     private GLSurfaceView mGLView;
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.layout_injection);
+
         setRenderer();
+        setImage();
     }
 
     @Override
@@ -145,6 +152,20 @@ public class InjectionActivity extends Activity {
         View view=findViewById(R.id.layout_injection);
         GLSurfaceView.Renderer renderer = new ModelRenderer(this, view, 35, "model.3DS");
         mGLView.setRenderer(renderer);
+    }
+
+    private void setImage(){
+
+        ImageView imageView=(ImageView)findViewById(R.id.injectionPointImageView);
+
+        int[] injectionPoint=PointFinder.findPoint(this);
+
+        String field="f"+ String.valueOf(String.valueOf(injectionPoint[0]) + String.valueOf(injectionPoint[1]));
+
+        Log.d(this.getClass().toString(), "field: "+field);
+        Drawable d = ContextCompat.getDrawable(this, this.getResources().getIdentifier(field, "drawable", this.getPackageName()));
+
+        imageView.setImageDrawable(d);
     }
 
 }

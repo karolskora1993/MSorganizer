@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MS organizer</string>
+    <string name="app_name">Asystent zastrzyków</string>
     <string name="about_app">Aplikacja pozwala na zdefiniowanie harmonogramu powiadomień o zbliżającym się czasie aplikacji leku oraz wskazuje miejsce wykonania zastrzyku. Użytkownik ma możliwość wprowadzić dodatkowe informacje takie jak ewentualne niepożądane objawy czy problemy w aplikacji zastrzyku. Dodatkowo możliwe jest zarządzanie posiadanymi zasobami leku, przypominanie o kończącym się ich zapasie oraz przeglądanie historii terapii wraz ze szczegółowymi informacjami o objawach czy innych dolegliwościach towarzyszących terapii. Aplikacja pozwala dodatkowo na wygenerowaniu łatwego w interpretacji raportu dla lekarza prowadzącego bądź pielęgniarki.</string>
     <string name="name_text_view_hint">podaj swoje imię i nazwisko</string>
     <string name="doctor_name_text_view_hint">podaj imie i nazwisko swojego lekarza</string>

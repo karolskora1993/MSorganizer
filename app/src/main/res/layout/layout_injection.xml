@@ -12,6 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/buttonInject"/>
+
+    <ImageView
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:id="@+id/injectionPointImageView"
+        android:layout_alignLeft="@+id/glSurfaceView"/>
     <Button
         android:layout_width="200dp"
         android:layout_height="wrap_content"

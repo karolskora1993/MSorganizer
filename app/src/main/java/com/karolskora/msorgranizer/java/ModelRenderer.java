@@ -1,10 +1,13 @@
 package com.karolskora.msorgranizer.java;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.opengl.GLSurfaceView;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.karolskora.msorgranizer.R;
 import com.threed.jpct.Camera;
 import com.threed.jpct.FrameBuffer;
 import com.threed.jpct.Light;
@@ -14,7 +17,10 @@ import com.threed.jpct.Matrix;
 import com.threed.jpct.Object3D;
 import com.threed.jpct.RGBColor;
 import com.threed.jpct.SimpleVector;
+import com.threed.jpct.Texture;
+import com.threed.jpct.TextureManager;
 import com.threed.jpct.World;
+import com.threed.jpct.util.LensFlare;
 import com.threed.jpct.util.MemoryHelper;
 
 import java.io.IOException;
@@ -105,6 +111,7 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
             sun.setIntensity(250, 250, 250);
 
 
+
             try {
                 cube = loadModel(thingName, thingScale);
             } catch (IOException e) {
@@ -114,6 +121,7 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
             cube.build();
 
             world.addObject(cube);
+
 
             Camera cam = world.getCamera();
             cam.moveCamera(Camera.CAMERA_MOVEOUT, 40);
@@ -125,6 +133,23 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
             sv.z -= 100;
             sun.setPosition(sv);
             MemoryHelper.compact();
+
+            Drawable d1 = ContextCompat.getDrawable(context, context.getResources().getIdentifier("lens1", "drawable", context.getPackageName()));
+            Drawable d2 = ContextCompat.getDrawable(context, context.getResources().getIdentifier("lens2", "drawable", context.getPackageName()));
+            Drawable d3 = ContextCompat.getDrawable(context, context.getResources().getIdentifier("lens3", "drawable", context.getPackageName()));
+            Drawable d4 = ContextCompat.getDrawable(context, context.getResources().getIdentifier("lens4", "drawable", context.getPackageName()));
+
+
+            TextureManager.getInstance().addTexture("burst",  new Texture(d1));
+            TextureManager.getInstance().addTexture("halo1", new Texture(d2));
+            TextureManager.getInstance().addTexture("halo2", new Texture(d3));
+            TextureManager.getInstance().addTexture("halo3", new Texture(d4));
+
+
+            LensFlare point=new LensFlare(sv, "burst", "halo1", "halo2", "halo3");
+
+            point.render(fb);
+
             master=context;
         }
     }

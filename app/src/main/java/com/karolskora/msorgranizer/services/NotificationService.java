@@ -5,6 +5,8 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -47,7 +49,11 @@ public class NotificationService extends Service {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setContentTitle("Kolejna dawka leku");
         builder.setContentText("Zbliża się czas kolejnej dawki leku");
-        builder.setSmallIcon(R.drawable.ic_launcher);
+        builder.setSmallIcon(R.mipmap.icon);
+        builder.setVibrate(new long[]{1000, 1000, 1000, 1000, 1000});
+
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        builder.setSound(alarmSound);
         return builder;
     }
 }

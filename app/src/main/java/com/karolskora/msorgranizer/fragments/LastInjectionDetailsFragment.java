@@ -98,7 +98,6 @@ public class LastInjectionDetailsFragment extends Fragment {
 
         Activity context=getActivity();
 
-
         ImageView imageView=(ImageView)context.findViewById(R.id.glSurfaceView);
 
         String field="f"+ String.valueOf(injection.getArea()) + String.valueOf(injection.getPoint());
