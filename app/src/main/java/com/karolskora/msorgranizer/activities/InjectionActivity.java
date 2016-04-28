@@ -49,6 +49,7 @@ import com.threed.jpct.*;
 public class InjectionActivity extends Activity {
 
     private GLSurfaceView mGLView;
+    private ModelRenderer renderer;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,8 @@ public class InjectionActivity extends Activity {
 
         setRenderer();
         setImage();
+
+
     }
 
     @Override
@@ -150,7 +153,10 @@ public class InjectionActivity extends Activity {
         });
 
         View view=findViewById(R.id.layout_injection);
-        GLSurfaceView.Renderer renderer = new ModelRenderer(this, view, 35, "model.3DS");
+
+        int[] injectionPoint=PointFinder.findPoint(this);
+
+        renderer = new ModelRenderer(this, view, 35, "model.3DS", injectionPoint[0], injectionPoint[1]);
         mGLView.setRenderer(renderer);
     }
 

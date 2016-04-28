@@ -58,7 +58,6 @@ public class LastInjectionDetailsFragment extends Fragment {
             setDate();
             setSymptoms();
             setField();
-           // setRenderer();
         }
     }
 
@@ -106,22 +105,6 @@ public class LastInjectionDetailsFragment extends Fragment {
         Drawable d = ContextCompat.getDrawable(context, context.getResources().getIdentifier(field, "drawable", context.getPackageName()));
 
         imageView.setImageDrawable(d);
-    }
-    private void setRenderer() {
-        Activity owner = getActivity();
-        mGLView = (GLSurfaceView) owner.findViewById(R.id.glSurfaceView);
-        mGLView.setEGLConfigChooser(new GLSurfaceView.EGLConfigChooser() {
-            public EGLConfig chooseConfig(EGL10 egl, EGLDisplay display) {
-
-                int[] attributes = new int[]{EGL10.EGL_DEPTH_SIZE, 16, EGL10.EGL_NONE};
-                EGLConfig[] configs = new EGLConfig[1];
-                int[] result = new int[1];
-                egl.eglChooseConfig(display, attributes, configs, 1, result);
-                return configs[0];
-            }
-        });
-        GLSurfaceView.Renderer renderer = new ModelRenderer(getActivity(), view, 25, "model.3DS");
-        mGLView.setRenderer(renderer);
     }
 
     public Injection getInjection() {

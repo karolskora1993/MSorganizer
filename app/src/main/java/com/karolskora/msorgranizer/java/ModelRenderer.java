@@ -1,6 +1,7 @@
 package com.karolskora.msorgranizer.java;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.hardware.camera2.CameraAccessException;
 import android.opengl.GLSurfaceView;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.karolskora.msorgranizer.R;
+import com.karolskora.msorgranizer.models.Injection;
 import com.threed.jpct.Camera;
 import com.threed.jpct.FrameBuffer;
 import com.threed.jpct.Light;
@@ -52,13 +54,18 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
     private Context context;
     private Context master;
 
+    private int area;
+    private int point;
+
     private long time = System.currentTimeMillis();
 
-    public ModelRenderer(Context activity, final View view, int scale, String name) {
+    public ModelRenderer(Context activity, final View view, int scale, String name, int area, int point) {
         super();
         context=activity;
         this.thingScale=scale;
         this.thingName=name;
+        this.area=area;
+        this.point=point;
 
         view.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent me) {
@@ -125,9 +132,6 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
 
 
 
-            Camera cam = world.getCamera();
-            cam.moveCamera(Camera.CAMERA_MOVEOUT, 40);
-            cam.lookAt(cube.getTransformedCenter());
 
             SimpleVector sv = new SimpleVector();
             sv.set(cube.getTransformedCenter());
@@ -139,11 +143,6 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
             MemoryHelper.compact();
 
 
-            HashSet<String> names=TextureManager.getInstance().getNames();
-            for (String s:names){
-                Log.d(this.getClass().toString(),s);
-            }
-
             try {
                 TextureManager.getInstance().replaceTexture("HAND.PNG", new Texture(context.getAssets().open("skin.png")));
                 TextureManager.getInstance().replaceTexture("BODY.PNG", new Texture(context.getAssets().open("skin.png")));
@@ -151,10 +150,10 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
                 TextureManager.getInstance().replaceTexture("HEAD.PNG", new Texture(context.getAssets().open("skin.png")));
 
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(ModelRenderer.class.toString(), e.getMessage());
             }
 
-
+            rotateModel();
 
             master=context;
         }
@@ -205,6 +204,128 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
             o3d.build();
         }
         return o3d;
+    }
+
+    private void rotateModel(){
+
+        Camera cam = world.getCamera();
+        SimpleVector mv=cube.getCenter();
+
+        if(area==1){
+            cam.moveCamera(Camera.CAMERA_MOVEOUT, 20);
+
+            mv.y+=20;
+            cam.lookAt(mv);
+
+            SimpleVector cv=cam.getPosition();
+            cv.y-=20;
+
+            cam.setPosition(cv);
+
+            cube.rotateY((float)(-0.5 * Math.PI));
+        }
+        else if(area==2){
+            cam.moveCamera(Camera.CAMERA_MOVEOUT, 20);
+
+            mv.y+=20;
+            cam.lookAt(mv);
+
+            SimpleVector cv=cam.getPosition();
+            cv.y-=20;
+
+            cam.setPosition(cv);
+
+            cube.rotateY((float)(0.5 * Math.PI));
+        }
+        else if(area==3){
+            cam.moveCamera(Camera.CAMERA_MOVEOUT, 15);
+
+            mv.y+=4;
+            cam.lookAt(mv);
+
+            SimpleVector cv=cam.getPosition();
+            cv.y-=6;
+
+            cam.setPosition(cv);
+
+            cube.rotateY((float)(-0.2 * Math.PI));
+        }
+        else if(area==4){
+            cam.moveCamera(Camera.CAMERA_MOVEOUT, 15);
+
+            mv.y+=4;
+            cam.lookAt(mv);
+
+            SimpleVector cv=cam.getPosition();
+            cv.y-=6;
+
+            cam.setPosition(cv);
+
+            cube.rotateY((float)(0.2 * Math.PI));
+        }
+        else if(area==5){
+            cam.moveCamera(Camera.CAMERA_MOVEOUT, 15);
+
+            mv.y+=5;
+            cam.lookAt(mv);
+
+            SimpleVector cv=cam.getPosition();
+            cv.y+=10;
+            cv.x-=2;
+
+            cam.setPosition(cv);
+
+            cube.rotateY((float)(-0.2 * Math.PI));
+        }
+        else if(area==6){
+            cam.moveCamera(Camera.CAMERA_MOVEOUT, 15);
+
+            mv.y+=5;
+            cam.lookAt(mv);
+
+            SimpleVector cv=cam.getPosition();
+            cv.y+=10;
+            cv.x+=2;
+
+            cam.setPosition(cv);
+
+            cube.rotateY((float)(0.2 * Math.PI));
+
+
+
+        }
+        else if(area==7){
+            cam.moveCamera(Camera.CAMERA_MOVEOUT, 15);
+
+            mv.y+=3;
+            cam.lookAt(mv);
+
+            SimpleVector cv=cam.getPosition();
+            cv.x-=2;
+
+            cam.setPosition(cv);
+
+            cube.rotateY((float)(0.9 * Math.PI));
+        }
+        else if(area==8){
+            cam.moveCamera(Camera.CAMERA_MOVEOUT, 15);
+
+            mv.y+=3;
+            cam.lookAt(mv);
+
+            SimpleVector cv=cam.getPosition();
+            cv.x+=2;
+
+            cam.setPosition(cv);
+
+            cube.rotateY((float)(-0.9 * Math.PI));
+        }
+
+
+    }
+
+    public Object3D getCube(){
+        return cube;
     }
 
 }

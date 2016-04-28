@@ -142,7 +142,7 @@ public class InjectionDetailsActivity extends AppCompatActivity {
         });
 
         View view=findViewById(R.id.layout_injection_details);
-        GLSurfaceView.Renderer renderer = new ModelRenderer(this, view, 25, "model.3DS");
+        GLSurfaceView.Renderer renderer = new ModelRenderer(this, view, 25, "model.3DS", injection.getArea(), injection.getPoint());
         mGLView.setRenderer(renderer);
     }
 
