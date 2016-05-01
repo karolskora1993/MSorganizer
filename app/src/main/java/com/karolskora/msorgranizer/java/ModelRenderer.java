@@ -6,6 +6,7 @@ import android.opengl.GLSurfaceView;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 
 import com.karolskora.msorgranizer.R;
@@ -56,6 +57,8 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
 
     private int area;
     private int point;
+    int scaleFactor=40;
+
 
     private long time = System.currentTimeMillis();
 
@@ -66,6 +69,14 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
         this.thingName=name;
         this.area=area;
         this.point=point;
+
+
+        try {
+            cube = loadModel(thingName, thingScale);
+        } catch (IOException e) {
+            Log.e(this.getClass().toString(), e.getMessage());
+        }
+
 
         view.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent me) {
@@ -91,6 +102,7 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
                     touchTurn = xd / -100f;
                     return true;
                 }
+
 
                 try {
                     Thread.sleep(15);
@@ -119,18 +131,9 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
             sun.setIntensity(250, 250, 250);
 
 
-
-            try {
-                cube = loadModel(thingName, thingScale);
-            } catch (IOException e) {
-                Log.e(this.getClass().toString(), e.getMessage());
-            }
-
             cube.build();
 
             world.addObject(cube);
-
-
 
 
             SimpleVector sv = new SimpleVector();
@@ -210,7 +213,6 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
 
         Camera cam = world.getCamera();
         SimpleVector mv=cube.getCenter();
-
         if(area==1){
             cam.moveCamera(Camera.CAMERA_MOVEOUT, 20);
 
@@ -278,7 +280,7 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
             cube.rotateY((float)(-0.2 * Math.PI));
         }
         else if(area==6){
-            cam.moveCamera(Camera.CAMERA_MOVEOUT, 15);
+            cam.moveCamera(Camera.CAMERA_MOVEOUT, scaleFactor);
 
             mv.y+=5;
             cam.lookAt(mv);
@@ -321,11 +323,7 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
             cube.rotateY((float)(-0.9 * Math.PI));
         }
 
-
     }
 
-    public Object3D getCube(){
-        return cube;
-    }
 
 }

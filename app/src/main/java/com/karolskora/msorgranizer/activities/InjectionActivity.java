@@ -24,6 +24,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -51,6 +52,11 @@ public class InjectionActivity extends Activity {
     private GLSurfaceView mGLView;
     private ModelRenderer renderer;
 
+    private ScaleGestureDetector scaleGestureDetector;
+
+    private int scaleFactor=40;
+
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,8 +66,13 @@ public class InjectionActivity extends Activity {
         setRenderer();
         setImage();
 
+        scaleGestureDetector = new ScaleGestureDetector(this,
+                new ScaleListener());
+
 
     }
+
+
 
     @Override
     protected void onPause() {
@@ -174,4 +185,39 @@ public class InjectionActivity extends Activity {
         imageView.setImageDrawable(d);
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        scaleGestureDetector.onTouchEvent(event);
+
+        return true;
+    }
+
+    private class ScaleListener extends
+            ScaleGestureDetector.SimpleOnScaleGestureListener {
+
+        private float change;
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            scaleFactor *= detector.getScaleFactor();
+
+            Log.d(this.getClass().toString(), "scaleFactor:" +scaleFactor);
+
+            scaleFactor = (int)(Math.max(0.1f, Math.min(scaleFactor, 5.0f)));
+
+            return true;
+        }
+
+        @Override
+        public boolean onScaleBegin(ScaleGestureDetector detector) {
+            Log.d(this.getClass().toString(), "ScaleBegin"+ detector.getFocusX() + detector.getFocusY() );
+
+            return true;
+        }
+
+        @Override
+        public void onScaleEnd(ScaleGestureDetector detector) {
+            Log.d(this.getClass().toString(), "scaleEnd"+ detector.getFocusX() + detector.getFocusY());
+        }
+    }
 }
