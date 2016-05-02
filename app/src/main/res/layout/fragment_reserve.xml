@@ -24,7 +24,8 @@
         android:id="@+id/dosesFragmentEditText"
         android:layout_below="@+id/textView3"
         android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -42,7 +43,8 @@
         android:id="@+id/notificationDosesFragmentEditText"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/textView4"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"/>
 
     <Button
         android:layout_width="wrap_content"

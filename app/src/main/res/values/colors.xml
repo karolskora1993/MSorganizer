@@ -5,4 +5,6 @@
     <color name="colorAccent">#33691E</color>
     <color name="initial_settings_button_next_color">#4C9900</color>
     <color name="drawer_bg_color">#FFFFFF</color>
+    <color name="color_white">#FFFFFF</color>
+
 </resources>
