@@ -6,5 +6,10 @@
     <color name="initial_settings_button_next_color">#4C9900</color>
     <color name="drawer_bg_color">#FFFFFF</color>
     <color name="color_white">#FFFFFF</color>
+    <color name="color_100">#DCEDC8</color>
+    <color name="color_200">#C5E1A5</color>
+    <color name="color_300">#AED581</color>
+    <color name="color_400">#9CCC65</color>
+
 
 </resources>

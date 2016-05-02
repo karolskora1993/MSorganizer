@@ -60,4 +60,12 @@
     <string name="send_report_button_text">wyslij raport</string>
     <string name="generate_report_text">generuj raport</string>
     <string name="email_text_view_hint">email lekarza lub pielęgniarki</string>
+    <string name="title_1">Pierwszy slajd</string>
+    <string name="description_1">Pierwszy opis</string>
+    <string name="title_2">Slajd 2</string>
+    <string name="description_2">Opis 2</string>
+    <string name="title_3">Slajd 3</string>
+    <string name="description_3">Opis 3</string>
+    <string name="title_4">Slajd 4</string>
+    <string name="description_4">Opis 4</string>
 </resources>

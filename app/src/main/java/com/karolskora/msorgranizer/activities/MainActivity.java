@@ -188,7 +188,8 @@ public class MainActivity extends AppCompatActivity {
     private void selectItem(int position) {
 
         Log.d(this.getClass().toString(), "position: "+position);
-        Fragment fragment;
+        Fragment fragment = new MainFragment();
+
         switch (position) {
             case 2:
                 fragment = new HistoryFragment();
@@ -206,7 +207,8 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new SettingsFragment();
                 break;
             case 8:
-                fragment = new HelpFragment();
+                Intent intent=new Intent(this, HelpActivity.class);
+                startActivity(intent);
                 break;
             default:
                 fragment = new MainFragment();
