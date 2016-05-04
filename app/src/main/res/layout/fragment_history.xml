@@ -8,7 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.karolskora.msorgranizer.fragments.HistoryFragment"
     android:id="@+id/historyLayout"
-    android:background="@drawable/shadow_164319">
+    android:background="@android:drawable/dialog_holo_light_frame">
 
     <ListView
         android:layout_width="wrap_content"

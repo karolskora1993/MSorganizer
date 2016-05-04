@@ -7,7 +7,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.karolskora.msorgranizer.activities.FirstInjectionTimeActivity"
-    android:background="@drawable/bg">
+    android:background="@color/color_bg">
 
     <fragment
         class="com.karolskora.msorgranizer.fragments.FirstInjectionTimeFragment"

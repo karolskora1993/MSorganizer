@@ -29,7 +29,7 @@ public class SplashActivity extends AwesomeSplash {
         configSplash.setPathSplashStrokeSize(3);
         configSplash.setPathSplashStrokeColor(R.color.accent);
         configSplash.setAnimPathFillingDuration(1000);
-        configSplash.setPathSplashFillColor(R.color.colorPrimaryDark);
+        configSplash.setPathSplashFillColor(R.color.color_bg);
 
         configSplash.setTitleSplash("Asystent zastrzyków");
         configSplash.setTitleTextColor(R.color.md_black_1000);

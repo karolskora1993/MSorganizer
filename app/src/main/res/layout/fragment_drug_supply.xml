@@ -6,54 +6,60 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.karolskora.msorgranizer.fragments.ReserveFragment"
+    tools:context="com.karolskora.msorgranizer.fragments.DrugSupplyFragment"
     android:background="@android:drawable/dialog_holo_light_frame">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Obecna ilość dawek leku:"
-        android:id="@+id/textView3"
+        android:text="@string/drug_supply_text"
+        android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:textSize="@dimen/text_size_medium"/>
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/dosesFragmentEditText"
-        android:layout_below="@+id/textView3"
         android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dosesEditText"
+        android:hint="@string/drug_supply_hint"
+        android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
+        android:singleLine="true"
         android:textAlignment="center"/>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ilość dawek przy której program przypomina o uzupełneniu"
-        android:id="@+id/textView4"
-        android:layout_below="@+id/dosesFragmentEditText"
+        android:layout_width="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:text="@string/drug_remaining_text"
+        android:layout_below="@+id/dosesEditText"
         android:layout_centerHorizontal="true"
-        android:textSize="@dimen/text_size_medium"/>
+        android:textSize="@dimen/text_size_medium"
+        android:id="@+id/textView2" />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/notificationDosesFragmentEditText"
+        android:id="@+id/notificationDosesEditText"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/textView4"
+        android:layout_below="@+id/textView2"
+        android:hint="@string/notification_doses_hint"
         android:layout_centerHorizontal="true"
-        android:textAlignment="center"/>
+        android:singleLine="true"
+        android:textAlignment="center"
+        />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/save_text"
-        android:id="@+id/button3"
-        android:layout_below="@+id/notificationDosesFragmentEditText"
+        android:text="@string/intial_settings_button_next_text"
+        android:id="@+id/button2"
+        android:layout_below="@+id/notificationDosesEditText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="29dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/button"
-        android:onClick="onButtonSaveClick"/>
+        android:onClick="onButtonNextClick"/>
+
 </RelativeLayout>

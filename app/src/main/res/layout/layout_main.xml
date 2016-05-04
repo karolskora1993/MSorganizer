@@ -5,9 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="5dp"
     android:fitsSystemWindows="true"
     tools:context=".MainActivity"
-    android:background="@drawable/bg">
+    android:background="@color/color_bg">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -10,6 +10,5 @@
     <color name="color_200">#C5E1A5</color>
     <color name="color_300">#AED581</color>
     <color name="color_400">#9CCC65</color>
-
-
+    <color name="color_bg">#FFF9C4</color>
 </resources>

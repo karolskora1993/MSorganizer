@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.karolskora.msorgranizer.activities.InjectionDetailsActivity"
-    android:background="@drawable/bg">
+    android:background="@color/color_bg">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/shadow_164319"
+            android:background="@android:drawable/dialog_holo_light_frame"
             android:id="@+id/layout_injection_details">
             <TextView
                 android:layout_width="wrap_content"

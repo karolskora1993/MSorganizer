@@ -60,12 +60,14 @@
     <string name="send_report_button_text">wyslij raport</string>
     <string name="generate_report_text">generuj raport</string>
     <string name="email_text_view_hint">email lekarza lub pielęgniarki</string>
-    <string name="title_1">Pierwszy slajd</string>
-    <string name="description_1">Pierwszy opis</string>
-    <string name="title_2">Slajd 2</string>
-    <string name="description_2">Opis 2</string>
-    <string name="title_3">Slajd 3</string>
-    <string name="description_3">Opis 3</string>
-    <string name="title_4">Slajd 4</string>
-    <string name="description_4">Opis 4</string>
+
+    <string name="title_1">Wykonanie zastrzyku</string>
+    <string name="description_1">Po kliknięciu notyfikacji lub kliknięciu przycisku wykonaj zastrzyk zostaniesz przekierowany do ekranu wykonania zastrzyku. Na ekranie wskazane jest dokładne miejsce aplikacji leku. Możesz odłożyć zastrzyk w czasie klikając przycisk odłóż lub wykonać zastrzyk i wcisnąć przycisk wykonaj zastrzyk. </string>
+    <string name="title_2">Historia zastrzyków</string>
+    <string name="description_2">Po wybraniu z menu opcji historia zastrzyków i wybraniu z listy konkretnego zastrzyku, zostaniesz przekierowany do szczegółowego widoku w którym wskazane jest miejsce aplikacji leku oraz zapisane objawy. Jeżeli chcesz możesz wysłać wygenerowany plik pdf bezpośrednio na email swojego lekarza lub pielęgniarki.</string>
+    <string name="title_3">Zarządzanie ilością leku</string>
+    <string name="description_3">Po wybraniu z menu opcji leku zostaniesz przekierowany do ekranu ustawień związanych z lekiem. Możesz uzupełnić ilość leku poprzez wpisanie nowej wartości dawek w polu lub ustawić przy jakiej ilości leku będzie wysyłane przypomnienie o uzupełnieniu.</string>
+    <string name="title_4">Generowanie raportu</string>
+    <string name="description_4">Po wybraniu z menu opcji generowania raportu możesz wybrać, z których dokładnie zastrzyków potrzebujesz raport. Po zaznaczeniu zastrzyków i wciśnięciu przycisku generuj raport możesz wyświetlić wygenerowany dokument lub wysłać bezpośrednio na emaila lekarza lub pielęgniarki.</string>
+    <string name="title_0">O programie</string>
 </resources>

@@ -8,6 +8,6 @@
     <dimen name="nawigation_width">240dp</dimen>
 
     <dimen name="navigation_drawer_width">250dp</dimen>
-    <dimen name="text_size_xlarge">60sp</dimen>
+    <dimen name="text_size_xlarge">50sp</dimen>
 
 </resources>

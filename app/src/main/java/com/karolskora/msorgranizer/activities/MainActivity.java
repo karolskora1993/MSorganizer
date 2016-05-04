@@ -38,7 +38,6 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.broadcastReceivers.InjectionTimeAlarmReceiver;
-import com.karolskora.msorgranizer.fragments.AboutFragment;
 import com.karolskora.msorgranizer.fragments.HelpFragment;
 import com.karolskora.msorgranizer.fragments.HistoryFragment;
 import com.karolskora.msorgranizer.fragments.LastInjectionDetailsFragment;
@@ -97,92 +96,93 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, UserInformationsActivity.class);
             startActivity(intent);
         }
+        else {
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
 
-        titles = getResources().getStringArray(R.array.titles);
+            titles = getResources().getStringArray(R.array.titles);
 
-        if (savedInstanceState == null)
-            selectItem(0);
+            if (savedInstanceState == null)
+                selectItem(1);
 
-        AccountHeader headerResult = new AccountHeaderBuilder()
-                .withActivity(this)
-                .withHeaderBackground(R.drawable.header_bg)
-                .addProfiles(
-                        new ProfileDrawerItem().withName(user.getName()).withEmail(user.getEmail()).withIcon(getResources().getDrawable(R.drawable.ic_face_black_48dp))
-                )
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                    @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
-                        return false;
-                    }
-                })
-                .build();
-
-        result = new DrawerBuilder()
-                .withActivity(this)
-                .withToolbar(toolbar)
-                .withAccountHeader(headerResult)
-                .withDisplayBelowStatusBar(true)
-                .withHasStableIds(true)
-                .withDrawerLayout(R.layout.crossfade_drawer)
-                .withDrawerWidthDp(72)
-                .withTranslucentStatusBar(true)
-                .withActionBarDrawerToggle(true)
-                .withActionBarDrawerToggleAnimated(true)
-                .withGenerateMiniDrawer(true)
-                .withHeader(R.layout.material_drawer_header)
-                .addDrawerItems(
-                        new PrimaryDrawerItem().withName(titles[0]).withIcon(R.drawable.ic_home_black_48dp),
-                        new PrimaryDrawerItem().withName(titles[1]).withIcon(R.drawable.ic_history_black_48dp),
-                        new PrimaryDrawerItem().withName(titles[2]).withIcon(R.drawable.ic_settings_black_48dp),
-                        new PrimaryDrawerItem().withName(titles[3]).withIcon(R.drawable.ic_receipt_black_48dp),
-                        new DividerDrawerItem(),
-                        new PrimaryDrawerItem().withName(titles[5]).withIcon(R.drawable.ic_trending_up_black_48dp),
-                        new PrimaryDrawerItem().withName(titles[6]).withIcon(R.drawable.ic_settings_applications_black_48dp),
-                        new PrimaryDrawerItem().withName(titles[7]).withIcon(R.drawable.ic_live_help_black_48dp)
-                )
-                .withSavedInstance(savedInstanceState)
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-
-                        if (drawerItem != null) {
-                            selectItem(position);
+            AccountHeader headerResult = new AccountHeaderBuilder()
+                    .withActivity(this)
+                    .withHeaderBackground(R.drawable.header_bg)
+                    .addProfiles(
+                            new ProfileDrawerItem().withName(user.getName()).withEmail(user.getEmail()).withIcon(getResources().getDrawable(R.drawable.ic_face_black_48dp))
+                    )
+                    .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                        @Override
+                        public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+                            return false;
                         }
+                    })
+                    .build();
 
-                        return false;
+            result = new DrawerBuilder()
+                    .withActivity(this)
+                    .withToolbar(toolbar)
+                    .withAccountHeader(headerResult)
+                    .withDisplayBelowStatusBar(true)
+                    .withHasStableIds(true)
+                    .withDrawerLayout(R.layout.crossfade_drawer)
+                    .withDrawerWidthDp(72)
+                    .withTranslucentStatusBar(true)
+                    .withActionBarDrawerToggle(true)
+                    .withActionBarDrawerToggleAnimated(true)
+                    .withGenerateMiniDrawer(true)
+                    .withHeader(R.layout.material_drawer_header)
+                    .addDrawerItems(
+                            new PrimaryDrawerItem().withName(titles[0]).withIcon(R.drawable.ic_home_black_48dp),
+                            new PrimaryDrawerItem().withName(titles[1]).withIcon(R.drawable.ic_history_black_48dp),
+                            new PrimaryDrawerItem().withName(titles[2]).withIcon(R.drawable.ic_settings_black_48dp),
+                            new PrimaryDrawerItem().withName(titles[3]).withIcon(R.drawable.ic_receipt_black_48dp),
+                            new DividerDrawerItem(),
+                            new PrimaryDrawerItem().withName(titles[5]).withIcon(R.drawable.ic_trending_up_black_48dp),
+                            new PrimaryDrawerItem().withName(titles[6]).withIcon(R.drawable.ic_settings_applications_black_48dp),
+                            new PrimaryDrawerItem().withName(titles[7]).withIcon(R.drawable.ic_live_help_black_48dp)
+                    )
+                    .withSavedInstance(savedInstanceState)
+                    .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                        @Override
+                        public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+
+                            if (drawerItem != null) {
+                                selectItem(position);
+                            }
+
+                            return false;
+                        }
+                    })
+                    .build();
+
+
+            crossfadeDrawerLayout = (CrossfadeDrawerLayout) result.getDrawerLayout();
+
+            crossfadeDrawerLayout.setMaxWidthPx(DrawerUIUtils.getOptimalDrawerWidth(this));
+            final MiniDrawer miniResult = result.getMiniDrawer();
+            View view = miniResult.build(this);
+            view.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(this, com.mikepenz.materialdrawer.R.attr.material_drawer_background, com.mikepenz.materialdrawer.R.color.material_drawer_background));
+            crossfadeDrawerLayout.getSmallView().addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+            miniResult.withCrossFader(new ICrossfader() {
+                @Override
+                public void crossfade() {
+                    boolean isFaded = isCrossfaded();
+                    crossfadeDrawerLayout.crossfade(400);
+
+                    if (isFaded) {
+                        result.getDrawerLayout().closeDrawer(GravityCompat.START);
                     }
-                })
-                .build();
-
-
-        crossfadeDrawerLayout = (CrossfadeDrawerLayout) result.getDrawerLayout();
-
-        crossfadeDrawerLayout.setMaxWidthPx(DrawerUIUtils.getOptimalDrawerWidth(this));
-        final MiniDrawer miniResult = result.getMiniDrawer();
-        View view = miniResult.build(this);
-        view.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(this, com.mikepenz.materialdrawer.R.attr.material_drawer_background, com.mikepenz.materialdrawer.R.color.material_drawer_background));
-        crossfadeDrawerLayout.getSmallView().addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
-        miniResult.withCrossFader(new ICrossfader() {
-            @Override
-            public void crossfade() {
-                boolean isFaded = isCrossfaded();
-                crossfadeDrawerLayout.crossfade(400);
-
-                if (isFaded) {
-                    result.getDrawerLayout().closeDrawer(GravityCompat.START);
                 }
-            }
 
-            @Override
-            public boolean isCrossfaded() {
-                return crossfadeDrawerLayout.isCrossfaded();
-            }
-        });
-
+                @Override
+                public boolean isCrossfaded() {
+                    return crossfadeDrawerLayout.isCrossfaded();
+                }
+            });
+        }
     }
 
     private void selectItem(int position) {
@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
         ft.addToBackStack(null);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft.commit();
-        setActionBarTitle(position);
+        setActionBarTitle(position-1);
     }
 
     public void setActionBarTitle(int position) {
