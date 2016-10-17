@@ -3,7 +3,6 @@ package com.karolskora.msorgranizer.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,8 +16,10 @@ public class UserInformationsActivity extends FragmentActivity {
     public static final String NURSE_NAME="nurse_name";
     public static final String EMAIL="email";
 
-
-
+    private String name;
+    private String doctorName;
+    private String nurseName;
+    private String doctorEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,32 +28,38 @@ public class UserInformationsActivity extends FragmentActivity {
     }
 
     public void onButtonNextClick(View view) {
+        name= getStringForField(R.id.nameTextEdit);
+        doctorName=getStringForField(R.id.doctorNameTextEdit);
+        nurseName=getStringForField(R.id.nurseNameTextEdit);
+        doctorEmail=getStringForField(R.id.emailTextEdit);
 
-        EditText nameTextEdit = (EditText)findViewById(R.id.nameTextEdit);
-        String name=nameTextEdit.getText().toString();
-
-        EditText doctorNameTextEdit = (EditText)findViewById(R.id.doctorNameTextEdit);
-        String doctorName=doctorNameTextEdit.getText().toString();
-
-        EditText nurseNameTextEdit = (EditText)findViewById(R.id.nurseNameTextEdit);
-        String nurseName=nurseNameTextEdit.getText().toString();
-
-        EditText emailTextEdit = (EditText)findViewById(R.id.emailTextEdit);
-        String email=emailTextEdit.getText().toString();
-
-        if(name.equals("") || doctorName.equals("") || nurseName.equals("") || email.equals("")) {
-            Log.i(this.getClass().toString(), "Wyswietlenie wiadomosci o niepełności danych");
+        if(areFieldsFilled()) {
             Toast toast = Toast.makeText(this, "Wypełnij wszystkie dane", Toast.LENGTH_LONG);
             toast.show();
         }
         else {
-            Intent intent = new Intent(this, FirstInjectionTimeActivity.class);
-            intent.putExtra(USER_NAME, name);
-            intent.putExtra(DOCTOR_NAME, doctorName);
-            intent.putExtra(NURSE_NAME, nurseName);
-            intent.putExtra(EMAIL, email);
-
-            startActivity(intent);
+            startNextActivity();
         }
+    }
+
+    private String getStringForField(int fieldId) {
+        EditText editText = (EditText)findViewById(fieldId);
+
+        return  editText.getText().toString();
+    }
+
+    private boolean areFieldsFilled(){
+     return name.equals("") || doctorName.equals("") || nurseName.equals("") || doctorEmail.equals("");
+
+    }
+
+    private void startNextActivity() {
+        Intent intent = new Intent(this, FirstInjectionTimeActivity.class);
+        intent.putExtra(USER_NAME, name);
+        intent.putExtra(DOCTOR_NAME, doctorName);
+        intent.putExtra(NURSE_NAME, nurseName);
+        intent.putExtra(EMAIL, doctorEmail);
+
+        startActivity(intent);
     }
 }
