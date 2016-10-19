@@ -1,15 +1,9 @@
 package com.karolskora.msorgranizer.activities;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.util.Calendar;
-
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLDisplay;
-import javax.microedition.khronos.opengles.GL10;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
@@ -27,52 +21,28 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.ImageView;
-
 import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.fragments.TimePickerFragment;
 import com.karolskora.msorgranizer.java.DatabaseQueries;
 import com.karolskora.msorgranizer.java.ModelRenderer;
 import com.karolskora.msorgranizer.java.PointFinder;
-import com.karolskora.msorgranizer.models.Injection;
-import com.threed.jpct.Camera;
-import com.threed.jpct.FrameBuffer;
-import com.threed.jpct.Light;
-import com.threed.jpct.Loader;
-import com.threed.jpct.Logger;
-import com.threed.jpct.Object3D;
-import com.threed.jpct.RGBColor;
-import com.threed.jpct.SimpleVector;
-import com.threed.jpct.World;
-import com.threed.jpct.util.MemoryHelper;
-
-import com.threed.jpct.*;
 
 public class InjectionActivity extends Activity {
 
     private GLSurfaceView mGLView;
     private ModelRenderer renderer;
-
     private ScaleGestureDetector scaleGestureDetector;
-
     private int scaleFactor=40;
-
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.layout_injection);
-
         setRenderer();
         setImage();
-
         scaleGestureDetector = new ScaleGestureDetector(this,
                 new ScaleListener());
-
-
     }
-
-
 
     @Override
     protected void onPause() {
@@ -92,7 +62,6 @@ public class InjectionActivity extends Activity {
     }
 
     public void postpone(View view) {
-
         DialogFragment newFragment = new TimePickerFragment();
         newFragment.show(getFragmentManager(), "timePicker");
     }
@@ -104,7 +73,6 @@ public class InjectionActivity extends Activity {
             AlertDialog ad = new AlertDialog.Builder(this).create();
             ad.setCancelable(false);
             ad.setMessage("Brak dostępnych dawek leku!");
-
             ad.setButton(AlertDialog.BUTTON_POSITIVE, "uzupełnij", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -112,7 +80,6 @@ public class InjectionActivity extends Activity {
                     startActivity(intent);
                 }
             });
-
             ad.show();
         } else {
             if (doses < DatabaseQueries.getNotificationDoses(this))
@@ -137,9 +104,6 @@ public class InjectionActivity extends Activity {
 
         builder.setContentIntent(pendingIntent);
         notificationManager.notify(1123, builder.build());
-
-        Log.d(this.getClass().toString(), "notyfikacja");
-
     }
 
     private NotificationCompat.Builder getNotificationBuilder(int doses) {
@@ -174,20 +138,14 @@ public class InjectionActivity extends Activity {
     private void setImage(){
 
         ImageView imageView=(ImageView)findViewById(R.id.injectionPointImageView);
-
         int[] injectionPoint=PointFinder.findPoint(this);
-
         String field="f"+ String.valueOf(String.valueOf(injectionPoint[0]) + String.valueOf(injectionPoint[1]));
-
-        Log.d(this.getClass().toString(), "field: "+field);
         Drawable d = ContextCompat.getDrawable(this, this.getResources().getIdentifier(field, "drawable", this.getPackageName()));
-
         imageView.setImageDrawable(d);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
         scaleGestureDetector.onTouchEvent(event);
 
         return true;
@@ -197,12 +155,10 @@ public class InjectionActivity extends Activity {
             ScaleGestureDetector.SimpleOnScaleGestureListener {
 
         private float change;
+
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
             scaleFactor *= detector.getScaleFactor();
-
-            Log.d(this.getClass().toString(), "scaleFactor:" +scaleFactor);
-
             scaleFactor = (int)(Math.max(0.1f, Math.min(scaleFactor, 5.0f)));
 
             return true;
@@ -210,8 +166,6 @@ public class InjectionActivity extends Activity {
 
         @Override
         public boolean onScaleBegin(ScaleGestureDetector detector) {
-            Log.d(this.getClass().toString(), "ScaleBegin"+ detector.getFocusX() + detector.getFocusY() );
-
             return true;
         }
 

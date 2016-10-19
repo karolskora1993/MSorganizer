@@ -4,19 +4,13 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.broadcastReceivers.InjectionTimeAlarmReceiver;
 import com.karolskora.msorgranizer.fragments.DatePickerFragment;
 import com.karolskora.msorgranizer.java.DatabaseHelper;
 import com.karolskora.msorgranizer.java.DatabaseQueries;
-import com.karolskora.msorgranizer.models.Notification;
-
-import java.util.Calendar;
 
 public class AboutAppActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 

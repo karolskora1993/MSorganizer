@@ -1,18 +1,13 @@
 package com.karolskora.msorgranizer.activities;
 
 
-import android.Manifest;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-
 import com.heinrichreimersoftware.materialintro.app.IntroActivity;
-import com.heinrichreimersoftware.materialintro.app.NavigationPolicy;
-import com.heinrichreimersoftware.materialintro.app.OnNavigationBlockedListener;
-import com.heinrichreimersoftware.materialintro.slide.FragmentSlide;
 import com.heinrichreimersoftware.materialintro.slide.SimpleSlide;
 import com.karolskora.msorgranizer.R;
 
 public class HelpActivity extends IntroActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
 
@@ -63,5 +58,4 @@ public class HelpActivity extends IntroActivity {
                 .backgroundDark(R.color.color_400)
                 .build());
     }
-
 }

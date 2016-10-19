@@ -37,11 +37,8 @@ public class InjectionDetailsActivity extends AppCompatActivity {
 
     private int position;
     private Injection injection;
-
     private GLSurfaceView mGLView;
     private ModelRenderer renderer = null;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
