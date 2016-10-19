@@ -20,13 +20,20 @@ public class FirstInjectionTimeActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_first_injection_time);
-        TimePicker timePicker=(TimePicker)findViewById(R.id.timePicker);
-        timePicker.setIs24HourView(true);
-
     }
 
     public void onButtonNextClick(View view){
 
+        int[] time = getTime();
+        showDatePickerFragment(time);
+    }
+
+    private void setupTimePicker() {
+        TimePicker timePicker=(TimePicker)findViewById(R.id.timePicker);
+        timePicker.setIs24HourView(true);
+    }
+
+    private int[] getTime() {
         TimePicker time=(TimePicker)findViewById(R.id.timePicker);
         int hour, minute;
         if(Build.VERSION.SDK_INT < 23) {
@@ -39,9 +46,13 @@ public class FirstInjectionTimeActivity extends FragmentActivity {
             minute = time.getMinute();
         }
 
+        return new int[] {hour, minute};
+    }
+
+    private void showDatePickerFragment(int[] time) {
         Bundle bundle=new Bundle();
-        bundle.putInt(FirstInjectionTimeActivity.HOUR, hour);
-        bundle.putInt(FirstInjectionTimeActivity.MINUTE, minute);
+        bundle.putInt(FirstInjectionTimeActivity.HOUR, time[0]);
+        bundle.putInt(FirstInjectionTimeActivity.MINUTE, time[1]);
 
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.setArguments(bundle);
