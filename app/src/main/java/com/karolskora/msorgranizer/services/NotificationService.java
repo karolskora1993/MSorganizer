@@ -35,13 +35,8 @@ public class NotificationService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = this.getNotificationBuilder();
-
         builder.setContentIntent(pendingIntent);
-
         notificationManager.notify(NOTIFICATION_ID, builder.build());
-
-        Log.d(this.getClass().toString(), "notyfikacja");
-
 
         return START_NOT_STICKY;
     }

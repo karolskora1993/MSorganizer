@@ -21,9 +21,6 @@ public class DatePickerFragment extends DialogFragment
 
     public static final String TIME_IN_MILIS="time_in_milis";
 
-
-
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Calendar c = Calendar.getInstance();
@@ -42,8 +39,6 @@ public class DatePickerFragment extends DialogFragment
         String doctorName=getActivity().getIntent().getStringExtra(UserInformationsActivity.DOCTOR_NAME);
         String nurseName=getActivity().getIntent().getStringExtra(UserInformationsActivity.NURSE_NAME);
         String email=getActivity().getIntent().getStringExtra(UserInformationsActivity.EMAIL);
-
-
 
         int hour=bundle.getInt(FirstInjectionTimeActivity.HOUR);
         int minute=bundle.getInt(FirstInjectionTimeActivity.MINUTE);

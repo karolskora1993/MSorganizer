@@ -189,4 +189,21 @@ public class DatabaseQueries {
 
         drugSupplyDao.create(newDrugSupply);
     }
+
+    public static void putUser(Context activity, String name, String doctorName, String nurseName, String email) {
+        if(dbHelper==null)
+            dbHelper= OpenHelperManager.getHelper(activity,DatabaseHelper.class);
+
+        RuntimeExceptionDao<User, String> userDao = dbHelper.getUserDao();
+        userDao.create(new User(name, doctorName, nurseName, email));
+    }
+
+    public static void putInjectionsSchedule(Context activity, long timeInMilis){
+        if(dbHelper==null)
+            dbHelper= OpenHelperManager.getHelper(activity,DatabaseHelper.class);
+
+        RuntimeExceptionDao<Notification, Integer> injectionsScheduleDao = dbHelper.getInjectionsScheduleDao();
+        injectionsScheduleDao.create(new Notification(timeInMilis));
+
+    }
 }

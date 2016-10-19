@@ -31,8 +31,7 @@ public class DrugSupplyActivity extends AppCompatActivity {
         int notificationDoses = Integer.parseInt(notificationDosesEditText.getText().toString());
 
         if (dosesEditText.getText().toString().equals("") || notificationDosesEditText.getText().toString().equals("")) {
-            Toast toast = Toast.makeText(this, "Wypełnij wszystkie dane", Toast.LENGTH_LONG);
-            toast.show();
+            showNotCompletedFieldsToast();
         } else {
 
             Intent intent = getIntent();
@@ -56,5 +55,10 @@ public class DrugSupplyActivity extends AppCompatActivity {
 
             startActivity(intent);
         }
+    }
+
+    private void showNotCompletedFieldsToast() {
+        Toast toast = Toast.makeText(this, "Wypełnij wszystkie dane", Toast.LENGTH_LONG);
+        toast.show();
     }
 }

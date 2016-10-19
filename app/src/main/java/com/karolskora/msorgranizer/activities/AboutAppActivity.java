@@ -14,9 +14,7 @@ import com.karolskora.msorgranizer.broadcastReceivers.InjectionTimeAlarmReceiver
 import com.karolskora.msorgranizer.fragments.DatePickerFragment;
 import com.karolskora.msorgranizer.java.DatabaseHelper;
 import com.karolskora.msorgranizer.java.DatabaseQueries;
-import com.karolskora.msorgranizer.models.DrugSupply;
 import com.karolskora.msorgranizer.models.Notification;
-import com.karolskora.msorgranizer.models.User;
 
 import java.util.Calendar;
 
@@ -51,30 +49,17 @@ public class AboutAppActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         int doses = intent.getIntExtra(DrugSupplyActivity.DOSES, 0);
         int notificationDoses = intent.getIntExtra(DrugSupplyActivity.NOTIFICATION_DOSES, 0);
 
-        DatabaseHelper dbHelper = getHelper();
-
-        RuntimeExceptionDao<User, String> userDao = dbHelper.getUserDao();
-        userDao.create(new User(name, doctorName, nurseName, email));
-
-        RuntimeExceptionDao<Notification, Integer> injectionsScheduleDao = dbHelper.getInjectionsScheduleDao();
-        injectionsScheduleDao.create(new Notification(timeInMilis));
-
+        DatabaseQueries.putUser(this, name, doctorName, nurseName, email);
+        DatabaseQueries.putInjectionsSchedule(this, timeInMilis);
         DatabaseQueries.setDoses(this, doses, notificationDoses);
     }
 
     private void scheduleNotification() {
-
-        long injectionTime=getIntent().getLongExtra(DatePickerFragment.TIME_IN_MILIS, 0);
+        long injectionTime = getIntent().getLongExtra(DatePickerFragment.TIME_IN_MILIS, 0);
         Intent broadcastIntent = new Intent(this, InjectionTimeAlarmReceiver.class);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, injectionTime, AlarmManager.INTERVAL_DAY * 2, pendingIntent);
-
-        Calendar calendar=Calendar.getInstance();
-        calendar.setTimeInMillis(injectionTime);
-        Log.d(this.getClass().toString(), "Notyfikacja ustawiona na czas rok:" + calendar.get(Calendar.YEAR) + " miesiac: " + calendar.get(Calendar.MONTH) +
-                " dzien: " + calendar.get(Calendar.DAY_OF_MONTH) + " godzina: " + calendar.get(Calendar.HOUR) + " minuta: " + calendar.get(Calendar.MINUTE));    }
-
+    }
 }
