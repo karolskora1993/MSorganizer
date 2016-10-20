@@ -1,16 +1,13 @@
 package com.karolskora.msorgranizer.java;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
-
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -19,21 +16,16 @@ import com.itextpdf.text.ListItem;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
-import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfAWriter;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.models.Injection;
 import com.karolskora.msorgranizer.models.User;
-
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
 import java.util.Calendar;
 import java.util.List;
 
@@ -43,24 +35,18 @@ import java.util.List;
  */
 public class PdfGenerator{
 
+    private static Bitmap resizedBitmap;
+
     public static void generate(Context context, List<Injection> list, String fileName){
-
         try {
-
 
             File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileName);
             FileOutputStream output = new FileOutputStream(f);
-
             Document document = new Document(PageSize.A4);
-
-
-
             PdfAWriter.getInstance(document, output);
-
             document.open();
 
             User user = DatabaseQueries.getUser(context);
-
             String text = user.getName() + "- Raport z zastrzyków: \n \n ";
 
             document.addHeader("nagłówek", text);
@@ -72,10 +58,7 @@ public class PdfGenerator{
                 PdfPTable nextTable = addTable(currentInj, context);
                 document.add(nextTable);
             }
-
-
             document.close();
-            Log.d(PdfGenerator.class.toString(), "dokument zapisany");
         }
         catch (FileNotFoundException| DocumentException e){
 
@@ -101,23 +84,15 @@ public class PdfGenerator{
         table.addCell("Objawy:");
 
         try {
-
             String field="f"+ String.valueOf(currentInj.getArea()) + String.valueOf(currentInj.getPoint());
-
-            Log.d(PdfGenerator.class.toString(), "Miejsce zastrzyku: "+field);
-
             Drawable d = ContextCompat.getDrawable(context, context.getResources().getIdentifier(field, "drawable", context.getPackageName()));
-
             BitmapDrawable bitDw = ((BitmapDrawable) d);
-
             Bitmap bmp = bitDw.getBitmap();
 
             bmp=getResizedBitmap(bmp,200,200);
 
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-
             bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-
 
             Image image = Image.getInstance(stream.toByteArray());
 
@@ -165,9 +140,12 @@ public class PdfGenerator{
         Matrix matrix = new Matrix();
         matrix.postScale(scaleWidth, scaleHeight);
 
-        Bitmap resizedBitmap = Bitmap.createBitmap(
-                bm, 0, 0, width, height, matrix, false);
-        bm.recycle();
+        if(resizedBitmap == null) {
+            resizedBitmap = Bitmap.createBitmap(
+                    bm, 0, 0, width, height, matrix, false);
+            bm.recycle();
+        }
+
         return resizedBitmap;
     }
 

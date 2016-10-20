@@ -8,11 +8,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.DateFormat;
-import android.util.Log;
 import android.widget.TimePicker;
-
-
 import com.karolskora.msorgranizer.activities.MainActivity;
 import com.karolskora.msorgranizer.broadcastReceivers.PostponedNotification;
 
@@ -31,7 +27,7 @@ public class TimePickerFragment extends DialogFragment
         int minute = c.get(Calendar.MINUTE);
 
         return new TimePickerDialog(getActivity(), this, hour, minute,
-                DateFormat.is24HourFormat(getActivity()));
+               true);
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -40,7 +36,6 @@ public class TimePickerFragment extends DialogFragment
         calendar.set(Calendar.HOUR, hourOfDay);
         calendar.set(Calendar.MINUTE, minute);
         long injectionTime=calendar.getTimeInMillis();
-
 
         Intent broadcastIntent = new Intent(getActivity(), PostponedNotification.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);

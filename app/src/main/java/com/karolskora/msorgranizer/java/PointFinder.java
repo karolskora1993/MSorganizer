@@ -1,8 +1,6 @@
 package com.karolskora.msorgranizer.java;
 
 import android.content.Context;
-import android.util.Log;
-
 import com.karolskora.msorgranizer.models.Injection;
 
 
@@ -33,7 +31,6 @@ public class PointFinder {
             }
         }
 
-        Log.d(PointFinder.class.toString(), "Nastepne miejsce: "+ area + " "+ point);
         return new int[]{area,point};
     }
 }

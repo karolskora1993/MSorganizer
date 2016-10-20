@@ -34,7 +34,7 @@ public class MainFragment extends Fragment {
 
         MainActivity owner=(MainActivity)getActivity();
 
-        if (owner.getUser()!=null) {
+        if (DatabaseQueries.getUser(owner)!=null) {
             Injection injection = DatabaseQueries.getLatestInjection(getActivity());
 
             Fragment fragment2=new ToInjectionFragment();

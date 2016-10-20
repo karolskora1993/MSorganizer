@@ -1,6 +1,5 @@
 package com.karolskora.msorgranizer.activities;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -8,37 +7,25 @@ import android.app.FragmentTransaction;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.broadcastReceivers.InjectionTimeAlarmReceiver;
-import com.karolskora.msorgranizer.fragments.HelpFragment;
 import com.karolskora.msorgranizer.fragments.HistoryFragment;
 import com.karolskora.msorgranizer.fragments.LastInjectionDetailsFragment;
 import com.karolskora.msorgranizer.fragments.MainFragment;
@@ -62,12 +49,10 @@ import com.mikepenz.materialdrawer.interfaces.ICrossfader;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -75,15 +60,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-
     private DatabaseHelper dbHelper;
     private String[] titles;
     private User user;
-
     private CrossfadeDrawerLayout crossfadeDrawerLayout;
     private Drawer result;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,105 +72,26 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.layout_main);
 
-        user = getUser();
+        user = DatabaseQueries.getUser(this);
         if (user == null) {
-            Intent intent = new Intent(this, UserInformationsActivity.class);
-            startActivity(intent);
+            startUserInformationActivity();
         }
         else {
-
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-
+            Toolbar toolbar = getToolbar();
             titles = getResources().getStringArray(R.array.titles);
 
             if (savedInstanceState == null)
                 selectItem(1);
 
-            AccountHeader headerResult = new AccountHeaderBuilder()
-                    .withActivity(this)
-                    .withHeaderBackground(R.drawable.header_bg)
-                    .addProfiles(
-                            new ProfileDrawerItem().withName(user.getName()).withEmail(user.getEmail()).withIcon(getResources().getDrawable(R.drawable.ic_face_black_48dp))
-                    )
-                    .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                        @Override
-                        public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
-                            return false;
-                        }
-                    })
-                    .build();
+            AccountHeader headerResult = buildAccountHeader();
 
-            result = new DrawerBuilder()
-                    .withActivity(this)
-                    .withToolbar(toolbar)
-                    .withAccountHeader(headerResult)
-                    .withDisplayBelowStatusBar(true)
-                    .withHasStableIds(true)
-                    .withDrawerLayout(R.layout.crossfade_drawer)
-                    .withDrawerWidthDp(72)
-                    .withTranslucentStatusBar(true)
-                    .withActionBarDrawerToggle(true)
-                    .withActionBarDrawerToggleAnimated(true)
-                    .withGenerateMiniDrawer(true)
-                    .withHeader(R.layout.material_drawer_header)
-                    .addDrawerItems(
-                            new PrimaryDrawerItem().withName(titles[0]).withIcon(R.drawable.ic_home_black_48dp),
-                            new PrimaryDrawerItem().withName(titles[1]).withIcon(R.drawable.ic_history_black_48dp),
-                            new PrimaryDrawerItem().withName(titles[2]).withIcon(R.drawable.ic_settings_black_48dp),
-                            new PrimaryDrawerItem().withName(titles[3]).withIcon(R.drawable.ic_receipt_black_48dp),
-                            new DividerDrawerItem(),
-                            new PrimaryDrawerItem().withName(titles[5]).withIcon(R.drawable.ic_trending_up_black_48dp),
-                            new PrimaryDrawerItem().withName(titles[6]).withIcon(R.drawable.ic_settings_applications_black_48dp),
-                            new PrimaryDrawerItem().withName(titles[7]).withIcon(R.drawable.ic_live_help_black_48dp)
-                    )
-                    .withSavedInstance(savedInstanceState)
-                    .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                        @Override
-                        public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-
-                            if (drawerItem != null) {
-                                selectItem(position);
-                            }
-
-                            return false;
-                        }
-                    })
-                    .build();
-
-
-            crossfadeDrawerLayout = (CrossfadeDrawerLayout) result.getDrawerLayout();
-
-            crossfadeDrawerLayout.setMaxWidthPx(DrawerUIUtils.getOptimalDrawerWidth(this));
-            final MiniDrawer miniResult = result.getMiniDrawer();
-            View view = miniResult.build(this);
-            view.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(this, com.mikepenz.materialdrawer.R.attr.material_drawer_background, com.mikepenz.materialdrawer.R.color.material_drawer_background));
-            crossfadeDrawerLayout.getSmallView().addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
-            miniResult.withCrossFader(new ICrossfader() {
-                @Override
-                public void crossfade() {
-                    boolean isFaded = isCrossfaded();
-                    crossfadeDrawerLayout.crossfade(400);
-
-                    if (isFaded) {
-                        result.getDrawerLayout().closeDrawer(GravityCompat.START);
-                    }
-                }
-
-                @Override
-                public boolean isCrossfaded() {
-                    return crossfadeDrawerLayout.isCrossfaded();
-                }
-            });
+            buildDrawer(savedInstanceState, toolbar, headerResult);
+            buildCrossfadeDrawer();
         }
     }
 
     private void selectItem(int position) {
-
-        Log.d(this.getClass().toString(), "position: "+position);
         Fragment fragment = new MainFragment();
-
         switch (position) {
             case 2:
                 fragment = new HistoryFragment();
@@ -231,20 +133,6 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle(title);
 
-    }
-
-    public User getUser() {
-
-        dbHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
-
-        RuntimeExceptionDao<User, String> userDao = dbHelper.getUserDao();
-
-        List<User> users = userDao.queryForAll();
-
-        if (users.isEmpty())
-            return null;
-        else
-            return users.iterator().next();
     }
 
     public void onButtonSaveUserInfoClick(View view) {
@@ -297,9 +185,6 @@ public class MainActivity extends AppCompatActivity {
         Injection lastInjection =DatabaseQueries.getLatestInjection(this);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(lastInjection.getTimeInMilis());
-        Log.d(this.getClass().toString(), "Data ostatniego zastrzyku: rok:" + calendar.get(Calendar.YEAR) + " miesiac: " + calendar.get(Calendar.MONTH) +
-                " dzien: " + calendar.get(Calendar.DAY_OF_MONTH) + " godzina: " + calendar.get(Calendar.HOUR) + " minuta: " + calendar.get(Calendar.MINUTE));
-
         injectionSchedulesDao.delete(notification);
 
         calendar.setTimeInMillis(calendar.getTimeInMillis() + 48 * 60 * 60 * 1000);
@@ -307,10 +192,9 @@ public class MainActivity extends AppCompatActivity {
         calendar.set(Calendar.MINUTE, minute);
         injectionSchedulesDao.create(new Notification(calendar.getTimeInMillis()));
 
-        Log.d(this.getClass().toString(), "Nowy czas notyfikacji: rok:" + calendar.get(Calendar.YEAR)+" miesiac: "+calendar.get(Calendar.MONTH)+
-                " dzien: "+calendar.get(Calendar.DAY_OF_MONTH)+" godzina: "+calendar.get(Calendar.HOUR)+" minuta: "+calendar.get(Calendar.MINUTE));
+        Log.d(this.getClass().toString(), "Nowy czas notyfikacji: rok:" + calendar.get(Calendar.YEAR) + " miesiac: " + calendar.get(Calendar.MONTH) +
+                " dzien: " + calendar.get(Calendar.DAY_OF_MONTH) + " godzina: " + calendar.get(Calendar.HOUR) + " minuta: " + calendar.get(Calendar.MINUTE));
         scheduleNewNotification(calendar.getTimeInMillis());
-
         Toast toast = Toast.makeText(this, "Zmieniono ustawienia notyfikacji", Toast.LENGTH_LONG);
         toast.show();
 
@@ -353,8 +237,6 @@ public class MainActivity extends AppCompatActivity {
                 checkedInjections.add(injections.get(i));
             }
         }
-
-        Log.d(this.getClass().toString(), "ilosc zastrzykow do raportu:" + checkedInjections.size());
 
         Calendar calendar=Calendar.getInstance();
         String injectionDate = calendar.get(Calendar.DAY_OF_MONTH) + "." + calendar.get(Calendar.MONTH) + "." + calendar.get(Calendar.YEAR);
@@ -426,6 +308,102 @@ public class MainActivity extends AppCompatActivity {
         RuntimeExceptionDao<Notification, Integer> injectionSchedulesDao = dbHelper.getInjectionsScheduleDao();
 
         return injectionSchedulesDao.queryForAll().iterator().next();
+    }
+
+    private void startUserInformationActivity() {
+        Intent intent = new Intent(this, UserInformationsActivity.class);
+        startActivity(intent);
+    }
+
+    private Toolbar getToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        return toolbar;
+    }
+
+    private AccountHeader buildAccountHeader() {
+        AccountHeader headerResult = new AccountHeaderBuilder()
+                .withActivity(this)
+                .withHeaderBackground(R.drawable.header_bg)
+                .addProfiles(
+                        new ProfileDrawerItem().withName(user.getName()).withEmail(user.getEmail()).withIcon(getResources().getDrawable(R.drawable.ic_face_black_48dp))
+                )
+                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                    @Override
+                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+                        return false;
+                    }
+                })
+                .build();
+
+        return headerResult;
+    }
+
+    private void buildDrawer(Bundle savedInstanceState, Toolbar toolbar, AccountHeader headerResult) {
+        result = new DrawerBuilder()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .withAccountHeader(headerResult)
+                .withDisplayBelowStatusBar(true)
+                .withHasStableIds(true)
+                .withDrawerLayout(R.layout.crossfade_drawer)
+                .withDrawerWidthDp(72)
+                .withTranslucentStatusBar(true)
+                .withActionBarDrawerToggle(true)
+                .withActionBarDrawerToggleAnimated(true)
+                .withGenerateMiniDrawer(true)
+                .withHeader(R.layout.material_drawer_header)
+                .addDrawerItems(
+                        new PrimaryDrawerItem().withName(titles[0]).withIcon(R.drawable.ic_home_black_48dp),
+                        new PrimaryDrawerItem().withName(titles[1]).withIcon(R.drawable.ic_history_black_48dp),
+                        new PrimaryDrawerItem().withName(titles[2]).withIcon(R.drawable.ic_settings_black_48dp),
+                        new PrimaryDrawerItem().withName(titles[3]).withIcon(R.drawable.ic_receipt_black_48dp),
+                        new DividerDrawerItem(),
+                        new PrimaryDrawerItem().withName(titles[5]).withIcon(R.drawable.ic_trending_up_black_48dp),
+                        new PrimaryDrawerItem().withName(titles[6]).withIcon(R.drawable.ic_settings_applications_black_48dp),
+                        new PrimaryDrawerItem().withName(titles[7]).withIcon(R.drawable.ic_live_help_black_48dp)
+                )
+                .withSavedInstance(savedInstanceState)
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+
+                        if (drawerItem != null) {
+                            selectItem(position);
+                        }
+
+                        return false;
+                    }
+                })
+                .build();
+    }
+
+    private void buildCrossfadeDrawer() {
+        crossfadeDrawerLayout = (CrossfadeDrawerLayout) result.getDrawerLayout();
+
+        crossfadeDrawerLayout.setMaxWidthPx(DrawerUIUtils.getOptimalDrawerWidth(this));
+        final MiniDrawer miniResult = result.getMiniDrawer();
+        View view = miniResult.build(this);
+        view.setBackgroundColor(UIUtils.getThemeColorFromAttrOrRes(this, com.mikepenz.materialdrawer.R.attr.material_drawer_background, com.mikepenz.materialdrawer.R.color.material_drawer_background));
+        crossfadeDrawerLayout.getSmallView().addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        miniResult.withCrossFader(new ICrossfader() {
+            @Override
+            public void crossfade() {
+                boolean isFaded = isCrossfaded();
+                crossfadeDrawerLayout.crossfade(400);
+
+                if (isFaded) {
+                    result.getDrawerLayout().closeDrawer(GravityCompat.START);
+                }
+            }
+
+            @Override
+            public boolean isCrossfaded() {
+                return crossfadeDrawerLayout.isCrossfaded();
+            }
+        });
     }
 }
 

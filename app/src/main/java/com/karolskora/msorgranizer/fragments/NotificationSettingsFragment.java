@@ -7,18 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TimePicker;
-
-
 import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.activities.MainActivity;
 import com.karolskora.msorgranizer.models.Notification;
-
 import java.util.Calendar;
 
-
 public class NotificationSettingsFragment extends Fragment {
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

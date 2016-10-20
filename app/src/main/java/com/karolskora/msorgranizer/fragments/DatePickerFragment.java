@@ -7,12 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.DatePicker;
 
-import com.karolskora.msorgranizer.activities.AboutAppActivity;
 import com.karolskora.msorgranizer.activities.DrugSupplyActivity;
 import com.karolskora.msorgranizer.activities.FirstInjectionTimeActivity;
 import com.karolskora.msorgranizer.activities.UserInformationsActivity;
-import com.karolskora.msorgranizer.models.DrugSupply;
-
 
 import java.util.Calendar;
 

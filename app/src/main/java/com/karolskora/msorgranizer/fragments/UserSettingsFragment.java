@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.activities.MainActivity;
+import com.karolskora.msorgranizer.java.DatabaseQueries;
 import com.karolskora.msorgranizer.models.User;
 
 
@@ -36,7 +37,7 @@ public class UserSettingsFragment extends Fragment {
         EditText emailTextEdit = (EditText)getActivity().findViewById(R.id.emailTextEdit);
 
         MainActivity activity=(MainActivity)getActivity();
-        User user =activity.getUser();
+        User user = DatabaseQueries.getUser(activity);
         if(nameTextEdit!=null) {
             nameTextEdit.setText(user.getName());
             doctorNameTextEdit.setText(user.getDoctorName());

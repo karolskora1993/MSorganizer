@@ -1,6 +1,5 @@
 package com.karolskora.msorgranizer.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -14,21 +13,17 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.fragments.HistoryFragment;
 import com.karolskora.msorgranizer.java.DatabaseQueries;
 import com.karolskora.msorgranizer.java.ModelRenderer;
 import com.karolskora.msorgranizer.java.PdfGenerator;
-import com.karolskora.msorgranizer.java.PointFinder;
 import com.karolskora.msorgranizer.models.Injection;
 import com.karolskora.msorgranizer.models.User;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLDisplay;
@@ -45,17 +40,13 @@ public class InjectionDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.layout_injection_details);
-
         Intent intent=getIntent();
         position=intent.getIntExtra(HistoryFragment.POSITION,-1);
-
         List<Injection> injections= DatabaseQueries.getInjections(this);
         injection= injections.get(position);
-
         setSymptoms(injection);
         setRenderer();
         setImage();
-
     }
 
     private void setSymptoms(Injection injection) {
@@ -91,29 +82,24 @@ public class InjectionDetailsActivity extends AppCompatActivity {
     }
 
     public void onButtonSendReportClick(View view) {
-
         List<Injection> injections =new ArrayList<>();
         injections.add(injection);
 
         User user=DatabaseQueries.getUser(this);
-
         Calendar calendar=Calendar.getInstance();
 
         String injectionDate = calendar.get(Calendar.DAY_OF_MONTH) + "." + calendar.get(Calendar.MONTH) + "." + calendar.get(Calendar.YEAR);
         String injectionTime=calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);
         String date="data: "+ injectionDate+"    godzina: "+injectionTime;
-
         String fileName="report_"+ calendar.getTimeInMillis()+".pdf";
 
         PdfGenerator.generate(this,injections, fileName);
-
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_EMAIL, new String[] {"email@example.com"});
         intent.putExtra(Intent.EXTRA_SUBJECT, user.getName()+ "-raport");
         intent.putExtra(Intent.EXTRA_TEXT, "Raport wysłany w dniu "+date);
         File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/"+fileName);
-
         if (!file.exists() || !file.canRead()) {
             Toast.makeText(this, "nie można dodać załącznika", Toast.LENGTH_LONG).show();
         }
@@ -122,7 +108,6 @@ public class InjectionDetailsActivity extends AppCompatActivity {
             intent.putExtra(Intent.EXTRA_STREAM, uri);
             startActivity(Intent.createChooser(intent, "Wyślij email..."));
         }
-
     }
 
     private void setRenderer() {
@@ -144,14 +129,9 @@ public class InjectionDetailsActivity extends AppCompatActivity {
     }
 
     private void setImage(){
-
         ImageView imageView=(ImageView)findViewById(R.id.injectionPointImageView);
-
         String field="f"+ String.valueOf(injection.getArea()) + String.valueOf(injection.getPoint());
-
-        Log.d(this.getClass().toString(), "field: " + field);
         Drawable d = ContextCompat.getDrawable(this, this.getResources().getIdentifier(field, "drawable", this.getPackageName()));
-
         imageView.setImageDrawable(d);
     }
 
