@@ -177,23 +177,17 @@ public class MainActivity extends AppCompatActivity {
             minute = time.getMinute();
         }
 
-        dbHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
-
-        RuntimeExceptionDao<Notification, Integer> injectionSchedulesDao = dbHelper.getInjectionsScheduleDao();
-        Notification notification =injectionSchedulesDao.queryForAll().iterator().next();
-
-        Injection lastInjection =DatabaseQueries.getLatestInjection(this);
+        Notification notification =DatabaseQueries.getInjectionsSchedule(this);
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(lastInjection.getTimeInMilis());
-        injectionSchedulesDao.delete(notification);
-
-        calendar.setTimeInMillis(calendar.getTimeInMillis() + 48 * 60 * 60 * 1000);
-        calendar.set(Calendar.HOUR, hour);
+        calendar.setTimeInMillis(notification.getInjectionTime());
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
-        injectionSchedulesDao.create(new Notification(calendar.getTimeInMillis()));
 
+        DatabaseQueries.updateInjectionSchedule(this, calendar.getTimeInMillis());
+
+        Log.d(this.getClass().toString(), "godzina: " + hour + "minuta:" + minute);
         Log.d(this.getClass().toString(), "Nowy czas notyfikacji: rok:" + calendar.get(Calendar.YEAR) + " miesiac: " + calendar.get(Calendar.MONTH) +
-                " dzien: " + calendar.get(Calendar.DAY_OF_MONTH) + " godzina: " + calendar.get(Calendar.HOUR) + " minuta: " + calendar.get(Calendar.MINUTE));
+                " dzien: " + calendar.get(Calendar.DAY_OF_MONTH) + " godzina: " + calendar.get(Calendar.HOUR) + " minuta: " + calendar.get(Calendar.MINUTE) +calendar.get(Calendar.AM_PM));
         scheduleNewNotification(calendar.getTimeInMillis());
         Toast toast = Toast.makeText(this, "Zmieniono ustawienia notyfikacji", Toast.LENGTH_LONG);
         toast.show();

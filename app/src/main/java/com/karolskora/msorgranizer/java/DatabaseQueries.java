@@ -33,6 +33,18 @@ public class DatabaseQueries {
         return notification;
     }
 
+    public static void updateInjectionSchedule(Context activity, long newTimeInMilis){
+        if(dbHelper==null)
+            dbHelper= OpenHelperManager.getHelper(activity,DatabaseHelper.class);
+
+        RuntimeExceptionDao<Notification, Integer> injectionsScheduleDao=dbHelper.getInjectionsScheduleDao();
+        Notification notification =injectionsScheduleDao.queryForAll().iterator().next();
+
+        injectionsScheduleDao.delete(notification);
+
+        injectionsScheduleDao.create(new Notification(newTimeInMilis));
+    }
+
     public static List<Injection> getInjections(Context activity){
         if(dbHelper==null)
             dbHelper= OpenHelperManager.getHelper(activity,DatabaseHelper.class);

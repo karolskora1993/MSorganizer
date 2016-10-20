@@ -46,7 +46,6 @@ public class TimePickerFragment extends DialogFragment
         Intent intent=new Intent(getActivity(), MainActivity.class);
         intent.putExtra(TimePickerFragment.POSTPONED_INJECTION_TIME, injectionTime);
         startActivity(intent);
-
     }
 
 }

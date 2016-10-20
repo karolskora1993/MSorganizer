@@ -47,13 +47,11 @@ public class ToInjectionFragment extends Fragment {
 
     private String getTimeToInjection(){
         Notification notification =DatabaseQueries.getInjectionsSchedule(getActivity());
-        Injection lastInjection=DatabaseQueries.getLatestInjection(getActivity());
         Intent intent =getActivity().getIntent();
         long postponedInectionTime=intent.getLongExtra(TimePickerFragment.POSTPONED_INJECTION_TIME, 0);
-
+        Calendar calendar=Calendar.getInstance();
         if(postponedInectionTime>0)
         {
-            Calendar calendar=Calendar.getInstance();
             Long timeToInjection =  postponedInectionTime-calendar.getTimeInMillis();
             if(timeToInjection<0)
                 return "0h:0min";
@@ -64,37 +62,8 @@ public class ToInjectionFragment extends Fragment {
 
 
         }
-        if(lastInjection!=null) {
-            Calendar lastInjectionTime = Calendar.getInstance();
-            lastInjectionTime.setTimeInMillis(lastInjection.getTimeInMilis());
-            Calendar currentTime = Calendar.getInstance();
-            Log.d(getClass().toString(), "Obecny czas:" + currentTime.get(Calendar.YEAR) + " miesiac:" + currentTime.get(Calendar.MONTH) +
-                    "dzien: " + currentTime.get(Calendar.DAY_OF_MONTH) + "godzina:" + currentTime.get(Calendar.HOUR_OF_DAY) + "minuta:" + currentTime.get(Calendar.MINUTE));
-
-            Calendar notificationTime = Calendar.getInstance();
-            notificationTime.setTimeInMillis(notification.getInjectionTime());
-
-            notificationTime.set(Calendar.YEAR, lastInjectionTime.get(Calendar.YEAR));
-            notificationTime.set(Calendar.MONTH, lastInjectionTime.get(Calendar.MONTH));
-            notificationTime.set(Calendar.DAY_OF_MONTH, lastInjectionTime.get(Calendar.DAY_OF_MONTH));
-            notificationTime.setTimeInMillis(notificationTime.getTimeInMillis() + 48 * 60 * 60 * 1000);
-            Log.d(getClass().toString(), "Czas najblizszej notyfikacji, rok:" + notificationTime.get(Calendar.YEAR) + " miesiac:" + notificationTime.get(Calendar.MONTH) +
-                    "dzien: " + notificationTime.get(Calendar.DAY_OF_MONTH)+ "godzina:"+notificationTime.get(Calendar.HOUR_OF_DAY)+"minuta:"+
-                    notificationTime.get(Calendar.MINUTE));
-
-            Long timeToInjection = notificationTime.getTimeInMillis() -currentTime.getTimeInMillis();
-            int hours = (int) (timeToInjection / (1000 * 60 * 60));
-            int minutes = (int) ((timeToInjection - (hours * 60 * 60 * 1000)) / (60  * 1000));
-            String time=hours+"h:"+minutes+"min";
-
-            if(timeToInjection<0)
-                return "0h:0min";
-
-            return time;
-        }
         else{
-            Calendar currentTime = Calendar.getInstance();
-            Long timeToInjection = notification.getInjectionTime()-currentTime.getTimeInMillis();
+            Long timeToInjection = notification.getInjectionTime()-calendar.getTimeInMillis();
 
             int hours = (int) (timeToInjection / (1000 * 60 * 60));
             int minutes = (int) ((timeToInjection - (hours * 60 * 60 * 1000)) / (60 * 1000));

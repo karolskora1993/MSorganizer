@@ -28,11 +28,6 @@ public class FirstInjectionTimeActivity extends FragmentActivity {
         showDatePickerFragment(time);
     }
 
-    private void setupTimePicker() {
-        TimePicker timePicker=(TimePicker)findViewById(R.id.timePicker);
-        timePicker.setIs24HourView(true);
-    }
-
     private int[] getTime() {
         TimePicker time=(TimePicker)findViewById(R.id.timePicker);
         int hour, minute;
