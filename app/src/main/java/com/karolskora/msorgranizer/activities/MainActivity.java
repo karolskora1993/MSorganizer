@@ -1,31 +1,25 @@
 package com.karolskora.msorgranizer.activities;
 
-import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TimePicker;
 import android.widget.Toast;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.karolskora.msorgranizer.R;
-import com.karolskora.msorgranizer.broadcastReceivers.InjectionTimeAlarmReceiver;
 import com.karolskora.msorgranizer.fragments.HistoryFragment;
 import com.karolskora.msorgranizer.fragments.LastInjectionDetailsFragment;
 import com.karolskora.msorgranizer.fragments.MainFragment;
@@ -165,34 +159,6 @@ public class MainActivity extends AppCompatActivity {
         toast.show();
     }
 
-    public void onButtonSaveNotificationSettingsClick(View view) {
-
-        TimePicker time = (TimePicker) findViewById(R.id.timePicker);
-        int hour, minute;
-        if (Build.VERSION.SDK_INT < 23) {
-            hour = time.getCurrentHour();
-            minute = time.getCurrentMinute();
-        } else {
-            hour = time.getHour();
-            minute = time.getMinute();
-        }
-
-        Notification notification =DatabaseQueries.getInjectionsSchedule(this);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(notification.getInjectionTime());
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minute);
-
-        DatabaseQueries.updateInjectionSchedule(this, calendar.getTimeInMillis());
-
-        Log.d(this.getClass().toString(), "godzina: " + hour + "minuta:" + minute);
-        Log.d(this.getClass().toString(), "Nowy czas notyfikacji: rok:" + calendar.get(Calendar.YEAR) + " miesiac: " + calendar.get(Calendar.MONTH) +
-                " dzien: " + calendar.get(Calendar.DAY_OF_MONTH) + " godzina: " + calendar.get(Calendar.HOUR) + " minuta: " + calendar.get(Calendar.MINUTE) +calendar.get(Calendar.AM_PM));
-        scheduleNewNotification(calendar.getTimeInMillis());
-        Toast toast = Toast.makeText(this, "Zmieniono ustawienia notyfikacji", Toast.LENGTH_LONG);
-        toast.show();
-
-    }
     public void onButtonSaveSymptomsClick(View view) {
 
         CheckBox temperatureCheckBox=(CheckBox)findViewById(R.id.temperatureCheckBox);
@@ -282,18 +248,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent=new Intent(this, InjectionActivity.class);
 
         startActivity(intent);
-    }
-
-
-    private void scheduleNewNotification(long injectionTime) {
-
-
-        Intent broadcastIntent = new Intent(this, InjectionTimeAlarmReceiver.class);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.cancel(pendingIntent);
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, injectionTime, AlarmManager.INTERVAL_DAY * 2, pendingIntent);
     }
 
     public Notification getInjectionsSchedule() {
