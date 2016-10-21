@@ -25,7 +25,9 @@
         android:layout_below="@+id/textView3"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:singleLine="true"
+        />
 
     <TextView
         android:layout_width="match_parent"
@@ -44,16 +46,17 @@
         android:layout_marginTop="10dp"
         android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:singleLine="true"
+        />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/save_text"
-        android:id="@+id/button3"
+        android:id="@+id/fragmentReserveButton"
         android:layout_below="@+id/notificationDosesFragmentEditText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="29dp"
-        android:background="@drawable/button"
-        android:onClick="onButtonSaveClick"/>
+        android:background="@drawable/button"/>
 </RelativeLayout>

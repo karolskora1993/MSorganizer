@@ -129,18 +129,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onButtonSaveClick(View view) {
-        EditText dosesEditText=(EditText)findViewById(R.id.dosesFragmentEditText);
-        EditText notificationDosesEditText=(EditText)findViewById(R.id.notificationDosesFragmentEditText);
-
-        int doses=Integer.parseInt(dosesEditText.getText().toString());
-        int notificationDoses=Integer.parseInt(notificationDosesEditText.getText().toString());
-
-        DatabaseQueries.updateDoses(this, doses, notificationDoses);
-        Toast toast = Toast.makeText(this, "Zapisano ustawienia leku", Toast.LENGTH_LONG);
-        toast.show();
-    }
-
     public void onButtonSaveSymptomsClick(View view) {
 
         CheckBox temperatureCheckBox=(CheckBox)findViewById(R.id.temperatureCheckBox);

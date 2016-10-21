@@ -8,12 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.java.DatabaseQueries;
 
 
-public class ReserveFragment extends Fragment {
+public class ReserveFragment extends Fragment implements View.OnClickListener{
 
 
 
@@ -38,4 +39,30 @@ public class ReserveFragment extends Fragment {
 
         notificationDosesEditText.setText(String.valueOf(notificationDoses));
     }
+    public void onButtonSaveQuantityClick() {
+        EditText dosesEditText=(EditText)getActivity().findViewById(R.id.dosesFragmentEditText);
+        EditText notificationDosesEditText=(EditText)getActivity().findViewById(R.id.notificationDosesFragmentEditText);
+
+        int doses=Integer.parseInt(dosesEditText.getText().toString());
+        int notificationDoses=Integer.parseInt(notificationDosesEditText.getText().toString());
+
+        DatabaseQueries.updateDoses(getActivity(), doses, notificationDoses);
+        Toast toast = Toast.makeText(getActivity(), "Zapisano ustawienia leku", Toast.LENGTH_LONG);
+        toast.show();
+    }
+
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        try {
+            getView().findViewById(R.id.fragmentReserveButton).setOnClickListener(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        onButtonSaveQuantityClick();
+    }
+
 }
