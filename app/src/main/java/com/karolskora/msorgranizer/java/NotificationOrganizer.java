@@ -3,9 +3,15 @@ package com.karolskora.msorgranizer.java;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+
+import com.karolskora.msorgranizer.activities.MainActivity;
 import com.karolskora.msorgranizer.broadcastReceivers.InjectionTimeAlarmReceiver;
+import com.karolskora.msorgranizer.broadcastReceivers.PostponedNotification;
+import com.karolskora.msorgranizer.fragments.TimePickerFragment;
+
 import java.util.Calendar;
 
 /**
@@ -36,5 +42,17 @@ public class NotificationOrganizer {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(ac, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager)ac.getSystemService(ac.ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, injectionTime, AlarmManager.INTERVAL_DAY * 2, pendingIntent);
+    }
+
+    public static void oneTimeNotification(long injectionTime, Activity ac) {
+        Intent broadcastIntent = new Intent(ac, PostponedNotification.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(ac, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) ac.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, injectionTime, pendingIntent);
+
+        Intent intent=new Intent(ac, MainActivity.class);
+        intent.putExtra(TimePickerFragment.POSTPONED_INJECTION_TIME, injectionTime);
+        ac.startActivity(intent);
     }
 }

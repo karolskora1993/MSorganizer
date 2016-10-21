@@ -12,7 +12,6 @@ public class PostponedNotification extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         Intent service = new Intent(context, NotificationService.class);
-        Log.d(this.getClass().toString(), "service start");
         context.startService(service);
     }
 }
