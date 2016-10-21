@@ -1,37 +1,22 @@
 package com.karolskora.msorgranizer.activities;
 
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Toast;
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.fragments.HistoryFragment;
-import com.karolskora.msorgranizer.fragments.LastInjectionDetailsFragment;
 import com.karolskora.msorgranizer.fragments.MainFragment;
 import com.karolskora.msorgranizer.fragments.ReportFragment;
 import com.karolskora.msorgranizer.fragments.ReserveFragment;
 import com.karolskora.msorgranizer.fragments.SettingsFragment;
 import com.karolskora.msorgranizer.fragments.StatsFragment;
-import com.karolskora.msorgranizer.java.DatabaseHelper;
 import com.karolskora.msorgranizer.java.DatabaseQueries;
-import com.karolskora.msorgranizer.java.PdfGenerator;
-import com.karolskora.msorgranizer.models.Injection;
-import com.karolskora.msorgranizer.models.Notification;
 import com.karolskora.msorgranizer.models.User;
 import com.mikepenz.crossfadedrawerlayout.view.CrossfadeDrawerLayout;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -47,14 +32,9 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.util.DrawerUIUtils;
 import com.mikepenz.materialize.util.UIUtils;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private DatabaseHelper dbHelper;
     private String[] titles;
     private User user;
     private CrossfadeDrawerLayout crossfadeDrawerLayout;
@@ -129,103 +109,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onButtonSaveSymptomsClick(View view) {
-
-        CheckBox temperatureCheckBox=(CheckBox)findViewById(R.id.temperatureCheckBox);
-        CheckBox tremblesCheckBox=(CheckBox)findViewById(R.id.tremblesCheckBox);
-        CheckBox acheCheckBox=(CheckBox)findViewById(R.id.acheCheckBox);
-
-
-        boolean temperature=temperatureCheckBox.isChecked();
-        boolean trembles=tremblesCheckBox.isChecked();
-        boolean ache=acheCheckBox.isChecked();
-
-        LastInjectionDetailsFragment fragment = (LastInjectionDetailsFragment)getFragmentManager().findFragmentByTag("LAST_INJECTION_FRAGMENT");
-
-        Injection injection=fragment.getInjection();
-        DatabaseQueries.updateInjection(this, injection, temperature, trembles, ache);
-
-        Toast toast = Toast.makeText(this, "Zaktualizowano objawy", Toast.LENGTH_LONG);
-        toast.show();
-
-    }
-
-    public void onButtonGenerateReportClick(View view) {
-
-        LinearLayout layout=(LinearLayout)findViewById(R.id.layout_report);
-
-        List<Injection> injections=DatabaseQueries.getInjections(this);
-        List<Injection> checkedInjections= new ArrayList<>();
-
-        int size=layout.getChildCount();
-
-        for(int i=0; i<size; i++){
-            CheckBox checkBox =(CheckBox)layout.getChildAt(i);
-
-            if(checkBox.isChecked())
-            {
-                checkedInjections.add(injections.get(i));
-            }
-        }
-
-        Calendar calendar=Calendar.getInstance();
-        String injectionDate = calendar.get(Calendar.DAY_OF_MONTH) + "." + calendar.get(Calendar.MONTH) + "." + calendar.get(Calendar.YEAR);
-        String injectionTime=calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);
-        final String date="data: "+ injectionDate+"    godzina: "+injectionTime;
-
-        final String fileName="report_"+ calendar.getTimeInMillis()+".pdf";
-        PdfGenerator.generate(this, checkedInjections, fileName);
-
-        AlertDialog ad = new AlertDialog.Builder(this).create();
-        ad.setCancelable(false);
-        ad.setMessage("Czy chcesz wysłać raport do lekarza?");
-
-        ad.setButton(AlertDialog.BUTTON_POSITIVE, "wyślij", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"email@example.com"});
-                intent.putExtra(Intent.EXTRA_SUBJECT, user.getName() + "-raport");
-                intent.putExtra(Intent.EXTRA_TEXT, "Raport wysłany w dniu " + date);
-                File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileName);
-                Uri uri = Uri.fromFile(file);
-                intent.putExtra(Intent.EXTRA_STREAM, uri);
-                startActivity(Intent.createChooser(intent, "Wyślij email..."));
-            }
-
-        });
-
-        ad.setButton(AlertDialog.BUTTON_NEGATIVE, "wyświetl", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileName);
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.fromFile(file), "application/pdf");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                startActivity(intent);
-            }
-
-        });
-
-        ad.show();
-
-    }
-
     public void onButtonInjectClick(View view) {
 
         Intent intent=new Intent(this, InjectionActivity.class);
 
         startActivity(intent);
-    }
-
-    public Notification getInjectionsSchedule() {
-        dbHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
-
-        RuntimeExceptionDao<Notification, Integer> injectionSchedulesDao = dbHelper.getInjectionsScheduleDao();
-
-        return injectionSchedulesDao.queryForAll().iterator().next();
     }
 
     private void startUserInformationActivity() {

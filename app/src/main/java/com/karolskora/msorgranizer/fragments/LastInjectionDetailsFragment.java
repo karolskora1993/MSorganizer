@@ -1,11 +1,8 @@
 package com.karolskora.msorgranizer.fragments;
 
-
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -13,31 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import com.karolskora.msorgranizer.R;
-import com.karolskora.msorgranizer.java.ModelRenderer;
+import com.karolskora.msorgranizer.java.DatabaseQueries;
 import com.karolskora.msorgranizer.models.Injection;
-
 import java.util.Calendar;
 
-import javax.microedition.khronos.egl.EGL10;
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.egl.EGLDisplay;
-
-
-public class LastInjectionDetailsFragment extends Fragment {
+public class LastInjectionDetailsFragment extends Fragment implements View.OnClickListener{
 
     private Injection injection;
-    private GLSurfaceView mGLView;
     private View view;
-
-
-    public LastInjectionDetailsFragment() {
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,12 +43,6 @@ public class LastInjectionDetailsFragment extends Fragment {
             setSymptoms();
             setField();
         }
-    }
-
-
-    @Override
-    public void onStop() {
-        super.onStop();
     }
 
     private void setDate() {
@@ -101,7 +79,7 @@ public class LastInjectionDetailsFragment extends Fragment {
 
         String field="f"+ String.valueOf(injection.getArea()) + String.valueOf(injection.getPoint());
 
-        Log.d(this.getClass().toString(), "field: "+field);
+        Log.d(this.getClass().toString(), "field: " + field);
         Drawable d = ContextCompat.getDrawable(context, context.getResources().getIdentifier(field, "drawable", context.getPackageName()));
 
         imageView.setImageDrawable(d);
@@ -109,5 +87,40 @@ public class LastInjectionDetailsFragment extends Fragment {
 
     public Injection getInjection() {
         return injection;
+    }
+
+    public void onButtonSaveSymptomsClick() {
+
+        CheckBox temperatureCheckBox=(CheckBox)getActivity().findViewById(R.id.temperatureCheckBox);
+        CheckBox tremblesCheckBox=(CheckBox)getActivity().findViewById(R.id.tremblesCheckBox);
+        CheckBox acheCheckBox=(CheckBox)getActivity().findViewById(R.id.acheCheckBox);
+
+
+        boolean temperature=temperatureCheckBox.isChecked();
+        boolean trembles=tremblesCheckBox.isChecked();
+        boolean ache=acheCheckBox.isChecked();
+
+        LastInjectionDetailsFragment fragment = (LastInjectionDetailsFragment)getFragmentManager().findFragmentByTag("LAST_INJECTION_FRAGMENT");
+
+        Injection injection=fragment.getInjection();
+        DatabaseQueries.updateInjection(getActivity(), injection, temperature, trembles, ache);
+
+        Toast toast = Toast.makeText(getActivity(), "Zaktualizowano objawy", Toast.LENGTH_LONG);
+        toast.show();
+
+    }
+
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        try {
+            getView().findViewById(R.id.fragmentInjectionDetailsButton).setOnClickListener(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        onButtonSaveSymptomsClick();
     }
 }

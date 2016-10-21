@@ -20,12 +20,12 @@
             android:orientation="vertical">
         </LinearLayout>
         <Button
+            android:id="@+id/fragmentReportButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button"
             android:text="@string/generate_report_text"
             android:textSize="@dimen/text_size_medium"
-            android:layout_below="@+id/layout_report"
-            android:onClick="onButtonGenerateReportClick"/>
+            android:layout_below="@+id/layout_report"/>
     </RelativeLayout>
 </ScrollView>
