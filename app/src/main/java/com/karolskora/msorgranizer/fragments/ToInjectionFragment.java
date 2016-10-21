@@ -4,13 +4,12 @@ package com.karolskora.msorgranizer.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.karolskora.msorgranizer.R;
+import com.karolskora.msorgranizer.activities.InjectionActivity;
 import com.karolskora.msorgranizer.activities.MainActivity;
 import com.karolskora.msorgranizer.java.DatabaseQueries;
 import com.karolskora.msorgranizer.models.Injection;
@@ -18,7 +17,7 @@ import com.karolskora.msorgranizer.models.Notification;
 
 import java.util.Calendar;
 
-public class ToInjectionFragment extends Fragment {
+public class ToInjectionFragment extends Fragment implements View.OnClickListener{
 
 
     @Override
@@ -46,10 +45,25 @@ public class ToInjectionFragment extends Fragment {
 
 
     private String getTimeToInjection(){
+        Calendar calendar=Calendar.getInstance();
+        Injection lastInjection = DatabaseQueries.getLatestInjection(getActivity());
         Notification notification =DatabaseQueries.getInjectionsSchedule(getActivity());
+        if(lastInjection == null) {
+            calendar.setTimeInMillis(notification.getInjectionTime());
+        } else {
+            calendar.setTimeInMillis(notification.getInjectionTime());
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int minute = calendar.get(Calendar.MINUTE);
+            int AM_PM = calendar.get(Calendar.AM_PM);
+
+            calendar.setTimeInMillis(lastInjection.getTimeInMilis() + 48 *60 * 60 * 1000);
+            calendar.set(Calendar.HOUR_OF_DAY, hour);
+            calendar.set(Calendar.MINUTE, minute);
+            calendar.set(Calendar.AM_PM, AM_PM);
+        }
+
         Intent intent =getActivity().getIntent();
         long postponedInectionTime=intent.getLongExtra(TimePickerFragment.POSTPONED_INJECTION_TIME, 0);
-        Calendar calendar=Calendar.getInstance();
         if(postponedInectionTime>0)
         {
             Long timeToInjection =  postponedInectionTime-calendar.getTimeInMillis();
@@ -63,8 +77,7 @@ public class ToInjectionFragment extends Fragment {
 
         }
         else{
-            Long timeToInjection = notification.getInjectionTime()-calendar.getTimeInMillis();
-
+            Long timeToInjection = calendar.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
             int hours = (int) (timeToInjection / (1000 * 60 * 60));
             int minutes = (int) ((timeToInjection - (hours * 60 * 60 * 1000)) / (60 * 1000));
             String time;
@@ -88,5 +101,24 @@ public class ToInjectionFragment extends Fragment {
             return time;
         }
 
+    }
+
+    public void onButtonInjectClick() {
+        Intent intent=new Intent(getActivity(), InjectionActivity.class);
+        startActivity(intent);
+    }
+
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        try {
+            getView().findViewById(R.id.fragmentToInjectionButton).setOnClickListener(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        onButtonInjectClick();
     }
 }

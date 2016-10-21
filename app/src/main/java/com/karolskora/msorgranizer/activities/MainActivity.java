@@ -109,13 +109,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onButtonInjectClick(View view) {
-
-        Intent intent=new Intent(this, InjectionActivity.class);
-
-        startActivity(intent);
-    }
-
     private void startUserInformationActivity() {
         Intent intent = new Intent(this, UserInformationsActivity.class);
         startActivity(intent);

@@ -34,12 +34,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_inject_text"
-        android:id="@+id/button5"
+        android:id="@+id/fragmentToInjectionButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/timeToInjectionTextView"
-        android:background="@drawable/button"
-        android:onClick="onButtonInjectClick"/>
-
+        android:background="@drawable/button"/>
 
 </RelativeLayout>
