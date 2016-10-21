@@ -13,6 +13,7 @@ import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.activities.MainActivity;
 import com.karolskora.msorgranizer.java.DatabaseQueries;
 import com.karolskora.msorgranizer.java.NotificationOrganizer;
+import com.karolskora.msorgranizer.models.Injection;
 import com.karolskora.msorgranizer.models.Notification;
 import java.util.Calendar;
 
@@ -56,16 +57,22 @@ public class NotificationSettingsFragment extends Fragment implements View.OnCli
             minute = time.getMinute();
         }
 
-        Notification notification = DatabaseQueries.getInjectionsSchedule(getActivity());
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(notification.getInjectionTime());
+        Injection injection = DatabaseQueries.getLatestInjection(getActivity());
+
+        if(injection == null) {
+            Notification notification = DatabaseQueries.getInjectionsSchedule(getActivity());
+            calendar.setTimeInMillis(notification.getInjectionTime());
+        } else {
+            calendar.setTimeInMillis(injection.getTimeInMilis() +48 * 60 * 60 * 1000);
+        }
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
 
         DatabaseQueries.updateInjectionSchedule(getActivity(), calendar.getTimeInMillis());
 
         Log.d(this.getClass().toString(), "Nowy czas notyfikacji: rok:" + calendar.get(Calendar.YEAR) + " miesiac: " + calendar.get(Calendar.MONTH) +
-                " dzien: " + calendar.get(Calendar.DAY_OF_MONTH) + " godzina: " + calendar.get(Calendar.HOUR) + " minuta: " + calendar.get(Calendar.MINUTE) + calendar.get(Calendar.AM_PM));
+                " dzien: " + calendar.get(Calendar.DAY_OF_MONTH) + " godzina: " + calendar.get(Calendar.HOUR) + " minuta: " + calendar.get(Calendar.MINUTE) + " AM_PM:"+calendar.get(Calendar.AM_PM));
         NotificationOrganizer.UpdateNotification(calendar.getTimeInMillis(), getActivity());
         Toast toast = Toast.makeText(getActivity(), "Zmieniono ustawienia notyfikacji", Toast.LENGTH_LONG);
         toast.show();
