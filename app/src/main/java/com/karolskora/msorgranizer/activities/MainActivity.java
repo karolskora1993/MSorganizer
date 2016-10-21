@@ -129,24 +129,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onButtonSaveUserInfoClick(View view) {
-
-        EditText nameTextEdit = (EditText) findViewById(R.id.nameTextEdit);
-        String name = nameTextEdit.getText().toString();
-
-        EditText doctorNameTextEdit = (EditText) findViewById(R.id.doctorNameTextEdit);
-        String doctorName = doctorNameTextEdit.getText().toString();
-
-        EditText nurseNameTextEdit = (EditText) findViewById(R.id.nurseNameTextEdit);
-        String nurseName = nurseNameTextEdit.getText().toString();
-
-        EditText emailTextEdit = (EditText) findViewById(R.id.emailTextEdit);
-        String email = emailTextEdit.getText().toString();
-
-        DatabaseQueries.updateUser(this, name, doctorName, nurseName, email);
-        Toast toast = Toast.makeText(this, "zmieniono ustawienia użytkownika", Toast.LENGTH_LONG);
-        toast.show();
-    }
     public void onButtonSaveClick(View view) {
         EditText dosesEditText=(EditText)findViewById(R.id.dosesFragmentEditText);
         EditText notificationDosesEditText=(EditText)findViewById(R.id.notificationDosesFragmentEditText);

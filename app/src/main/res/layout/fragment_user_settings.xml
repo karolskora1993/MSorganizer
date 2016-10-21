@@ -100,12 +100,11 @@
         android:layout_marginBottom="5dp"
         android:textSize="@dimen/text_size_medium"/>
     <Button
-        android:id="@+id/buttonSave"
+        android:id="@+id/fragmentUserSettingsButtonSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:width="200dp"
         android:background="@drawable/button"
-        android:onClick="onButtonSaveUserInfoClick"
         android:text="@string/save_text"
         android:textSize="@dimen/text_size_medium"
         android:layout_below="@+id/emailTextEdit"
