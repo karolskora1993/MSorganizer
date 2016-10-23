@@ -64,6 +64,7 @@ public class InjectionActivity extends Activity {
     public void postpone(View view) {
         DialogFragment newFragment = new TimePickerFragment();
         newFragment.show(getFragmentManager(), "timePicker");
+
     }
 
     public void inject(View view) {

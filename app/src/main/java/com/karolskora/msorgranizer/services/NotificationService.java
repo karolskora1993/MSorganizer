@@ -14,7 +14,7 @@ import com.karolskora.msorgranizer.activities.InjectionActivity;
 
 public class NotificationService extends Service {
 
-    private final static  int NOTIFICATION_ID=1;
+    public final static  int NOTIFICATION_ID=1;
 
     @Override
     public IBinder onBind(Intent intent) {

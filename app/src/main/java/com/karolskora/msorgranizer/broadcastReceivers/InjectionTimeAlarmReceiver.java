@@ -3,7 +3,6 @@ package com.karolskora.msorgranizer.broadcastReceivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import com.karolskora.msorgranizer.services.NotificationService;
 
 public class InjectionTimeAlarmReceiver extends BroadcastReceiver {

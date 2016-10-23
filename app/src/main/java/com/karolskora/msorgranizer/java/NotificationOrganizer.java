@@ -3,14 +3,12 @@ package com.karolskora.msorgranizer.java;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
 import com.karolskora.msorgranizer.activities.MainActivity;
 import com.karolskora.msorgranizer.broadcastReceivers.InjectionTimeAlarmReceiver;
 import com.karolskora.msorgranizer.broadcastReceivers.PostponedNotification;
-import com.karolskora.msorgranizer.fragments.TimePickerFragment;
 
 import java.util.Calendar;
 
@@ -56,7 +54,5 @@ public class NotificationOrganizer {
 
         Log.d(NotificationOrganizer.class.toString(), "Czas odlozonej notyfikacji: rok:" + calendar.get(Calendar.YEAR) + " miesiac: " + calendar.get(Calendar.MONTH) +
                 " dzien: " + calendar.get(Calendar.DAY_OF_MONTH) + " godzina: " + calendar.get(Calendar.HOUR) + " minuta: " + calendar.get(Calendar.MINUTE) + " AM_PM:" + calendar.get(Calendar.AM_PM));
-        Intent intent=new Intent(ac, MainActivity.class);
-        ac.startActivity(intent);
     }
 }

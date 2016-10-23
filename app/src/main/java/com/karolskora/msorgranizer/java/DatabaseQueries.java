@@ -45,13 +45,15 @@ public class DatabaseQueries {
         injectionsScheduleDao.create(new Notification(newTimeInMilis));
     }
 
-    public static void setPostponedInjection(Context activity, long newTimeInMilis){
-        if(dbHelper==null)
-            dbHelper= OpenHelperManager.getHelper(activity,DatabaseHelper.class);
+    public static void setPostponedInjection(Context activity, long newTimeInMilis) {
+        if (dbHelper == null)
+            dbHelper = OpenHelperManager.getHelper(activity, DatabaseHelper.class);
 
-        RuntimeExceptionDao<Notification, Integer> injectionsScheduleDao=dbHelper.getInjectionsScheduleDao();
-        Notification notification =injectionsScheduleDao.queryForAll().iterator().next();
+        RuntimeExceptionDao<Notification, Integer> injectionsScheduleDao = dbHelper.getInjectionsScheduleDao();
+        Notification notification = injectionsScheduleDao.queryForAll().iterator().next();
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(newTimeInMilis);
         injectionsScheduleDao.delete(notification);
 
         notification.setPostoponedNotificationTime(newTimeInMilis);

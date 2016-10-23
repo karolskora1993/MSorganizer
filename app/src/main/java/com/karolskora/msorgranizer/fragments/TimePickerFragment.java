@@ -3,9 +3,11 @@ package com.karolskora.msorgranizer.fragments;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TimePicker;
 
+import com.karolskora.msorgranizer.activities.MainActivity;
 import com.karolskora.msorgranizer.java.DatabaseQueries;
 import com.karolskora.msorgranizer.java.NotificationOrganizer;
 
@@ -36,5 +38,7 @@ public class TimePickerFragment extends DialogFragment
         DatabaseQueries.setPostponedInjection(getActivity(), injectionTime);
 
         NotificationOrganizer.oneTimeNotification(injectionTime, getActivity());
+        Intent intent=new Intent(getActivity(), MainActivity.class);
+        getActivity().startActivity(intent);
     }
 }

@@ -66,9 +66,10 @@ public class ToInjectionFragment extends Fragment implements View.OnClickListene
 
         if(postponedInectionTime>0)
         {
-            Long timeToInjection =  postponedInectionTime-calendar.getTimeInMillis();
-            if(timeToInjection<0)
-                return "0h:0min";
+            Long timeToInjection =  postponedInectionTime-Calendar.getInstance().getTimeInMillis();
+            if(timeToInjection <= 0 ) {
+                return "Wykonaj zastrzyk teraz";
+            }
             int hours = (int) (timeToInjection / (1000 * 60 * 60));
             int minutes = (int) ((timeToInjection - (hours * 60 * 60 * 1000)) / (60  * 1000));
             String time=hours+"h:"+minutes+"min";
@@ -81,6 +82,9 @@ public class ToInjectionFragment extends Fragment implements View.OnClickListene
             int hours = (int) (timeToInjection / (1000 * 60 * 60));
             int minutes = (int) ((timeToInjection - (hours * 60 * 60 * 1000)) / (60 * 1000));
             String time;
+            if(timeToInjection <= 0 ) {
+                return "Wykonaj zastrzyk teraz";
+            }
             if(timeToInjection>=48*60*60*1000)
             {
                 int days=2;
