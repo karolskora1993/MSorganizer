@@ -48,11 +48,15 @@ public class NotificationOrganizer {
         Intent broadcastIntent = new Intent(ac, PostponedNotification.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(ac, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        AlarmManager alarmManager = (AlarmManager) ac.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) ac.getSystemService(ac.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, injectionTime, pendingIntent);
 
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTimeInMillis(injectionTime);
+
+        Log.d(NotificationOrganizer.class.toString(), "Czas odlozonej notyfikacji: rok:" + calendar.get(Calendar.YEAR) + " miesiac: " + calendar.get(Calendar.MONTH) +
+                " dzien: " + calendar.get(Calendar.DAY_OF_MONTH) + " godzina: " + calendar.get(Calendar.HOUR) + " minuta: " + calendar.get(Calendar.MINUTE) + " AM_PM:" + calendar.get(Calendar.AM_PM));
         Intent intent=new Intent(ac, MainActivity.class);
-        intent.putExtra(TimePickerFragment.POSTPONED_INJECTION_TIME, injectionTime);
         ac.startActivity(intent);
     }
 }

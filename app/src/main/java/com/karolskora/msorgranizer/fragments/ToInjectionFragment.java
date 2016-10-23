@@ -62,8 +62,8 @@ public class ToInjectionFragment extends Fragment implements View.OnClickListene
             calendar.set(Calendar.AM_PM, AM_PM);
         }
 
-        Intent intent =getActivity().getIntent();
-        long postponedInectionTime=intent.getLongExtra(TimePickerFragment.POSTPONED_INJECTION_TIME, 0);
+        long postponedInectionTime= notification.getPostoponedNotificationTime();
+
         if(postponedInectionTime>0)
         {
             Long timeToInjection =  postponedInectionTime-calendar.getTimeInMillis();

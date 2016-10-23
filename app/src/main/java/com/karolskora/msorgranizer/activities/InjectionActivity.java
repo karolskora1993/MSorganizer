@@ -90,6 +90,7 @@ public class InjectionActivity extends Activity {
             Calendar calendar = Calendar.getInstance();
             int[] injectionPoint = PointFinder.findPoint(this);
             DatabaseQueries.addInjection(this, calendar.getTimeInMillis(), injectionPoint[0], injectionPoint[1]);
+            DatabaseQueries.deletePostponedInjection(this);
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }

@@ -45,6 +45,34 @@ public class DatabaseQueries {
         injectionsScheduleDao.create(new Notification(newTimeInMilis));
     }
 
+    public static void setPostponedInjection(Context activity, long newTimeInMilis){
+        if(dbHelper==null)
+            dbHelper= OpenHelperManager.getHelper(activity,DatabaseHelper.class);
+
+        RuntimeExceptionDao<Notification, Integer> injectionsScheduleDao=dbHelper.getInjectionsScheduleDao();
+        Notification notification =injectionsScheduleDao.queryForAll().iterator().next();
+
+        injectionsScheduleDao.delete(notification);
+
+        notification.setPostoponedNotificationTime(newTimeInMilis);
+
+        injectionsScheduleDao.create(notification);
+    }
+
+    public static void deletePostponedInjection(Context activity){
+        if(dbHelper==null)
+            dbHelper= OpenHelperManager.getHelper(activity,DatabaseHelper.class);
+
+        RuntimeExceptionDao<Notification, Integer> injectionsScheduleDao=dbHelper.getInjectionsScheduleDao();
+        Notification notification =injectionsScheduleDao.queryForAll().iterator().next();
+
+        injectionsScheduleDao.delete(notification);
+
+        notification.setPostoponedNotificationTime(0);
+
+        injectionsScheduleDao.create(notification);
+    }
+
     public static List<Injection> getInjections(Context activity){
         if(dbHelper==null)
             dbHelper= OpenHelperManager.getHelper(activity,DatabaseHelper.class);
