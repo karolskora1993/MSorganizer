@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.activities.InjectionActivity;
@@ -14,7 +15,6 @@ import com.karolskora.msorgranizer.activities.MainActivity;
 import com.karolskora.msorgranizer.java.DatabaseQueries;
 import com.karolskora.msorgranizer.models.Injection;
 import com.karolskora.msorgranizer.models.Notification;
-
 import java.util.Calendar;
 
 public class ToInjectionFragment extends Fragment implements View.OnClickListener{
@@ -31,6 +31,9 @@ public class ToInjectionFragment extends Fragment implements View.OnClickListene
         super.onViewCreated(view, savedInstanceState);
 
         MainActivity owner=(MainActivity)getActivity();
+
+//        RelativeLayout layout =(RelativeLayout)getActivity().findViewById(R.id.fragment_to_injection);
+//        layout.setBackgroundResource(android.R.drawable.dialog_holo_dark_frame);
 
         TextView textView = (TextView) owner.findViewById(R.id.fragmentMainTextView);
 

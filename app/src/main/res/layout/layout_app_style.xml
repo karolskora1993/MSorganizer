@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.AppStyleActivity"
+    android:background="@color/color_bg">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg">
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        class="com.karolskora.msorgranizer.fragments.ApplicationStyleFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/aplicationStyleFragment"
+        tools:layout="@layout/fragment_application_style" />
+
+    <Button
+        android:id="@+id/initialSettingsButtonNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:width="200dp"
+        android:background="@drawable/button"
+        android:onClick="onButtonNextClick"
+        android:text="@string/intial_settings_button_next_text"
+        android:textSize="@dimen/text_size_medium" />
+</RelativeLayout>
+</ScrollView>

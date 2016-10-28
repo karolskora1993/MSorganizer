@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@android:drawable/dialog_holo_light_frame">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/name_text_view_hint"
+        android:singleLine="false"
+        android:id="@+id/descriptionTextView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:width="@dimen/initial_settings_text_view_width"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_size_medium"
+        android:text="@string/app_style_description_text" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="300dp"
+        android:layout_marginTop="20dp"
+        android:layout_height="533dp"
+        android:layout_below="@id/descriptionTextView"
+        android:background="@drawable/holo_light"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/image_holo_light"/>
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="300dp"
+        android:layout_height="533dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/image_holo_light"
+        android:background="@drawable/holo_light"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/image_holo_dark"
+        android:layout_marginBottom="40dp"
+        />
+
+</RelativeLayout>

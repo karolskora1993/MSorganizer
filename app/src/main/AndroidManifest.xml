@@ -40,7 +40,10 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".activities.HelpActivity" android:theme="@style/Theme.Intro"/>
+        <activity
+            android:name=".activities.HelpActivity"
+            android:theme="@style/Theme.Intro" />
+        <activity android:name=".activities.AppStyleActivity"></activity>
     </application>
 
 </manifest>

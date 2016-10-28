@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         user = DatabaseQueries.getUser(this);
         if (user == null) {
-            startUserInformationActivity();
+            startFirstUseSettings();
         }
         else {
             Toolbar toolbar = getToolbar();
@@ -109,8 +109,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void startUserInformationActivity() {
-        Intent intent = new Intent(this, UserInformationsActivity.class);
+    private void startFirstUseSettings() {
+        Intent intent = new Intent(this, AppStyleActivity.class);
         startActivity(intent);
     }
 

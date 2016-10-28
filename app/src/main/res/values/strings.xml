@@ -70,4 +70,6 @@
     <string name="title_4">Generowanie raportu</string>
     <string name="description_4">Po wybraniu z menu opcji generowania raportu możesz wybrać, z których dokładnie zastrzyków potrzebujesz raport. Po zaznaczeniu zastrzyków i wciśnięciu przycisku generuj raport możesz wyświetlić wygenerowany dokument lub wysłać bezpośrednio na emaila lekarza lub pielęgniarki.</string>
     <string name="title_0">O programie</string>
+    <string name="app_style_description_text">Na początek wybierz wygląd aplikacji, który bardziej Ci odpowiada</string>
+
 </resources>
