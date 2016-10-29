@@ -11,6 +11,8 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.karolskora.msorgranizer.R;
+import com.karolskora.msorgranizer.fragments.ApplicationStyleFragment;
+import com.karolskora.msorgranizer.models.ApplicationSettings;
 import com.karolskora.msorgranizer.models.DrugSupply;
 import com.karolskora.msorgranizer.models.Injection;
 import com.karolskora.msorgranizer.models.Notification;
@@ -29,6 +31,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private RuntimeExceptionDao<DrugSupply, Integer> drugSupplyRuntimeDao = null;
 
+    private RuntimeExceptionDao<ApplicationSettings, Integer> applicationSettingsesRuntimeDao = null;
+
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
@@ -43,8 +47,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Notification.class);
             TableUtils.createTable(connectionSource, Injection.class);
             TableUtils.createTable(connectionSource, DrugSupply.class);
-
-
+            TableUtils.createTable(connectionSource, ApplicationSettings.class);
 
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Nie można utworzyć tabeli", e);
@@ -61,7 +64,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, Notification.class, true);
             TableUtils.dropTable(connectionSource, Injection.class, true);
             TableUtils.dropTable(connectionSource, DrugSupply.class, true);
-
+            TableUtils.dropTable(connectionSource, ApplicationSettings.class, true);
 
             onCreate(db, connectionSource);
         } catch (SQLException e) {
@@ -101,6 +104,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return drugSupplyRuntimeDao;
     }
 
+    public RuntimeExceptionDao<ApplicationSettings, Integer> getApplicationSettingsRuntimeDao() {
+        if (applicationSettingsesRuntimeDao == null) {
+            applicationSettingsesRuntimeDao = getRuntimeExceptionDao(ApplicationSettings.class);
+        }
+        return applicationSettingsesRuntimeDao;
+    }
+
     @Override
     public void close() {
         super.close();
@@ -108,5 +118,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         injectionsScheduleRuntimeDao=null;
         injectionRuntimeDao=null;
         drugSupplyRuntimeDao=null;
+        applicationSettingsesRuntimeDao=null;
     }
 }

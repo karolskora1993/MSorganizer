@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.karolskora.msorgranizer.R;
+import com.karolskora.msorgranizer.fragments.ApplicationStyleFragment;
 
 public class UserInformationsActivity extends FragmentActivity {
 
@@ -32,6 +33,7 @@ public class UserInformationsActivity extends FragmentActivity {
         doctorName=getStringForField(R.id.doctorNameTextEdit);
         nurseName=getStringForField(R.id.nurseNameTextEdit);
         doctorEmail=getStringForField(R.id.emailTextEdit);
+        doctorEmail=getStringForField(R.id.emailTextEdit);
 
         if(areFieldsFilled()) {
             Toast toast = Toast.makeText(this, "Wypełnij wszystkie dane", Toast.LENGTH_LONG);
@@ -54,7 +56,10 @@ public class UserInformationsActivity extends FragmentActivity {
     }
 
     private void startNextActivity() {
+        int style=getIntent().getIntExtra(AppStyleActivity.USER_STYLE, 0);
+
         Intent intent = new Intent(this, FirstInjectionTimeActivity.class);
+        intent.putExtra(AppStyleActivity.USER_STYLE, style);
         intent.putExtra(USER_NAME, name);
         intent.putExtra(DOCTOR_NAME, doctorName);
         intent.putExtra(NURSE_NAME, nurseName);

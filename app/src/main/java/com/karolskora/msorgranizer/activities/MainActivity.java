@@ -17,6 +17,7 @@ import com.karolskora.msorgranizer.fragments.ReserveFragment;
 import com.karolskora.msorgranizer.fragments.SettingsFragment;
 import com.karolskora.msorgranizer.fragments.StatsFragment;
 import com.karolskora.msorgranizer.java.DatabaseQueries;
+import com.karolskora.msorgranizer.models.ApplicationSettings;
 import com.karolskora.msorgranizer.models.User;
 import com.mikepenz.crossfadedrawerlayout.view.CrossfadeDrawerLayout;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -51,6 +52,11 @@ public class MainActivity extends AppCompatActivity {
             startFirstUseSettings();
         }
         else {
+            int appStyle = DatabaseQueries.getApplicationStyle(this);
+
+            if(appStyle == 2) {
+
+            }
             Toolbar toolbar = getToolbar();
             titles = getResources().getStringArray(R.array.titles);
 

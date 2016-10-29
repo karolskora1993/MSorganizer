@@ -40,14 +40,14 @@ public class DrugSupplyActivity extends AppCompatActivity {
             String doctorName = intent.getStringExtra(UserInformationsActivity.DOCTOR_NAME);
             String nurseName = intent.getStringExtra(UserInformationsActivity.NURSE_NAME);
             String email = intent.getStringExtra(UserInformationsActivity.EMAIL);
-
-
+            int style=getIntent().getIntExtra(AppStyleActivity.USER_STYLE, 0);
             long timeInMilis = intent.getLongExtra(DatePickerFragment.TIME_IN_MILIS, 0);
+
             intent = new Intent(this, AboutAppActivity.class);
             intent.putExtra(DOSES, doses);
             intent.putExtra(NOTIFICATION_DOSES, notificationDoses);
-
             intent.putExtra(DatePickerFragment.TIME_IN_MILIS, timeInMilis);
+            intent.putExtra(AppStyleActivity.USER_STYLE, style);
             intent.putExtra(UserInformationsActivity.USER_NAME, name);
             intent.putExtra(UserInformationsActivity.DOCTOR_NAME, doctorName);
             intent.putExtra(UserInformationsActivity.NURSE_NAME, nurseName);

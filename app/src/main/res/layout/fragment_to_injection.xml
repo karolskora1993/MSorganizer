@@ -18,7 +18,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="@dimen/text_size_medium"/>
+        android:textSize="@dimen/text_size_medium"
+        android:textColor="@color/text_color"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -29,7 +30,7 @@
         android:layout_centerHorizontal="true"
         android:textAlignment="center"
         android:textSize="@dimen/text_size_xlarge"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@color/alternative_text_color" />
 
     <Button
         android:layout_width="wrap_content"

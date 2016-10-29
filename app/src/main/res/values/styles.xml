@@ -1,4 +1,6 @@
 <resources>
+    <attr name="textColor" format="reference|color" />
+    <attr name="alternative_textColor" format="reference|color" />
 
     <!-- Base application theme. -->
     <!-- Base application theme. -->
@@ -9,9 +11,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
     </style>
-
-
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -20,5 +21,15 @@
         <item name="android:textColor">#000000</item>
     </style>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="lightAppTheme" parent="@style/AppTheme">
+    <item name="textColor">#000</item>
+    <item name="alternative_textColor">#33691E</item>
+</style>
+
+    <style name="darkAppTheme" parent="@style/AppTheme">
+        <item name="textColor">#FFF9C4</item>
+        <item name="alternative_textColor">#DCEDC8</item>
+    </style>
 
 </resources>

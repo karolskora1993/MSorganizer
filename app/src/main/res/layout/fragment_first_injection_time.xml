@@ -24,7 +24,7 @@
         android:id="@+id/timePicker"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/firstInjectionTextView"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
         android:textSize="@dimen/text_size_medium"/>
 
 </RelativeLayout>

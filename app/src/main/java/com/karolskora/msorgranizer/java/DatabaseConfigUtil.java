@@ -1,6 +1,7 @@
 package com.karolskora.msorgranizer.java;
 
 import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;
+import com.karolskora.msorgranizer.models.ApplicationSettings;
 import com.karolskora.msorgranizer.models.DrugSupply;
 import com.karolskora.msorgranizer.models.Injection;
 import com.karolskora.msorgranizer.models.Notification;
@@ -15,7 +16,8 @@ public class DatabaseConfigUtil extends OrmLiteConfigUtil {
             User.class,
             Notification.class,
             Injection.class,
-            DrugSupply.class
+            DrugSupply.class,
+            ApplicationSettings.class
     };
 
     public static void main(String[] args) throws Exception {

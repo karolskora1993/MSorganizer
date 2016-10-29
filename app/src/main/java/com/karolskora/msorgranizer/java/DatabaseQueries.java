@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.karolskora.msorgranizer.models.ApplicationSettings;
 import com.karolskora.msorgranizer.models.DrugSupply;
 import com.karolskora.msorgranizer.models.Injection;
 import com.karolskora.msorgranizer.models.Notification;
@@ -247,5 +248,32 @@ public class DatabaseQueries {
         RuntimeExceptionDao<Notification, Integer> injectionsScheduleDao = dbHelper.getInjectionsScheduleDao();
         injectionsScheduleDao.create(new Notification(timeInMilis));
 
+    }
+
+    public static int getApplicationStyle(Context activity) {
+
+        if(dbHelper==null)
+            dbHelper= OpenHelperManager.getHelper(activity, DatabaseHelper.class);
+
+        RuntimeExceptionDao<ApplicationSettings, Integer> applicationSettingsesyDao = dbHelper.getApplicationSettingsRuntimeDao();
+
+        ApplicationSettings appSettings=applicationSettingsesyDao.queryForAll().iterator().next();
+        if(appSettings!=null){
+            return appSettings.getAppStyle();
+        }
+        else
+            return -1;
+    }
+
+    public static void putApplicationSettings(Context activity, int style) {
+
+        if(dbHelper==null)
+            dbHelper= OpenHelperManager.getHelper(activity, DatabaseHelper.class);
+
+        RuntimeExceptionDao<ApplicationSettings, Integer> applicationSettingsesyDao = dbHelper.getApplicationSettingsRuntimeDao();
+
+        ApplicationSettings appSettings=new ApplicationSettings(style);
+
+        applicationSettingsesyDao.create(appSettings);
     }
 }

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.DatePicker;
 
+import com.karolskora.msorgranizer.activities.AppStyleActivity;
 import com.karolskora.msorgranizer.activities.DrugSupplyActivity;
 import com.karolskora.msorgranizer.activities.FirstInjectionTimeActivity;
 import com.karolskora.msorgranizer.activities.UserInformationsActivity;
@@ -36,6 +37,7 @@ public class DatePickerFragment extends DialogFragment
         String doctorName=getActivity().getIntent().getStringExtra(UserInformationsActivity.DOCTOR_NAME);
         String nurseName=getActivity().getIntent().getStringExtra(UserInformationsActivity.NURSE_NAME);
         String email=getActivity().getIntent().getStringExtra(UserInformationsActivity.EMAIL);
+        int style=getActivity().getIntent().getIntExtra(AppStyleActivity.USER_STYLE, 0);
 
         int hour=bundle.getInt(FirstInjectionTimeActivity.HOUR);
         int minute=bundle.getInt(FirstInjectionTimeActivity.MINUTE);
@@ -50,6 +52,7 @@ public class DatePickerFragment extends DialogFragment
         Intent intent=new Intent(getActivity(), DrugSupplyActivity.class);
         intent.putExtra(TIME_IN_MILIS, calendar.getTimeInMillis());
         intent.putExtra(UserInformationsActivity.USER_NAME, name);
+        intent.putExtra(AppStyleActivity.USER_STYLE, style);
         intent.putExtra(UserInformationsActivity.DOCTOR_NAME, doctorName);
         intent.putExtra(UserInformationsActivity.NURSE_NAME, nurseName);
         intent.putExtra(UserInformationsActivity.EMAIL, email);

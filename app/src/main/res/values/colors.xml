@@ -11,4 +11,8 @@
     <color name="color_300">#AED581</color>
     <color name="color_400">#9CCC65</color>
     <color name="color_bg">#FFF9C4</color>
+    <color name="text_color">#000</color>
+    <color name="alternative_text_color">#33691E</color>
+    <color name="dark_text_color">#FFF9C4</color>
+    <color name="dark_alternative_text_color">#DCEDC8</color>
 </resources>
