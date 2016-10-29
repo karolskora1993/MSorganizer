@@ -29,7 +29,8 @@
         android:layout_centerHorizontal="true"
         android:singleLine="true"
         android:textAlignment="center"
-        android:textColor="?textColor"/>
+        android:textColor="?textColor"
+        android:background="?background_color" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -52,7 +53,8 @@
         android:layout_centerHorizontal="true"
         android:singleLine="true"
         android:textAlignment="center"
-        android:textColor="?textColor"/>
+        android:textColor="?textColor"
+        android:background="?background_color"/>
 
     <Button
         android:layout_width="wrap_content"

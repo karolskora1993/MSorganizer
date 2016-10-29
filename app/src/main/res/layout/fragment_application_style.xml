@@ -36,7 +36,7 @@
         android:layout_height="533dp"
         android:layout_marginTop="20dp"
         android:layout_below="@id/image_holo_light"
-        android:background="@drawable/holo_light"
+        android:background="@drawable/holo_dark"
         android:layout_centerHorizontal="true"
         android:id="@+id/image_holo_dark"
         android:layout_marginBottom="40dp"

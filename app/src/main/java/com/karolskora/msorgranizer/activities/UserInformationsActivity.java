@@ -3,12 +3,12 @@ package com.karolskora.msorgranizer.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.karolskora.msorgranizer.R;
-import com.karolskora.msorgranizer.fragments.ApplicationStyleFragment;
 
 public class UserInformationsActivity extends FragmentActivity {
 
@@ -26,6 +26,12 @@ public class UserInformationsActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_initial_settings);
+        int style=getIntent().getIntExtra(AppStyleActivity.USER_STYLE, 0);
+        Log.d("dasdasdas", "dsadasdasdsa");
+        if(style == 2) {
+            setTheme(R.style.darkAppTheme);
+            Log.d("dasdasdas", "dsadasdasdsa");
+        }
     }
 
     public void onButtonNextClick(View view) {

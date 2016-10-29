@@ -32,7 +32,8 @@
             android:layout_below="@+id/headerAboutTextView"
             android:layout_centerHorizontal="true"
             android:textSize="@dimen/text_size_medium"
-            android:textColor="?textColor"/>
+            android:textColor="?textColor"
+            />
 
 
         <Button
@@ -49,6 +50,5 @@
             android:onClick="onButtonNextClick"/>
 
     </RelativeLayout>
-
 
 </ScrollView>

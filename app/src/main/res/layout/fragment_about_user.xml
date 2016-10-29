@@ -21,6 +21,7 @@
         android:textAlignment="center"
         android:textSize="@dimen/text_size_medium"
         android:textColor="?textColor"
+        android:background="?background_color"
         />
 
     <EditText
@@ -36,7 +37,9 @@
         android:layout_alignRight="@id/nameTextEdit"
         android:textAlignment="center"
         android:textSize="@dimen/text_size_medium"
-        android:textColor="?textColor"/>
+        android:textColor="?textColor"
+        android:background="?background_color"
+        />
 
     <EditText
         android:layout_width="wrap_content"
@@ -51,7 +54,9 @@
         android:layout_alignRight="@id/nameTextEdit"
         android:textAlignment="center"
         android:textSize="@dimen/text_size_medium"
-        android:textColor="?textColor"/>
+        android:textColor="?textColor"
+        android:background="?background_color"
+        />
 
     <EditText
         android:layout_width="wrap_content"
@@ -66,5 +71,7 @@
         android:layout_alignRight="@id/nameTextEdit"
         android:textAlignment="center"
         android:textSize="@dimen/text_size_medium"
-        android:textColor="?textColor"/>
+        android:textColor="?textColor"
+        android:background="?background_color"
+        />
 </RelativeLayout>

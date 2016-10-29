@@ -2,6 +2,7 @@ package com.karolskora.msorgranizer.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.karolskora.msorgranizer.R;
@@ -16,6 +17,10 @@ public class AboutAppActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_about);
+        int style=getIntent().getIntExtra(AppStyleActivity.USER_STYLE, 0);
+        if(style == 2) {
+            setTheme(R.style.darkAppTheme);
+        }
         saveData();
         long injectionTime = getIntent().getLongExtra(DatePickerFragment.TIME_IN_MILIS, 0);
         NotificationOrganizer.scheduleNotification(injectionTime, this);

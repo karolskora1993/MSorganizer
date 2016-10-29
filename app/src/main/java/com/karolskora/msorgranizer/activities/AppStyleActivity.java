@@ -31,7 +31,6 @@ public class AppStyleActivity extends AppCompatActivity {
         else {
             if(style == 2) {
                 setTheme(R.style.darkAppTheme);
-                Log.d(this.getClass().toString(), "zmienam styl na wysoki kontrast");
             }
             startNextActivity(style);
         }

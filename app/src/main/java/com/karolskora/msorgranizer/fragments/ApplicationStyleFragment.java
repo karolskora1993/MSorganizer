@@ -27,10 +27,15 @@ public class ApplicationStyleFragment extends Fragment implements View.OnClickLi
         switch(id) {
             case R.id.image_holo_light: {
                 style=1;
+                holoLight.setImageDrawable(getResources().getDrawable(R.drawable.holo_light_checked));
+                holoDark.setImageDrawable(getResources().getDrawable(R.drawable.holo_dark));
+
                 break;
             }
             case R.id.image_holo_dark: {
                 style=2;
+                holoLight.setImageDrawable(getResources().getDrawable(R.drawable.holo_light));
+                holoDark.setImageDrawable(getResources().getDrawable(R.drawable.holo_dark_checked));
                 break;
             }
             default:

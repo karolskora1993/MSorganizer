@@ -27,5 +27,7 @@
         android:layout_below="@+id/firstInjectionTextView"
         android:layout_marginTop="60dp"
         android:textSize="@dimen/text_size_medium"
-        android:textColor="?textColor"/>
+        android:textColor="?textColor"
+        android:background="?background_color"
+        />
 </RelativeLayout>

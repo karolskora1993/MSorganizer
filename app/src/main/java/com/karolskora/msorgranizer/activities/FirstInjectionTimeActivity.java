@@ -20,6 +20,10 @@ public class FirstInjectionTimeActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_first_injection_time);
+        int style=getIntent().getIntExtra(AppStyleActivity.USER_STYLE, 0);
+        if(style == 2) {
+            setTheme(R.style.darkAppTheme);
+        }
     }
 
     public void onButtonNextClick(View view){
