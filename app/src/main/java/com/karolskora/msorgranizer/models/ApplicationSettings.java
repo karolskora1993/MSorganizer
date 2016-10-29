@@ -7,7 +7,7 @@ import com.j256.ormlite.table.DatabaseTable;
  * Created by apple on 29.10.2016.
  */
 
-@DatabaseTable(tableName = "notification")
+@DatabaseTable(tableName = "application_settings")
 public class ApplicationSettings {
 
     @DatabaseField(generatedId = true)

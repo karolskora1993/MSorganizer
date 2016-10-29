@@ -3,6 +3,8 @@ package com.karolskora.msorgranizer.activities;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +19,6 @@ import com.karolskora.msorgranizer.fragments.ReserveFragment;
 import com.karolskora.msorgranizer.fragments.SettingsFragment;
 import com.karolskora.msorgranizer.fragments.StatsFragment;
 import com.karolskora.msorgranizer.java.DatabaseQueries;
-import com.karolskora.msorgranizer.models.ApplicationSettings;
 import com.karolskora.msorgranizer.models.User;
 import com.mikepenz.crossfadedrawerlayout.view.CrossfadeDrawerLayout;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private User user;
     private CrossfadeDrawerLayout crossfadeDrawerLayout;
     private Drawer result;
+    private String menuBgColor = "#FFFFFF";
+    private String menuItemColor = "#000000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +58,11 @@ public class MainActivity extends AppCompatActivity {
             int appStyle = DatabaseQueries.getApplicationStyle(this);
 
             if(appStyle == 2) {
-
+                setTheme(R.style.darkAppTheme);
+                Toolbar bar = getToolbar();
+                bar.setBackground(new ColorDrawable(Color.parseColor("#000000")));
+                menuBgColor = "#000000";
+                menuItemColor = "#FFFFFF";
             }
             Toolbar toolbar = getToolbar();
             titles = getResources().getStringArray(R.array.titles);
@@ -154,20 +161,21 @@ public class MainActivity extends AppCompatActivity {
                 .withHasStableIds(true)
                 .withDrawerLayout(R.layout.crossfade_drawer)
                 .withDrawerWidthDp(72)
+                .withSliderBackgroundDrawable(new ColorDrawable(Color.parseColor(menuBgColor)))
                 .withTranslucentStatusBar(true)
                 .withActionBarDrawerToggle(true)
                 .withActionBarDrawerToggleAnimated(true)
                 .withGenerateMiniDrawer(true)
                 .withHeader(R.layout.material_drawer_header)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName(titles[0]).withIcon(R.drawable.ic_home_black_48dp),
-                        new PrimaryDrawerItem().withName(titles[1]).withIcon(R.drawable.ic_history_black_48dp),
-                        new PrimaryDrawerItem().withName(titles[2]).withIcon(R.drawable.ic_settings_black_48dp),
-                        new PrimaryDrawerItem().withName(titles[3]).withIcon(R.drawable.ic_receipt_black_48dp),
+                        new PrimaryDrawerItem().withName(titles[0]).withIcon(R.drawable.ic_home_black_48dp).withTextColor(Color.parseColor(menuItemColor)),
+                        new PrimaryDrawerItem().withName(titles[1]).withIcon(R.drawable.ic_history_black_48dp).withTextColor(Color.parseColor(menuItemColor)),
+                        new PrimaryDrawerItem().withName(titles[2]).withIcon(R.drawable.ic_settings_black_48dp).withTextColor(Color.parseColor(menuItemColor)),
+                        new PrimaryDrawerItem().withName(titles[3]).withIcon(R.drawable.ic_receipt_black_48dp).withTextColor(Color.parseColor(menuItemColor)),
                         new DividerDrawerItem(),
-                        new PrimaryDrawerItem().withName(titles[5]).withIcon(R.drawable.ic_trending_up_black_48dp),
-                        new PrimaryDrawerItem().withName(titles[6]).withIcon(R.drawable.ic_settings_applications_black_48dp),
-                        new PrimaryDrawerItem().withName(titles[7]).withIcon(R.drawable.ic_live_help_black_48dp)
+                        new PrimaryDrawerItem().withName(titles[5]).withIcon(R.drawable.ic_trending_up_black_48dp).withTextColor(Color.parseColor(menuItemColor)),
+                        new PrimaryDrawerItem().withName(titles[6]).withIcon(R.drawable.ic_settings_applications_black_48dp).withTextColor(Color.parseColor(menuItemColor)),
+                        new PrimaryDrawerItem().withName(titles[7]).withIcon(R.drawable.ic_live_help_black_48dp).withTextColor(Color.parseColor(menuItemColor))
                 )
                 .withSavedInstance(savedInstanceState)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {

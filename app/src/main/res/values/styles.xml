@@ -1,7 +1,8 @@
 <resources>
     <attr name="textColor" format="reference|color" />
     <attr name="alternative_textColor" format="reference|color" />
-
+    <attr name="frame_background" format="reference|string" />
+    <attr name="background_color" format="reference|string" />
     <!-- Base application theme. -->
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -22,14 +23,23 @@
     </style>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
+
+
+
     <style name="lightAppTheme" parent="@style/AppTheme">
-    <item name="textColor">#000</item>
-    <item name="alternative_textColor">#33691E</item>
-</style>
+        <item name="textColor">#000</item>
+        <item name="alternative_textColor">#33691E</item>
+        <item name="frame_background">@android:drawable/dialog_holo_light_frame</item>
+        <item name="background_color">#fff</item>
+    </style>
 
     <style name="darkAppTheme" parent="@style/AppTheme">
         <item name="textColor">#FFF9C4</item>
         <item name="alternative_textColor">#DCEDC8</item>
+        <item name="frame_background">@android:drawable/dialog_holo_dark_frame</item>
+        <item name="background_color">#000</item>
+
     </style>
 
 </resources>

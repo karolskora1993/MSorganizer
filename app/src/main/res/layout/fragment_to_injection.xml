@@ -7,7 +7,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.karolskora.msorgranizer.fragments.ToInjectionFragment"
-    android:background="@android:drawable/dialog_holo_light_frame"
+    android:background="?frame_background"
     android:id="@+id/fragment_to_injection">
 
     <TextView
@@ -19,7 +19,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textSize="@dimen/text_size_medium"
-        android:textColor="@color/text_color"/>
+        android:textColor="?textColor"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
         android:layout_centerHorizontal="true"
         android:textAlignment="center"
         android:textSize="@dimen/text_size_xlarge"
-        android:textColor="@color/alternative_text_color" />
+        android:textColor="?alternative_textColor" />
 
     <Button
         android:layout_width="wrap_content"

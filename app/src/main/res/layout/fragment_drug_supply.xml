@@ -7,7 +7,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.karolskora.msorgranizer.fragments.DrugSupplyFragment"
-    android:background="@android:drawable/dialog_holo_light_frame">
+    android:background="?frame_background">
 
     <TextView
         android:layout_width="wrap_content"
@@ -16,7 +16,8 @@
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textSize="@dimen/text_size_medium"/>
+        android:textSize="@dimen/text_size_medium"
+        android:textColor="?textColor"/>
 
     <EditText
         android:layout_marginTop="10dp"
@@ -27,7 +28,8 @@
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:singleLine="true"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:textColor="?textColor"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,7 +39,8 @@
         android:layout_below="@+id/dosesEditText"
         android:layout_centerHorizontal="true"
         android:textSize="@dimen/text_size_medium"
-        android:id="@+id/textView2" />
+        android:id="@+id/textView2"
+        android:textColor="?textColor"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -49,7 +52,7 @@
         android:layout_centerHorizontal="true"
         android:singleLine="true"
         android:textAlignment="center"
-        />
+        android:textColor="?textColor"/>
 
     <Button
         android:layout_width="wrap_content"

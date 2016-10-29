@@ -18,7 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/settings_array"
-            android:background="@color/drawer_bg_color"></ListView>
+            android:background="?background_color"
+            android:textColor="?textColor"></ListView>
 
         <FrameLayout
             android:id="@+id/settingsFragmentContainer"

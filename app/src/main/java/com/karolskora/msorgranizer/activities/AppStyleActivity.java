@@ -3,6 +3,7 @@ package com.karolskora.msorgranizer.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -28,6 +29,10 @@ public class AppStyleActivity extends AppCompatActivity {
             toast.show();
         }
         else {
+            if(style == 2) {
+                setTheme(R.style.darkAppTheme);
+                Log.d(this.getClass().toString(), "zmienam styl na wysoki kontrast");
+            }
             startNextActivity(style);
         }
     }

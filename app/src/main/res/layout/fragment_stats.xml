@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@android:drawable/dialog_holo_light_frame"
+    android:background="?frame_background"
     tools:context="com.karolskora.msorgranizer.fragments.StatsFragment"
     android:orientation="vertical">
     <TextView
@@ -16,30 +16,36 @@
         android:textSize="@dimen/text_size_medium"
         android:id="@+id/totalInjectionsTextVIew"
         android:text=""
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="?textColor"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_size_medium"
         android:id="@+id/totalTemperatureTextVIew"
         android:text=""
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:textColor="?textColor"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_size_medium"
         android:id="@+id/totalAcheTextVIew"
         android:text=""
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:textColor="?textColor"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_size_medium"
         android:id="@+id/totalTremplesTextVIew"
         android:text=""
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:textColor="?textColor"/>
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="?background_color"
+        android:textColor="?textColor"/>
 </LinearLayout>

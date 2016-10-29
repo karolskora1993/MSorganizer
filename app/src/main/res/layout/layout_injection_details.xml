@@ -8,7 +8,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:drawable/dialog_holo_light_frame"
+            android:background="?frame_background"
             android:id="@+id/layout_injection_details">
             <TextView
                 android:layout_width="wrap_content"
@@ -19,7 +19,9 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:textSize="@dimen/text_size_medium"
-                android:padding="10dp"/>
+                android:padding="10dp"
+                android:background="?background_color"
+                android:textColor="?textColor"/>
             <android.opengl.GLSurfaceView
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
@@ -41,7 +43,9 @@
                 android:textSize="@dimen/text_size_medium"
                 android:layout_below="@id/glSurface"
                 android:id="@+id/symptomsText"
-                android:padding="10dp"/>
+                android:padding="10dp"
+                android:background="?background_color"
+                android:textColor="?textColor"/>
             <CheckBox
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
@@ -49,7 +53,9 @@
                 android:id="@+id/temperatureCheckBox"
                 android:layout_below="@id/symptomsText"
                 android:padding="10dp"
-                android:clickable="false"/>
+                android:clickable="false"
+                android:background="?background_color"
+                android:textColor="?textColor"/>
             <CheckBox
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
@@ -57,7 +63,9 @@
                 android:id="@+id/tremblesCheckBox"
                 android:layout_below="@id/temperatureCheckBox"
                 android:padding="10dp"
-                android:clickable="false"/>
+                android:clickable="false"
+                android:background="?background_color"
+                android:textColor="?textColor"/>
             <CheckBox
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
@@ -65,7 +73,9 @@
                 android:id="@+id/acheCheckBox"
                 android:layout_below="@id/tremblesCheckBox"
                 android:padding="10dp"
-                android:clickable="false"/>
+                android:clickable="false"
+                android:background="?background_color"
+                android:textColor="?textColor"/>
 
             <Button
                 android:layout_width="wrap_content"
