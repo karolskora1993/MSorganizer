@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:entries="@array/settings_array"
             android:background="?background_color"
-            android:text="?textColor"/>
+            android:text="?textColor" />
 
         <FrameLayout
             android:id="@+id/settingsFragmentContainer"

@@ -16,11 +16,11 @@ public class AboutAppActivity extends OrmLiteBaseActivity<DatabaseHelper> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_about);
         int style=getIntent().getIntExtra(AppStyleActivity.USER_STYLE, 0);
         if(style == 2) {
             setTheme(R.style.darkAppTheme);
         }
+        setContentView(R.layout.layout_about);
         saveData();
         long injectionTime = getIntent().getLongExtra(DatePickerFragment.TIME_IN_MILIS, 0);
         NotificationOrganizer.scheduleNotification(injectionTime, this);

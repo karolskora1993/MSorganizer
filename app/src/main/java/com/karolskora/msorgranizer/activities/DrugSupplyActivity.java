@@ -17,11 +17,11 @@ public class DrugSupplyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_drug_supply);
         int style=getIntent().getIntExtra(AppStyleActivity.USER_STYLE, 0);
         if(style == 2) {
             setTheme(R.style.darkAppTheme);
         }
+        setContentView(R.layout.layout_drug_supply);
     }
 
     public void onButtonNextClick(View view) {

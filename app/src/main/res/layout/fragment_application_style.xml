@@ -22,24 +22,34 @@
         android:textSize="@dimen/text_size_medium"
         android:text="@string/app_style_description_text" />
 
-    <android.support.v7.widget.AppCompatImageView
-        android:layout_width="300dp"
-        android:layout_marginTop="20dp"
-        android:layout_height="533dp"
-        android:layout_below="@id/descriptionTextView"
-        android:background="@drawable/holo_light"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/image_holo_light"/>
-
-    <android.support.v7.widget.AppCompatImageView
-        android:layout_width="300dp"
-        android:layout_height="533dp"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/image_holo_light"
-        android:background="@drawable/holo_dark"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/image_holo_dark"
-        android:layout_marginBottom="40dp"
-        />
+    <GridLayout
+        android:paddingTop="40dp"
+        android:paddingBottom="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@id/descriptionTextView"
+        android:columnCount="2"
+        android:rowCount="1"
+        android:layout_below="@+id/lastInjectionDetailsTextView">
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="150dp"
+            android:layout_marginTop="20dp"
+            android:layout_height="265dp"
+            android:background="@drawable/holo_light"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/image_holo_light"
+            android:layout_row="0"
+            android:layout_column="0"/>
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="150dp"
+            android:layout_height="265dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/holo_dark"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/image_holo_dark"
+            android:layout_row="0"
+            android:layout_marginLeft="20dp"
+            android:layout_column="1"/>
+    </GridLayout>
 
 </RelativeLayout>

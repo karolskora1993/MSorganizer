@@ -30,7 +30,8 @@
         android:singleLine="true"
         android:textAlignment="center"
         android:textColor="?textColor"
-        android:background="?background_color" />
+        android:background="?background_color"
+        android:textColorHint="?textColor" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -54,6 +55,7 @@
         android:singleLine="true"
         android:textAlignment="center"
         android:textColor="?textColor"
+        android:textColorHint="?textColor"
         android:background="?background_color"/>
 
     <Button

@@ -60,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
             if(appStyle == 2) {
                 setTheme(R.style.darkAppTheme);
                 Toolbar bar = getToolbar();
-                bar.setBackground(new ColorDrawable(Color.parseColor("#000000")));
-                menuBgColor = "#000000";
-                menuItemColor = "#FFFFFF";
+                menuBgColor = "#ff000000";
+                menuItemColor = "#fff3f3f3";
+                bar.setBackground(new ColorDrawable(Color.parseColor(menuBgColor)));
             }
             Toolbar toolbar = getToolbar();
             titles = getResources().getStringArray(R.array.titles);

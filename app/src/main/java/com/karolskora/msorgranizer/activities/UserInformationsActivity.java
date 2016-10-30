@@ -1,11 +1,14 @@
 package com.karolskora.msorgranizer.activities;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.karolskora.msorgranizer.R;
@@ -25,13 +28,11 @@ public class UserInformationsActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_initial_settings);
         int style=getIntent().getIntExtra(AppStyleActivity.USER_STYLE, 0);
-        Log.d("dasdasdas", "dsadasdasdsa");
         if(style == 2) {
             setTheme(R.style.darkAppTheme);
-            Log.d("dasdasdas", "dsadasdasdsa");
         }
+        setContentView(R.layout.layout_initial_settings);
     }
 
     public void onButtonNextClick(View view) {
@@ -73,4 +74,6 @@ public class UserInformationsActivity extends FragmentActivity {
 
         startActivity(intent);
     }
+
+
 }
