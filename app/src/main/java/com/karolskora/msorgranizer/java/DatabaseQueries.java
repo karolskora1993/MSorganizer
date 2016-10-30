@@ -276,4 +276,16 @@ public class DatabaseQueries {
 
         applicationSettingsesyDao.create(appSettings);
     }
+
+    public static void updateApplicationSettings(Context activity, int newStyle){
+        if(dbHelper==null)
+            dbHelper= OpenHelperManager.getHelper(activity,DatabaseHelper.class);
+
+        RuntimeExceptionDao<ApplicationSettings, Integer> appDao=dbHelper.getApplicationSettingsRuntimeDao();
+        ApplicationSettings settings =appDao.queryForAll().iterator().next();
+
+        appDao.delete(settings);
+
+        appDao.create(new ApplicationSettings(newStyle));
+    }
 }

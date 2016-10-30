@@ -80,7 +80,7 @@ public class HistoryFragment extends Fragment {
             listItems.add(description);
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listItems);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.custom_list_layout, listItems);
         injectionsListView.setAdapter(adapter);
         injectionsListView.setOnItemClickListener(listener);
 

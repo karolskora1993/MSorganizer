@@ -35,7 +35,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class ModelRenderer implements GLSurfaceView.Renderer {
     private FrameBuffer fb = null;
-    private RGBColor back = new RGBColor(255, 255, 255, 0);
+    private RGBColor back = new RGBColor(245, 245, 245, 0);
 
     private float touchTurn = 0;
     private float touchTurnUp = 0;
@@ -70,6 +70,11 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
         this.area=area;
         this.point=point;
 
+        int appStyle = DatabaseQueries.getApplicationStyle(activity);
+
+        if(appStyle == 2) {
+            back = new RGBColor(40, 40, 40, 0);
+        }
 
         try {
             cube = loadModel(thingName, thingScale);

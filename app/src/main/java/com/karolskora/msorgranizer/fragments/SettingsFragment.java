@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -41,6 +42,8 @@ public class SettingsFragment extends Fragment {
                 }
                 else if(position==1){
                     ft.replace(R.id.settingsFragmentContainer, new NotificationSettingsFragment());
+                } else {
+                    ft.replace(R.id.settingsFragmentContainer, new ThemeSettingsFragment());
                 }
 
                 ft.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
@@ -48,8 +51,9 @@ public class SettingsFragment extends Fragment {
                 ft.commit();
             }
         };
-
         ListView listView=(ListView)getActivity().findViewById(R.id.settingsListView);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.custom_list_layout, getResources().getStringArray(R.array.settings_array));
+        listView.setAdapter(adapter);
         listView.setOnItemClickListener(listener);
         setListViewHeightBasedOnChildren(listView);
     }

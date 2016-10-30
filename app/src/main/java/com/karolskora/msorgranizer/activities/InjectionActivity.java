@@ -37,6 +37,12 @@ public class InjectionActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        int appStyle = DatabaseQueries.getApplicationStyle(this);
+
+        if(appStyle == 2) {
+            setTheme(R.style.darkAppTheme);
+        }
+
         setContentView(R.layout.layout_injection);
         setRenderer();
         setImage();

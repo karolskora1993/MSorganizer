@@ -51,7 +51,6 @@ public class ApplicationStyleFragment extends Fragment implements View.OnClickLi
         try {
             getView().findViewById(R.id.image_holo_dark).setOnClickListener(this);
             getView().findViewById(R.id.image_holo_light).setOnClickListener(this);
-
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,5 +1,6 @@
 package com.karolskora.msorgranizer.fragments;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -13,6 +14,7 @@ import com.karolskora.msorgranizer.activities.FirstInjectionTimeActivity;
 import com.karolskora.msorgranizer.activities.UserInformationsActivity;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
@@ -26,7 +28,7 @@ public class DatePickerFragment extends DialogFragment
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
-        return new DatePickerDialog(getActivity(), this, year, month, day);
+        return new DatePickerDialog(getActivity(), AlertDialog.THEME_HOLO_DARK, this, year, month, day);
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {

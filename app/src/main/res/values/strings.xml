@@ -39,6 +39,8 @@
     <string-array name="settings_array">
         <item>ustawienia użytkownika</item>
         <item>ustawienia powiadomień</item>
+        <item>ustawienia motywu</item>
+
     </string-array>
     <string name="save_text">zapisz zmiany</string>
     <string name="button_inject_text">wykonaj zastrzyk</string>

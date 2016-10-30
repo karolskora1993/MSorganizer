@@ -38,6 +38,12 @@ public class InjectionDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        int appStyle = DatabaseQueries.getApplicationStyle(this);
+
+        if(appStyle == 2) {
+            setTheme(R.style.darkAppTheme);
+        }
+
         setContentView(R.layout.layout_injection_details);
         Intent intent=getIntent();
         position=intent.getIntExtra(HistoryFragment.POSITION,-1);

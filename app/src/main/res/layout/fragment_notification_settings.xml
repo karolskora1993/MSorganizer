@@ -14,9 +14,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/notificationSettingsTimePicker"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:background="?background_color"
-        android:textColor="?textColor"/>
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/notificationSettingsButtonSave"

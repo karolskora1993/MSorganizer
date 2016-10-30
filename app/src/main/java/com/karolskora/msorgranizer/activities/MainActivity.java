@@ -60,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
             if(appStyle == 2) {
                 setTheme(R.style.darkAppTheme);
                 Toolbar bar = getToolbar();
-                menuBgColor = "#ff000000";
-                menuItemColor = "#fff3f3f3";
+                menuBgColor = "#282828";
+                menuItemColor = "#f5f5f5";
                 bar.setBackground(new ColorDrawable(Color.parseColor(menuBgColor)));
             }
             Toolbar toolbar = getToolbar();
@@ -217,6 +217,34 @@ public class MainActivity extends AppCompatActivity {
                 return crossfadeDrawerLayout.isCrossfaded();
             }
         });
+    }
+
+    public void updateTheme() {
+        int appStyle = DatabaseQueries.getApplicationStyle(this);
+        if(appStyle == 1) {
+            setTheme(R.style.lightAppTheme);
+            Toolbar bar = getToolbar();
+            menuBgColor = "#FFFFFF";
+            menuItemColor = "#000000";
+            bar.setBackground(new ColorDrawable(Color.parseColor(menuBgColor)));
+
+            AccountHeader headerResult = buildAccountHeader();
+
+            buildDrawer(null, bar, headerResult);
+            buildCrossfadeDrawer();
+        }
+        else if(appStyle == 2) {
+            setTheme(R.style.darkAppTheme);
+            Toolbar bar = getToolbar();
+            menuBgColor = "#282828";
+            menuItemColor = "#f5f5f5";
+            bar.setBackground(new ColorDrawable(Color.parseColor(menuBgColor)));
+
+            AccountHeader headerResult = buildAccountHeader();
+
+            buildDrawer(null, bar, headerResult);
+            buildCrossfadeDrawer();
+        }
     }
 }
 

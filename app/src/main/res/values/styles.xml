@@ -30,15 +30,19 @@
         <item name="textColor">#000</item>
         <item name="alternative_textColor">#33691E</item>
         <item name="frame_background">@android:drawable/dialog_holo_light_frame</item>
-        <item name="background_color">#fff3f3f3</item>
+        <item name="background_color">#f5f5f5</item>
+        <item name="android:textColor">#000</item>
+
     </style>
 
     <style name="darkAppTheme" parent="@style/AppTheme">
         <item name="textColor">#FFF9C4</item>
         <item name="alternative_textColor">#DCEDC8</item>
         <item name="frame_background">@android:drawable/dialog_holo_dark_frame</item>
-        <item name="background_color">#ff000000</item>
+        <item name="background_color">#282828</item>
+        <item name="android:textColor">#FFF9C4</item>
 
     </style>
+
 
 </resources>
