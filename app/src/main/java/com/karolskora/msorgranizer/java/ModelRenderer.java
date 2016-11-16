@@ -1,16 +1,9 @@
 package com.karolskora.msorgranizer.java;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.hardware.camera2.CameraAccessException;
 import android.opengl.GLSurfaceView;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.View;
-
-import com.karolskora.msorgranizer.R;
-import com.karolskora.msorgranizer.models.Injection;
 import com.threed.jpct.Camera;
 import com.threed.jpct.FrameBuffer;
 import com.threed.jpct.Light;
@@ -23,66 +16,50 @@ import com.threed.jpct.SimpleVector;
 import com.threed.jpct.Texture;
 import com.threed.jpct.TextureManager;
 import com.threed.jpct.World;
-import com.threed.jpct.util.LensFlare;
 import com.threed.jpct.util.MemoryHelper;
-
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashSet;
-
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 public class ModelRenderer implements GLSurfaceView.Renderer {
+
     private FrameBuffer fb = null;
     private RGBColor back = new RGBColor(245, 245, 245, 0);
-
     private float touchTurn = 0;
     private float touchTurnUp = 0;
     private World world;
-
     private float xpos = -1;
     private float ypos = -1;
-
     private Object3D cube = null;
     private int fps = 0;
-
     private Light sun = null;
-
-
-    private String thingName;
-    private int thingScale;
+    private String modelName;
+    private int modelScale;
     private Context context;
     private Context master;
-
     private int area;
     private int point;
     int scaleFactor=40;
-
-
     private long time = System.currentTimeMillis();
 
-    public ModelRenderer(Context activity, final View view, int scale, String name, int area, int point) {
+    public ModelRenderer(Context activity, final View view, int scale, String name, int area,
+                         int point) {
         super();
         context=activity;
-        this.thingScale=scale;
-        this.thingName=name;
+        this.modelScale =scale;
+        this.modelName =name;
         this.area=area;
         this.point=point;
-
         int appStyle = DatabaseQueries.getApplicationStyle(activity);
-
         if(appStyle == 2) {
             back = new RGBColor(40, 40, 40, 0);
         }
-
         try {
-            cube = loadModel(thingName, thingScale);
+            cube = loadModel(modelName, modelScale);
         } catch (IOException e) {
             Log.e(this.getClass().toString(), e.getMessage());
         }
-
-
         view.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_DOWN) {
@@ -101,18 +78,9 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
 
                 if (me.getAction() == MotionEvent.ACTION_MOVE) {
                     float xd = me.getX() - xpos;
-
                     xpos = me.getX();
-
                     touchTurn = xd / -100f;
                     return true;
-                }
-
-
-                try {
-                    Thread.sleep(15);
-                } catch (Exception e) {
-                    Log.e(this.getClass().toString(),e.getMessage());
                 }
 
                 return view.onTouchEvent(me);
@@ -126,43 +94,33 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
             fb.dispose();
         }
         fb = new FrameBuffer(gl, w, h);
-
         if (master == null) {
-
             world = new World();
             world.setAmbientLight(20, 20, 20);
-
             sun = new Light(world);
             sun.setIntensity(250, 250, 250);
-
-
             cube.build();
-
             world.addObject(cube);
-
-
             SimpleVector sv = new SimpleVector();
             sv.set(cube.getTransformedCenter());
             sv.y -= 100;
             sv.z -= 100;
-
-
             sun.setPosition(sv);
             MemoryHelper.compact();
-
-
             try {
-                TextureManager.getInstance().replaceTexture("HAND.PNG", new Texture(context.getAssets().open("skin.png")));
-                TextureManager.getInstance().replaceTexture("BODY.PNG", new Texture(context.getAssets().open("skin.png")));
-                TextureManager.getInstance().replaceTexture("LOWR.PNG", new Texture(context.getAssets().open("skin.png")));
-                TextureManager.getInstance().replaceTexture("HEAD.PNG", new Texture(context.getAssets().open("skin.png")));
+                TextureManager.getInstance().replaceTexture("HAND.PNG", new Texture(
+                        context.getAssets().open("skin.png")));
+                TextureManager.getInstance().replaceTexture("BODY.PNG", new Texture(
+                        context.getAssets().open("skin.png")));
+                TextureManager.getInstance().replaceTexture("LOWR.PNG", new Texture(
+                        context.getAssets().open("skin.png")));
+                TextureManager.getInstance().replaceTexture("HEAD.PNG", new Texture(
+                        context.getAssets().open("skin.png")));
 
             } catch (IOException e) {
                 Log.e(ModelRenderer.class.toString(), e.getMessage());
             }
-
             rotateModel();
-
             master=context;
         }
     }

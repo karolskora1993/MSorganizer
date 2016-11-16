@@ -139,7 +139,8 @@ public class InjectionActivity extends Activity {
 
         int[] injectionPoint=PointFinder.findPoint(this);
 
-        renderer = new ModelRenderer(this, view, 35, "model.3DS", injectionPoint[0], injectionPoint[1]);
+        renderer = new ModelRenderer(this, view, 35, "model.3DS", injectionPoint[0],
+                injectionPoint[1]);
         mGLView.setRenderer(renderer);
     }
 

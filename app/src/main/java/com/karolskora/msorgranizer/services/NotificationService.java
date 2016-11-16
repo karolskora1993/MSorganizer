@@ -1,5 +1,4 @@
 package com.karolskora.msorgranizer.services;
-
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -27,9 +26,11 @@ public class NotificationService extends Service {
     {
         super.onStartCommand(intent, flags, startId);
         Context context = this.getApplicationContext();
-        NotificationManager notificationManager = (NotificationManager)context.getSystemService(context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager)context.
+                getSystemService(context.NOTIFICATION_SERVICE);
         Intent mIntent = new Intent(this, InjectionActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.
+                getActivity(context, 0, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = this.getNotificationBuilder();
         builder.setContentIntent(pendingIntent);
@@ -51,3 +52,4 @@ public class NotificationService extends Service {
         return builder;
     }
 }
+

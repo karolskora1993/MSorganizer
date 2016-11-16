@@ -1,14 +1,10 @@
 package com.karolskora.msorgranizer.activities;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.karolskora.msorgranizer.R;
@@ -57,9 +53,8 @@ public class UserInformationsActivity extends FragmentActivity {
         return  editText.getText().toString();
     }
 
-    private boolean areFieldsFilled(){
+    protected boolean areFieldsFilled(){
      return name.equals("") || doctorName.equals("") || nurseName.equals("") || doctorEmail.equals("");
-
     }
 
     private void startNextActivity() {
@@ -74,6 +69,4 @@ public class UserInformationsActivity extends FragmentActivity {
 
         startActivity(intent);
     }
-
-
 }

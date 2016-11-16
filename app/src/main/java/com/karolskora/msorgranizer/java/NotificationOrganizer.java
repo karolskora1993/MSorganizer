@@ -4,9 +4,6 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.util.Log;
-
-import com.karolskora.msorgranizer.activities.MainActivity;
 import com.karolskora.msorgranizer.broadcastReceivers.InjectionTimeAlarmReceiver;
 import com.karolskora.msorgranizer.broadcastReceivers.PostponedNotification;
 
@@ -34,12 +31,11 @@ public class NotificationOrganizer {
 
         Calendar calendar= Calendar.getInstance();
         calendar.setTimeInMillis(injectionTime);
-        Log.d(NotificationOrganizer.class.toString(), "Nowy czas notyfikacji: rok:" + calendar.get(Calendar.YEAR) + " miesiac: " + calendar.get(Calendar.MONTH) +
-                " dzien: " + calendar.get(Calendar.DAY_OF_MONTH) + " godzina: " + calendar.get(Calendar.HOUR) + " minuta: " + calendar.get(Calendar.MINUTE) + " AM_PM:" + calendar.get(Calendar.AM_PM));
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(ac, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(ac, 0, broadcastIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager)ac.getSystemService(ac.ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, injectionTime, AlarmManager.INTERVAL_DAY * 2, pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, injectionTime,
+                AlarmManager.INTERVAL_DAY * 2, pendingIntent);
     }
 
     public static void oneTimeNotification(long injectionTime, Activity ac) {
@@ -51,8 +47,5 @@ public class NotificationOrganizer {
 
         Calendar calendar=Calendar.getInstance();
         calendar.setTimeInMillis(injectionTime);
-
-        Log.d(NotificationOrganizer.class.toString(), "Czas odlozonej notyfikacji: rok:" + calendar.get(Calendar.YEAR) + " miesiac: " + calendar.get(Calendar.MONTH) +
-                " dzien: " + calendar.get(Calendar.DAY_OF_MONTH) + " godzina: " + calendar.get(Calendar.HOUR) + " minuta: " + calendar.get(Calendar.MINUTE) + " AM_PM:" + calendar.get(Calendar.AM_PM));
     }
 }
