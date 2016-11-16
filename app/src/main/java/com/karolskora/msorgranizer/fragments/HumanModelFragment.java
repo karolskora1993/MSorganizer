@@ -180,7 +180,6 @@ public class HumanModelFragment extends Fragment {
                 try {
                     cube = loadModel(thingName, thingScale);
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
 

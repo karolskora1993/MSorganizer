@@ -32,7 +32,6 @@ public class DatabaseConfigUtil extends OrmLiteConfigUtil {
                 "raw" + File.separator +
                 ORMLITE_CONFIGURATION_FILE_NAME);
 
-
         writeConfigFile(configFile, classes);
     }
 }

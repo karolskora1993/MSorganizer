@@ -2,7 +2,6 @@ package com.karolskora.msorgranizer.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.karolskora.msorgranizer.R;

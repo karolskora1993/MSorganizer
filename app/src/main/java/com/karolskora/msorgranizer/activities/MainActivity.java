@@ -165,7 +165,6 @@ public class MainActivity extends AppCompatActivity {
                 .withTranslucentStatusBar(true)
                 .withActionBarDrawerToggle(true)
                 .withActionBarDrawerToggleAnimated(true)
-                .withGenerateMiniDrawer(true)
                 .withHeader(R.layout.material_drawer_header)
                 .addDrawerItems(
                         new PrimaryDrawerItem().withName(titles[0]).withIcon(R.drawable.ic_home_black_48dp).withTextColor(Color.parseColor(menuItemColor)),

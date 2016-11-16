@@ -11,7 +11,6 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.karolskora.msorgranizer.R;
-import com.karolskora.msorgranizer.fragments.ApplicationStyleFragment;
 import com.karolskora.msorgranizer.models.ApplicationSettings;
 import com.karolskora.msorgranizer.models.DrugSupply;
 import com.karolskora.msorgranizer.models.Injection;
