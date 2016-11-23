@@ -1,6 +1,4 @@
 package com.karolskora.msorgranizer.activities;
-
-
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.SystemClock;
@@ -40,11 +38,9 @@ import static org.hamcrest.Matchers.is;
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class FirstRunTest {
-
     @Rule
     public ActivityTestRule<SplashActivity> mActivityTestRule =
             new ActivityTestRule<>(SplashActivity.class);
-
     @Before
     public void clearAppInfo() {
         Activity mActivity = mActivityTestRule.getActivity();
@@ -53,148 +49,36 @@ public class FirstRunTest {
         prefs.edit().clear().commit();
         mActivity.deleteDatabase("ms_organizer.db");
     }
-
     @Test
     public void firstRunTest() {
         SystemClock.sleep(6000); //wait for splashscreen finish
-        ViewInteraction appCompatImageView = onView(
-                withId(R.id.image_holo_light));
-        appCompatImageView.perform(click());
-
-        ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.initialSettingsButtonNext)));
-        appCompatButton.perform(click());
-
-        ViewInteraction editText2 = onView(
-                allOf(withId(R.id.nameTextEdit),
+        onView(withId(R.id.image_holo_light)).perform(click());
+        onView(allOf(withId(R.id.initialSettingsButtonNext))).perform(click());
+        onView(allOf(withId(R.id.nameTextEdit),
                         withParent(withId(R.id.aboutUserFragment)),
-                        isDisplayed()));
-        editText2.perform(replaceText("testName"), closeSoftKeyboard());
-
-        ViewInteraction editText3 = onView(
-                allOf(withId(R.id.doctorNameTextEdit),
+                        isDisplayed())).perform(replaceText("testName"), closeSoftKeyboard());
+        onView(allOf(withId(R.id.doctorNameTextEdit),
                         withParent(withId(R.id.aboutUserFragment)),
-                        isDisplayed()));
-        editText3.perform(replaceText("doctortest"), closeSoftKeyboard());
-
-        ViewInteraction editText4 = onView(
-                allOf(withId(R.id.nurseNameTextEdit),
+                        isDisplayed())).perform(replaceText("doctortest"), closeSoftKeyboard());
+        onView(allOf(withId(R.id.nurseNameTextEdit),
                         withParent(withId(R.id.aboutUserFragment)),
-                        isDisplayed()));
-        editText4.perform(replaceText("nurseTest"), closeSoftKeyboard());
-
-        ViewInteraction editText6 = onView(
-                allOf(withId(R.id.emailTextEdit),
+                        isDisplayed())).perform(replaceText("nurseTest"), closeSoftKeyboard());
+        onView(allOf(withId(R.id.emailTextEdit),
                         withParent(withId(R.id.aboutUserFragment)),
-                        isDisplayed()));
-        editText6.perform(replaceText("email@test.com"), closeSoftKeyboard());
-
-        ViewInteraction button = onView(
-                allOf(withId(R.id.initialSettingsButtonNext)));
-        button.perform(click());
-
-        ViewInteraction button2 = onView(
-                allOf(withId(R.id.firstInjectionButtonNext)));
-        button2.perform(scrollTo(), click());
-
-        ViewInteraction button3 = onView(
-                allOf(withId(android.R.id.button1)));
-        button3.perform(click());
-
-        ViewInteraction appCompatEditText3 = onView(
-                allOf(withId(R.id.dosesEditText),
+                        isDisplayed())).perform(replaceText("email@test.com"), closeSoftKeyboard());
+        onView(allOf(withId(R.id.initialSettingsButtonNext))).perform(click());
+        onView(allOf(withId(R.id.firstInjectionButtonNext))).perform(scrollTo(), click());
+        onView(allOf(withId(android.R.id.button1))).perform(click());
+        onView(allOf(withId(R.id.dosesEditText),
                         withParent(withId(R.id.aboutUserFragment)),
-                        isDisplayed()));
-        appCompatEditText3.perform(replaceText("20"), closeSoftKeyboard());
-
-        ViewInteraction appCompatEditText4 = onView(
-                allOf(withId(R.id.notificationDosesEditText),
+                        isDisplayed())).perform(replaceText("20"), closeSoftKeyboard());
+        onView(allOf(withId(R.id.notificationDosesEditText),
                         withParent(withId(R.id.aboutUserFragment)),
-                        isDisplayed()));
-        appCompatEditText4.perform(replaceText("5"), closeSoftKeyboard());
-
-        ViewInteraction appCompatButton2 = onView(
-                allOf(withId(R.id.button2),
+                        isDisplayed())).perform(replaceText("5"), closeSoftKeyboard());
+        onView(allOf(withId(R.id.button2),
                         withParent(withId(R.id.aboutUserFragment)),
-                        isDisplayed()));
-        appCompatButton2.perform(click());
-
-        ViewInteraction button4 = onView(
-                allOf(withId(R.id.initialSettingsButtonNext)));
-        button4.perform(scrollTo(), click());
-
-        ViewInteraction appCompatButton3 = onView(
-                allOf(withId(R.id.fragmentToInjectionButton),
-                        withParent(allOf(withId(R.id.fragment_to_injection),
-                                withParent(withId(R.id.timeToInjection))))));
-        appCompatButton3.perform(click());
-
-        ViewInteraction button5 = onView(
-                allOf(withId(R.id.buttonInject),
-                        withParent(allOf(withId(R.id.layout_injection),
-                                withParent(withId(android.R.id.content)))),
-                        isDisplayed()));
-        button5.perform(click());
-
-        ViewInteraction appCompatCheckBox = onView(
-                allOf(withId(R.id.temperatureCheckBox)));
-        appCompatCheckBox.perform(scrollTo(), click());
-
-        ViewInteraction appCompatCheckBox2 = onView(
-                allOf(withId(R.id.acheCheckBox)));
-        appCompatCheckBox2.perform(scrollTo(), click());
-
-        ViewInteraction appCompatButton4 = onView(
-                allOf(withId(R.id.fragmentInjectionDetailsButton)));
-        appCompatButton4.perform(scrollTo(), click());
-
-        ViewInteraction appCompatButton5 = onView(
-                allOf(withId(R.id.fragmentToInjectionButton),
-                        withParent(allOf(withId(R.id.fragment_to_injection),
-                                withParent(withId(R.id.timeToInjection))))));
-        appCompatButton5.perform(scrollTo(), click());
-
-        ViewInteraction button6 = onView(
-                allOf(withId(R.id.buttonPostpone),
-                        withParent(allOf(withId(R.id.layout_injection),
-                                withParent(withId(android.R.id.content))))));
-        button6.perform(click());
-
-        ViewInteraction button7 = onView(
-                allOf(withId(android.R.id.button1)));
-        button7.perform(click());
-
-        ViewInteraction imageButton = onView(
-                allOf(withContentDescription("Open"),
-                        withParent(withId(R.id.toolbar)),
-                        isDisplayed()));
-        imageButton.perform(click());
-
-        ViewInteraction imageButton2 = onView(
-                allOf(withContentDescription("Close"),
-                        withParent(withId(R.id.toolbar)),
-                        isDisplayed()));
-        imageButton2.perform(click());
-
-        SystemClock.sleep(1000); //wait for menu animation
-    }
-
-    private static Matcher<View> childAtPosition(
-            final Matcher<View> parentMatcher, final int position) {
-
-        return new TypeSafeMatcher<View>() {
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("Child at position " + position + " in parent ");
-                parentMatcher.describeTo(description);
-            }
-
-            @Override
-            public boolean matchesSafely(View view) {
-                ViewParent parent = view.getParent();
-                return parent instanceof ViewGroup && parentMatcher.matches(parent)
-                        && view.equals(((ViewGroup) parent).getChildAt(position));
-            }
-        };
+                        isDisplayed())).perform(click());
+        onView(allOf(withId(R.id.initialSettingsButtonNext))).perform(scrollTo(), click());
     }
 }
+

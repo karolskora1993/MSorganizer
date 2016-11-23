@@ -29,10 +29,6 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
-
-/**
- * Created by apple on 14.04.2016.
- */
 public class PdfGenerator{
 
     private static Bitmap resizedBitmap;
@@ -40,7 +36,8 @@ public class PdfGenerator{
     public static void generate(Context context, List<Injection> list, String fileName){
         try {
 
-            File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileName);
+            File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/"
+                    + fileName);
             FileOutputStream output = new FileOutputStream(f);
             Document document = new Document(PageSize.A4);
             PdfAWriter.getInstance(document, output);
@@ -72,64 +69,52 @@ public class PdfGenerator{
         PdfPTable table = new PdfPTable(2);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(currentInj.getTimeInMilis());
-        String injectionDate = calendar.get(Calendar.DAY_OF_MONTH) + "." + calendar.get(Calendar.MONTH) + "." + calendar.get(Calendar.YEAR) +
+        String injectionDate = calendar.get(Calendar.DAY_OF_MONTH) + "." +
+                calendar.get(Calendar.MONTH) + "." + calendar.get(Calendar.YEAR) +
                 " " + calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);
-
         PdfPCell cell=new PdfPCell(new Phrase("Data zastrzyku: "+injectionDate));
         table.addCell(cell);
-
         cell=new PdfPCell(new Phrase("Miejsce zastrzyku:"));
         table.addCell(cell);
-
         table.addCell("Objawy:");
-
         try {
-            String field="f"+ String.valueOf(currentInj.getArea()) + String.valueOf(currentInj.getPoint());
-            Drawable d = ContextCompat.getDrawable(context, context.getResources().getIdentifier(field, "drawable", context.getPackageName()));
+            String field="f"+ String.valueOf(currentInj.getArea()) + String.valueOf(currentInj.
+                    getPoint());
+            Drawable d = ContextCompat.getDrawable(context, context.getResources().
+                    getIdentifier(field, "drawable", context.getPackageName()));
             BitmapDrawable bitDw = ((BitmapDrawable) d);
             Bitmap bmp = bitDw.getBitmap();
-
             bmp=getResizedBitmap(bmp,200,200);
-
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
-
             Image image = Image.getInstance(stream.toByteArray());
-
             PdfPCell imageCell = new PdfPCell(image);
             imageCell.setRowspan(2);
             table.addCell(imageCell);
-
-        } catch (BadElementException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (BadElementException | IOException  e) {
             e.printStackTrace();
         }
-
         com.itextpdf.text.List list=new com.itextpdf.text.List(com.itextpdf.text.List.UNORDERED);
         if(currentInj.isTemperature()) {
             ListItem item = new ListItem("  -temperatura\n");
             list.add(item);
-        }
-        if(currentInj.isAche()) {
+        } if(currentInj.isAche()) {
             ListItem item = new ListItem("  -ból miesni\n");
             list.add(item);
 
-        }
-        if(currentInj.isTrembles()) {
+        } if(currentInj.isTrembles()) {
             ListItem item = new ListItem("  -dreszcze\n");
             list.add(item);
 
         }
-
         Phrase phrase=new Phrase();
         phrase.add(list);
         cell=new PdfPCell(phrase);
         table.addCell(cell);
-
         table.setSpacingAfter(10f);
         return table;
     }
+
 
     public static Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
         int width = bm.getWidth();
