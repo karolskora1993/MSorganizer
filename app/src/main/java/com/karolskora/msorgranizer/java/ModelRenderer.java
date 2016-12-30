@@ -54,8 +54,7 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
         int appStyle = DatabaseQueries.getApplicationStyle(activity);
         if(appStyle == 2) {
             back = new RGBColor(40, 40, 40, 0);
-        }
-        try {
+        } try {
             cube = loadModel(modelName, modelScale);
         } catch (IOException e) {
             Log.e(this.getClass().toString(), e.getMessage());
@@ -66,27 +65,21 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
                     xpos = me.getX();
                     ypos = me.getY();
                     return true;
-                }
-
-                if (me.getAction() == MotionEvent.ACTION_UP) {
+                } if (me.getAction() == MotionEvent.ACTION_UP) {
                     xpos = -1;
                     ypos = -1;
                     touchTurn = 0;
                     touchTurnUp = 0;
                     return true;
-                }
-
-                if (me.getAction() == MotionEvent.ACTION_MOVE) {
+                } if (me.getAction() == MotionEvent.ACTION_MOVE) {
                     float xd = me.getX() - xpos;
                     xpos = me.getX();
                     touchTurn = xd / -100f;
                     return true;
                 }
-
                 return view.onTouchEvent(me);
             }
         });
-
     }
 
     public void onSurfaceChanged(GL10 gl, int w, int h) {
@@ -133,12 +126,10 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
             cube.rotateY(touchTurn);
             touchTurn = 0;
         }
-
         if (touchTurnUp != 0) {
             cube.rotateX(touchTurnUp);
             touchTurnUp = 0;
         }
-
         fb.clear(back);
         world.renderScene(fb);
         world.draw(fb);
@@ -214,8 +205,7 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
             cam.setPosition(cv);
 
             cube.rotateY((float)(-0.2 * Math.PI));
-        }
-        else if(area==4){
+        } else if(area==4){
             cam.moveCamera(Camera.CAMERA_MOVEOUT, 15);
 
             mv.y+=4;
@@ -227,8 +217,7 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
             cam.setPosition(cv);
 
             cube.rotateY((float)(0.2 * Math.PI));
-        }
-        else if(area==5){
+        } else if(area==5){
             cam.moveCamera(Camera.CAMERA_MOVEOUT, 15);
 
             mv.y+=5;
@@ -241,8 +230,7 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
             cam.setPosition(cv);
 
             cube.rotateY((float)(-0.2 * Math.PI));
-        }
-        else if(area==6){
+        } else if(area==6){
             cam.moveCamera(Camera.CAMERA_MOVEOUT, scaleFactor);
 
             mv.y+=5;
@@ -255,11 +243,7 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
             cam.setPosition(cv);
 
             cube.rotateY((float)(0.2 * Math.PI));
-
-
-
-        }
-        else if(area==7){
+        } else if(area==7){
             cam.moveCamera(Camera.CAMERA_MOVEOUT, 15);
 
             mv.y+=3;
@@ -271,8 +255,7 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
             cam.setPosition(cv);
 
             cube.rotateY((float)(0.9 * Math.PI));
-        }
-        else if(area==8){
+        } else if(area==8){
             cam.moveCamera(Camera.CAMERA_MOVEOUT, 15);
 
             mv.y+=3;
@@ -285,8 +268,5 @@ public class ModelRenderer implements GLSurfaceView.Renderer {
 
             cube.rotateY((float)(-0.9 * Math.PI));
         }
-
     }
-
-
 }

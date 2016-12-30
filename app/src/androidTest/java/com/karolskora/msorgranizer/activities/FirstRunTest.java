@@ -56,25 +56,25 @@ public class FirstRunTest {
         onView(allOf(withId(R.id.initialSettingsButtonNext))).perform(click());
         onView(allOf(withId(R.id.nameTextEdit),
                         withParent(withId(R.id.aboutUserFragment)),
-                        isDisplayed())).perform(replaceText("testName"), closeSoftKeyboard());
+                        isDisplayed())).perform(replaceText("testName"));
         onView(allOf(withId(R.id.doctorNameTextEdit),
                         withParent(withId(R.id.aboutUserFragment)),
-                        isDisplayed())).perform(replaceText("doctortest"), closeSoftKeyboard());
+                        isDisplayed())).perform(replaceText("doctortest"));
         onView(allOf(withId(R.id.nurseNameTextEdit),
                         withParent(withId(R.id.aboutUserFragment)),
-                        isDisplayed())).perform(replaceText("nurseTest"), closeSoftKeyboard());
+                        isDisplayed())).perform(replaceText("nurseTest"));
         onView(allOf(withId(R.id.emailTextEdit),
                         withParent(withId(R.id.aboutUserFragment)),
-                        isDisplayed())).perform(replaceText("email@test.com"), closeSoftKeyboard());
+                        isDisplayed())).perform(replaceText("email@test.com"));
         onView(allOf(withId(R.id.initialSettingsButtonNext))).perform(click());
         onView(allOf(withId(R.id.firstInjectionButtonNext))).perform(scrollTo(), click());
         onView(allOf(withId(android.R.id.button1))).perform(click());
         onView(allOf(withId(R.id.dosesEditText),
                         withParent(withId(R.id.aboutUserFragment)),
-                        isDisplayed())).perform(replaceText("20"), closeSoftKeyboard());
+                        isDisplayed())).perform(replaceText("20"));
         onView(allOf(withId(R.id.notificationDosesEditText),
                         withParent(withId(R.id.aboutUserFragment)),
-                        isDisplayed())).perform(replaceText("5"), closeSoftKeyboard());
+                        isDisplayed())).perform(replaceText("5"));
         onView(allOf(withId(R.id.button2),
                         withParent(withId(R.id.aboutUserFragment)),
                         isDisplayed())).perform(click());

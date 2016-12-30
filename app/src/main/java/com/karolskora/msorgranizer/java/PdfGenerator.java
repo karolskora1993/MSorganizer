@@ -101,11 +101,9 @@ public class PdfGenerator{
         } if(currentInj.isAche()) {
             ListItem item = new ListItem("  -ból miesni\n");
             list.add(item);
-
         } if(currentInj.isTrembles()) {
             ListItem item = new ListItem("  -dreszcze\n");
             list.add(item);
-
         }
         Phrase phrase=new Phrase();
         phrase.add(list);
