@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.karolskora.msorgranizer"
-        minSdkVersion 19
+        minSdkVersion 17
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -49,7 +49,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
 
-    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
+    //androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
 
 
     compile files('libs/jpct_ae.jar')
