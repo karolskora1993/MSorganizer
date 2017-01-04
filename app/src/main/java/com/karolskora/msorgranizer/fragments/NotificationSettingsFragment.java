@@ -67,7 +67,7 @@ public class NotificationSettingsFragment extends Fragment implements View.OnCli
 
         DatabaseQueries.updateInjectionSchedule(getActivity(), calendar.getTimeInMillis());
 
-        Log.d(this.getClass().toString(), "Nowy czas notyfikacji: rok:" + calendar.get(Calendar.YEAR) + " miesiac: " + calendar.get(Calendar.MONTH) +
+        Log.d(this.getClass().toString(), "czas   : rok:" + calendar.get(Calendar.YEAR) + " miesiac: " + calendar.get(Calendar.MONTH) +
                 " dzien: " + calendar.get(Calendar.DAY_OF_MONTH) + " godzina: " + calendar.get(Calendar.HOUR) + " minuta: " + calendar.get(Calendar.MINUTE) + " AM_PM:" + calendar.get(Calendar.AM_PM));
         NotificationOrganizer.UpdateNotification(calendar.getTimeInMillis(), getActivity());
         Toast toast = Toast.makeText(getActivity(), "Zmieniono ustawienia notyfikacji", Toast.LENGTH_LONG);

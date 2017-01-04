@@ -4,6 +4,7 @@ package com.karolskora.msorgranizer.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,8 +78,6 @@ public class ToInjectionFragment extends Fragment implements View.OnClickListene
             int minutes = (int) ((timeToInjection - (hours * 60 * 60 * 1000)) / (60  * 1000));
             String time=hours+"h:"+minutes+"min";
             return time;
-
-
         }
         else{
             Long timeToInjection = calendar.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
@@ -98,13 +97,13 @@ public class ToInjectionFragment extends Fragment implements View.OnClickListene
             else if(timeToInjection>24*60*60*1000)
             {
                 int days=1;
-                hours=hours-(24*60*60*1000);
+                hours=hours-24;
                 time = days+"dzień \n"+ hours + "godzin\n" + minutes + "minut";
 
             }
-            else
+            else {
                 time = hours + "godzin\n" + minutes + "minut";
-
+            }
             return time;
         }
 
