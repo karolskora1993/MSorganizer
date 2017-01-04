@@ -11,7 +11,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.karolskora.msorgranizer.R;
+import com.karolskora.msorgranizer.java.AlertOrganizer;
 import com.karolskora.msorgranizer.java.DatabaseQueries;
+import com.karolskora.msorgranizer.java.StringValidator;
 
 
 public class ReserveFragment extends Fragment implements View.OnClickListener{
@@ -46,9 +48,16 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
         int doses=Integer.parseInt(dosesEditText.getText().toString());
         int notificationDoses=Integer.parseInt(notificationDosesEditText.getText().toString());
 
-        DatabaseQueries.updateDoses(getActivity(), doses, notificationDoses);
-        Toast toast = Toast.makeText(getActivity(), "Zapisano ustawienia leku", Toast.LENGTH_LONG);
-        toast.show();
+        if (dosesEditText.getText().toString().equals("") || notificationDosesEditText.getText().toString().equals("")) {
+            showNotCompletedFieldsToast();
+        }else if (!StringValidator.isNumber(new String[] {dosesEditText.getText().toString(), notificationDosesEditText.getText().toString()})) {
+            AlertOrganizer.showAlert(this.getActivity(), getResources().getString(R.string.characters_not_allowed_title), getResources().getString(R.string.characters_not_allowed_message));
+        }
+        else {
+            DatabaseQueries.updateDoses(getActivity(), doses, notificationDoses);
+            Toast toast = Toast.makeText(getActivity(), "Zapisano ustawienia leku", Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
     public void onViewStateRestored(Bundle savedInstanceState) {
@@ -58,6 +67,11 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void showNotCompletedFieldsToast() {
+        Toast toast = Toast.makeText(this.getActivity(), "Wypełnij wszystkie dane", Toast.LENGTH_LONG);
+        toast.show();
     }
 
     @Override

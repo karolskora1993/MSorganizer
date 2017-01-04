@@ -72,4 +72,11 @@
     <string name="norification_text">Zbliża się czas kolejnej dawki leku</string>
     <string name="postone_not_allowed_title" >Nie można odłożyć zastrzyku</string>
     <string name="postone_not_allowed_message" >Nie można odłożyć zastrzyku wykonywanego manualnie</string>
+    <string name="invalid_email_title">Zły email</string>
+    <string name="invalid_email_message">Podaj prawidłowy email</string>
+    <string name="characters_not_allowed_title"></string>
+    <string name="characters_not_allowed_message">Użyłeś niedozwolonych znaków</string>
+
+
+
 </resources>

@@ -11,7 +11,9 @@ import android.widget.Toast;
 
 import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.activities.MainActivity;
+import com.karolskora.msorgranizer.java.AlertOrganizer;
 import com.karolskora.msorgranizer.java.DatabaseQueries;
+import com.karolskora.msorgranizer.java.StringValidator;
 import com.karolskora.msorgranizer.models.User;
 
 
@@ -61,9 +63,19 @@ public class UserSettingsFragment extends Fragment implements View.OnClickListen
         EditText emailTextEdit = (EditText)getActivity().findViewById(R.id.emailTextEdit);
         String email = emailTextEdit.getText().toString();
 
-        DatabaseQueries.updateUser(getActivity(), name, doctorName, nurseName, email);
-        Toast toast = Toast.makeText(getActivity(), "zmieniono ustawienia użytkownika", Toast.LENGTH_LONG);
-        toast.show();
+        if(areFieldsFilled(name, doctorName,nurseName, email)) {
+            Toast toast = Toast.makeText(this.getActivity(), "Wypełnij wszystkie dane", Toast.LENGTH_LONG);
+            toast.show();
+        } else if (!StringValidator.isEmail(email)) {
+            AlertOrganizer.showAlert(this.getActivity(), getResources().getString(R.string.invalid_email_title), getResources().getString(R.string.invalid_email_message));
+        } else if (!StringValidator.containsOnlyLetters(new String[]{name, doctorName, nurseName})) {
+            AlertOrganizer.showAlert(this.getActivity(), getResources().getString(R.string.characters_not_allowed_title), getResources().getString(R.string.characters_not_allowed_message));
+        }
+        else {
+            DatabaseQueries.updateUser(getActivity(), name, doctorName, nurseName, email);
+            Toast toast = Toast.makeText(getActivity(), "zmieniono ustawienia użytkownika", Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
     public void onViewStateRestored(Bundle savedInstanceState) {
@@ -73,6 +85,10 @@ public class UserSettingsFragment extends Fragment implements View.OnClickListen
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean areFieldsFilled(String name, String doctorName, String nurseName, String doctorEmail){
+        return name.equals("") || doctorName.equals("") || nurseName.equals("") || doctorEmail.equals("");
     }
 
     @Override

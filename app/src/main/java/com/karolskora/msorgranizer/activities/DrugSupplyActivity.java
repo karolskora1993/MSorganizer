@@ -3,12 +3,15 @@ package com.karolskora.msorgranizer.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.fragments.DatePickerFragment;
+import com.karolskora.msorgranizer.java.AlertOrganizer;
+import com.karolskora.msorgranizer.java.StringValidator;
 
 public class DrugSupplyActivity extends AppCompatActivity {
     public static final String DOSES = "doses";
@@ -25,17 +28,20 @@ public class DrugSupplyActivity extends AppCompatActivity {
     }
 
     public void onButtonNextClick(View view) {
-        EditText dosesEditText = (EditText) findViewById(R.id.dosesEditText);
+        EditText dosesEditText = (EditText) findViewById(R.id.dosesEditTextFragment);
 
         int doses = Integer.parseInt(dosesEditText.getText().toString());
 
-        EditText notificationDosesEditText = (EditText) findViewById(R.id.notificationDosesEditText);
+        EditText notificationDosesEditText = (EditText) findViewById(R.id.notificationDosesEditTextFragment);
         int notificationDoses = Integer.parseInt(notificationDosesEditText.getText().toString());
+        Log.d("dasdasdasdas", dosesEditText.getText().toString() + notificationDosesEditText.getText().toString());
 
         if (dosesEditText.getText().toString().equals("") || notificationDosesEditText.getText().toString().equals("")) {
             showNotCompletedFieldsToast();
-        } else {
-
+        }else if (!StringValidator.isNumber(new String[] {dosesEditText.getText().toString(), notificationDosesEditText.getText().toString()})) {
+            AlertOrganizer.showAlert(this, getResources().getString(R.string.characters_not_allowed_title), getResources().getString(R.string.characters_not_allowed_message));
+        }
+        else {
             Intent intent = getIntent();
 
             String name = intent.getStringExtra(UserInformationsActivity.USER_NAME);

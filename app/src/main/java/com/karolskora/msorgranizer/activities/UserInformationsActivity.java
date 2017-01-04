@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.karolskora.msorgranizer.R;
+import com.karolskora.msorgranizer.java.AlertOrganizer;
+import com.karolskora.msorgranizer.java.StringValidator;
 
 public class UserInformationsActivity extends FragmentActivity {
 
@@ -36,11 +38,14 @@ public class UserInformationsActivity extends FragmentActivity {
         doctorName=getStringForField(R.id.doctorNameTextEdit);
         nurseName=getStringForField(R.id.nurseNameTextEdit);
         doctorEmail=getStringForField(R.id.emailTextEdit);
-        doctorEmail=getStringForField(R.id.emailTextEdit);
 
         if(areFieldsFilled()) {
             Toast toast = Toast.makeText(this, "Wypełnij wszystkie dane", Toast.LENGTH_LONG);
             toast.show();
+        } else if (!StringValidator.isEmail(doctorEmail)) {
+            AlertOrganizer.showAlert(this, getResources().getString(R.string.invalid_email_title), getResources().getString(R.string.invalid_email_message));
+        } else if (!StringValidator.containsOnlyLetters(new String[]{name, doctorName, nurseName})) {
+            AlertOrganizer.showAlert(this, getResources().getString(R.string.characters_not_allowed_title), getResources().getString(R.string.characters_not_allowed_message));
         }
         else {
             startNextActivity();
