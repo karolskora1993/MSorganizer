@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.ImageView;
 import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.fragments.TimePickerFragment;
+import com.karolskora.msorgranizer.fragments.ToInjectionFragment;
 import com.karolskora.msorgranizer.java.DatabaseQueries;
 import com.karolskora.msorgranizer.java.ModelRenderer;
 import com.karolskora.msorgranizer.java.PointFinder;
@@ -33,6 +34,7 @@ public class InjectionActivity extends Activity {
     private ModelRenderer renderer;
     private ScaleGestureDetector scaleGestureDetector;
     private int scaleFactor=40;
+    private boolean manualInjection = false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +50,8 @@ public class InjectionActivity extends Activity {
         setImage();
         scaleGestureDetector = new ScaleGestureDetector(this,
                 new ScaleListener());
+
+        manualInjection = getIntent().getBooleanExtra(ToInjectionFragment.MANUAL_INJECTION_EXTRA_MESSAGE, false);
     }
 
     @Override
@@ -68,9 +72,13 @@ public class InjectionActivity extends Activity {
     }
 
     public void postpone(View view) {
-        DialogFragment newFragment = new TimePickerFragment();
-        newFragment.show(getFragmentManager(), "timePicker");
-
+        if(manualInjection) {
+            AlertDialog alertDialog = buildMessageDialog(getResources().getString(R.string.postone_not_allowed_title), getResources().getString(R.string.postone_not_allowed_message));
+            alertDialog.show();
+        } else {
+            DialogFragment newFragment = new TimePickerFragment();
+            newFragment.show(getFragmentManager(), "timePicker");
+        }
     }
 
     public void inject(View view) {
@@ -182,5 +190,19 @@ public class InjectionActivity extends Activity {
         public void onScaleEnd(ScaleGestureDetector detector) {
             Log.d(this.getClass().toString(), "scaleEnd"+ detector.getFocusX() + detector.getFocusY());
         }
+    }
+
+    private AlertDialog buildMessageDialog(String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+            }
+        });
+
+        return builder.create();
     }
 }

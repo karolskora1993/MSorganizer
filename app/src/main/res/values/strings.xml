@@ -70,4 +70,6 @@
     <string name="app_style_description_text">Na początek wybierz wygląd aplikacji, który bardziej Ci odpowiada</string>
     <string name="notification_title">czas zastrzyku</string>
     <string name="norification_text">Zbliża się czas kolejnej dawki leku</string>
+    <string name="postone_not_allowed_title" >Nie można odłożyć zastrzyku</string>
+    <string name="postone_not_allowed_message" >Nie można odłożyć zastrzyku wykonywanego manualnie</string>
 </resources>

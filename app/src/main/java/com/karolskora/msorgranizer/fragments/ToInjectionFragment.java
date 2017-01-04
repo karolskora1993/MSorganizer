@@ -20,6 +20,7 @@ import java.util.Calendar;
 
 public class ToInjectionFragment extends Fragment implements View.OnClickListener{
 
+    public static String MANUAL_INJECTION_EXTRA_MESSAGE = "manualInjectionExtraMessage";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,9 +33,6 @@ public class ToInjectionFragment extends Fragment implements View.OnClickListene
         super.onViewCreated(view, savedInstanceState);
 
         MainActivity owner=(MainActivity)getActivity();
-
-//        RelativeLayout layout =(RelativeLayout)getActivity().findViewById(R.id.fragment_to_injection);
-//        layout.setBackgroundResource(android.R.drawable.dialog_holo_dark_frame);
 
         TextView textView = (TextView) owner.findViewById(R.id.fragmentMainTextView);
 
@@ -111,6 +109,7 @@ public class ToInjectionFragment extends Fragment implements View.OnClickListene
 
     public void onButtonInjectClick() {
         Intent intent=new Intent(getActivity(), InjectionActivity.class);
+        intent.putExtra(MANUAL_INJECTION_EXTRA_MESSAGE, true);
         startActivity(intent);
     }
 
