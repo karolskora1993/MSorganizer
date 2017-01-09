@@ -29,12 +29,7 @@ public class DrugSupplyActivity extends AppCompatActivity {
 
     public void onButtonNextClick(View view) {
         EditText dosesEditText = (EditText) findViewById(R.id.dosesEditTextFragment);
-
-        int doses = Integer.parseInt(dosesEditText.getText().toString());
-
         EditText notificationDosesEditText = (EditText) findViewById(R.id.notificationDosesEditTextFragment);
-        int notificationDoses = Integer.parseInt(notificationDosesEditText.getText().toString());
-        Log.d("dasdasdasdas", dosesEditText.getText().toString() + notificationDosesEditText.getText().toString());
 
         if (dosesEditText.getText().toString().equals("") || notificationDosesEditText.getText().toString().equals("")) {
             showNotCompletedFieldsToast();
@@ -43,7 +38,8 @@ public class DrugSupplyActivity extends AppCompatActivity {
         }
         else {
             Intent intent = getIntent();
-
+            int doses = Integer.parseInt(dosesEditText.getText().toString());
+            int notificationDoses = Integer.parseInt(notificationDosesEditText.getText().toString());
             String name = intent.getStringExtra(UserInformationsActivity.USER_NAME);
             String doctorName = intent.getStringExtra(UserInformationsActivity.DOCTOR_NAME);
             String nurseName = intent.getStringExtra(UserInformationsActivity.NURSE_NAME);

@@ -140,6 +140,9 @@ public class InjectionDetailsActivity extends AppCompatActivity {
         imageView.setImageDrawable(d);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
-
+    }
 }

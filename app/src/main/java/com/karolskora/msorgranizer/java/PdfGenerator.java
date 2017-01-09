@@ -38,11 +38,11 @@ public class PdfGenerator{
 
             File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/"
                     + fileName);
+            Log.d(PdfGenerator.class.toString(), "file:" + f);
             FileOutputStream output = new FileOutputStream(f);
             Document document = new Document(PageSize.A4);
             PdfAWriter.getInstance(document, output);
             document.open();
-
             User user = DatabaseQueries.getUser(context);
             String text = user.getName() + "- Raport z zastrzyków: \n \n ";
 
@@ -54,13 +54,12 @@ public class PdfGenerator{
             for (Injection currentInj : list) {
                 PdfPTable nextTable = addTable(currentInj, context);
                 document.add(nextTable);
+                Log.d(PdfGenerator.class.toString(), "next injection:");
             }
             document.close();
         }
         catch (FileNotFoundException| DocumentException e){
-
-            Log.e(PdfGenerator.class.toString(), "blad przy generowaniu pdf");
-
+            Log.e(PdfGenerator.class.toString(), "blad przy generowaniu pdf" + e.toString());
         }
     }
 

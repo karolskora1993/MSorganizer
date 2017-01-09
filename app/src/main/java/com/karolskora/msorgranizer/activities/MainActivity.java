@@ -1,10 +1,12 @@
 package com.karolskora.msorgranizer.activities;
 
+import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -55,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
             startFirstUseSettings();
         }
         else {
+            if (shouldAskPermissions()) {
+                askPermissions();
+            }
             int appStyle = DatabaseQueries.getApplicationStyle(this);
 
             if(appStyle == 2) {
@@ -245,5 +250,20 @@ public class MainActivity extends AppCompatActivity {
             buildCrossfadeDrawer();
         }
     }
+
+    protected boolean shouldAskPermissions() {
+        return (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1);
+    }
+
+    @TargetApi(23)
+    protected void askPermissions() {
+        String[] permissions = {
+                "android.permission.READ_EXTERNAL_STORAGE",
+                "android.permission.WRITE_EXTERNAL_STORAGE"
+        };
+        int requestCode = 200;
+        requestPermissions(permissions, requestCode);
+    }
+
 }
 

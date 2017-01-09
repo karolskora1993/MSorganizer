@@ -45,15 +45,14 @@ public class ReserveFragment extends Fragment implements View.OnClickListener{
         EditText dosesEditText=(EditText)getActivity().findViewById(R.id.dosesFragmentEditText);
         EditText notificationDosesEditText=(EditText)getActivity().findViewById(R.id.notificationDosesFragmentEditText);
 
-        int doses=Integer.parseInt(dosesEditText.getText().toString());
-        int notificationDoses=Integer.parseInt(notificationDosesEditText.getText().toString());
-
         if (dosesEditText.getText().toString().equals("") || notificationDosesEditText.getText().toString().equals("")) {
             showNotCompletedFieldsToast();
         }else if (!StringValidator.isNumber(new String[] {dosesEditText.getText().toString(), notificationDosesEditText.getText().toString()})) {
             AlertOrganizer.showAlert(this.getActivity(), getResources().getString(R.string.characters_not_allowed_title), getResources().getString(R.string.characters_not_allowed_message));
         }
         else {
+            int doses=Integer.parseInt(dosesEditText.getText().toString());
+            int notificationDoses=Integer.parseInt(notificationDosesEditText.getText().toString());
             DatabaseQueries.updateDoses(getActivity(), doses, notificationDoses);
             Toast toast = Toast.makeText(getActivity(), "Zapisano ustawienia leku", Toast.LENGTH_LONG);
             toast.show();
