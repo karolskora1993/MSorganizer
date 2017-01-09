@@ -4,6 +4,7 @@ package com.karolskora.msorgranizer.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +20,16 @@ import com.karolskora.msorgranizer.models.Notification;
 import java.util.Calendar;
 
 public class ToInjectionFragment extends Fragment implements View.OnClickListener{
+    private Injection lastInjection;
+    private Notification notification;
 
     public static String MANUAL_INJECTION_EXTRA_MESSAGE = "manualInjectionExtraMessage";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        lastInjection = DatabaseQueries.getLatestInjection(getActivity());
+        notification = DatabaseQueries.getInjectionsSchedule(getActivity());
         return inflater.inflate(R.layout.fragment_to_injection, container, false);
     }
 
@@ -39,17 +44,13 @@ public class ToInjectionFragment extends Fragment implements View.OnClickListene
         if(textView!=null) {
                 String name = "Witaj " + DatabaseQueries.getUser(getActivity()).getName() + ", do następnego zastrzyku pozostało:";
                 textView.setText(name);
-
-                TextView timeTextView = (TextView) owner.findViewById(R.id.timeToInjectionTextView);
-                timeTextView.setText(getTimeToInjection());
+            runTimer();
         }
     }
 
 
     private String getTimeToInjection(){
         Calendar calendar=Calendar.getInstance();
-        Injection lastInjection = DatabaseQueries.getLatestInjection(getActivity());
-        Notification notification =DatabaseQueries.getInjectionsSchedule(getActivity());
         if(lastInjection == null) {
             calendar.setTimeInMillis(notification.getInjectionTime());
         } else {
@@ -85,7 +86,7 @@ public class ToInjectionFragment extends Fragment implements View.OnClickListene
             if(timeToInjection <= 0 ) {
                 return "Wykonaj zastrzyk teraz";
             }
-            if(timeToInjection>=48*60*60*1000)
+            if(timeToInjection>48*60*60*1000)
             {
                 int days=2;
                 hours=hours-48;
@@ -104,7 +105,6 @@ public class ToInjectionFragment extends Fragment implements View.OnClickListene
             }
             return time;
         }
-
     }
 
     public void onButtonInjectClick() {
@@ -126,6 +126,18 @@ public class ToInjectionFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         onButtonInjectClick();
     }
-    
+
+    private void runTimer() {
+        final TextView timeTextView = (TextView)getActivity().findViewById(R.id.timeToInjectionTextView);
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                timeTextView.setText(getTimeToInjection());
+                handler.postDelayed(this, 1000);
+            }
+        });
+
+    }
 }
 
