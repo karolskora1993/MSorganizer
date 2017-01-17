@@ -12,6 +12,8 @@ import com.karolskora.msorgranizer.java.NotificationOrganizer;
 
 public class AboutAppActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
+    private boolean isSaved = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +22,9 @@ public class AboutAppActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             setTheme(R.style.darkAppTheme);
         }
         setContentView(R.layout.layout_about);
-        saveData();
+        if(!isSaved) {
+            saveData();
+        }
         long injectionTime = getIntent().getLongExtra(DatePickerFragment.TIME_IN_MILIS, 0);
         NotificationOrganizer.scheduleNotification(injectionTime, this);
     }
@@ -44,10 +48,10 @@ public class AboutAppActivity extends OrmLiteBaseActivity<DatabaseHelper> {
         int doses = intent.getIntExtra(DrugSupplyActivity.DOSES, 0);
         int notificationDoses = intent.getIntExtra(DrugSupplyActivity.NOTIFICATION_DOSES, 0);
 
-
         DatabaseQueries.putUser(this, name, doctorName, nurseName, email);
         DatabaseQueries.putInjectionsSchedule(this, timeInMilis);
         DatabaseQueries.setDoses(this, doses, notificationDoses);
         DatabaseQueries.putApplicationSettings(this, style);
+        isSaved = true;
     }
 }

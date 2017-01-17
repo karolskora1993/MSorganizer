@@ -13,21 +13,28 @@
         android:theme="@style/lightAppTheme">
         <activity android:name=".activities.UserInformationsActivity"
             android:screenOrientation="portrait"
+            android:parentActivityName=".activities.AppStyleActivity"
             />
         <activity android:name=".activities.AboutAppActivity"
             android:screenOrientation="portrait"
+            android:parentActivityName=".activities.DrugSupplyActivity"
+
             />
         <activity android:name=".activities.FirstInjectionTimeActivity"
             android:screenOrientation="portrait"
+            android:parentActivityName=".activities.UserInformationsActivity"
             />
         <activity android:name=".activities.InjectionActivity"
             android:screenOrientation="portrait"
+            android:parentActivityName=".activities.MainActivity"
             />
         <activity android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
+            android:parentActivityName=".activities.MainActivity"
             />
         <activity android:name=".activities.DrugSupplyActivity"
             android:screenOrientation="portrait"
+            android:parentActivityName=".activities.FirstInjectionTimeActivity"
             />
         <activity
             android:name=".activities.InjectionDetailsActivity"
@@ -48,9 +55,11 @@
             android:name=".activities.HelpActivity"
             android:theme="@style/Theme.Intro"
             android:screenOrientation="portrait"
+            android:parentActivityName=".activities.MainActivity"
             />
         <activity android:name=".activities.AppStyleActivity"
             android:screenOrientation="portrait"
+            android:parentActivityName=".activities.SplashActivity"
             />
 
         <receiver
