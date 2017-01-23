@@ -21,16 +21,16 @@
         android:textSize="@dimen/text_size_medium"
         android:textColor="?textColor"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/timeToInjectionTextView"
-        android:layout_below="@+id/fragmentMainTextView"
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_below="@id/fragmentMainTextView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_centerHorizontal="true"
-        android:textAlignment="center"
-        android:textSize="@dimen/text_size_xlarge"
-        android:textColor="?alternative_textColor" />
+        android:max="60"
+        android:progress="0"
+        android:progressDrawable="@drawable/circular" />
 
     <Button
         android:layout_width="wrap_content"
@@ -39,7 +39,19 @@
         android:id="@+id/fragmentToInjectionButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/timeToInjectionTextView"
+        android:layout_below="@id/progressBar"
         android:background="@drawable/button"/>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fragmentMainTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:id="@+id/timeTextView"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_size_big"
+        android:textColor="?alternative_textColor"/>
 
 </RelativeLayout>

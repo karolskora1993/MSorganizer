@@ -1,15 +1,18 @@
 package com.karolskora.msorgranizer.fragments;
 
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.view.animation.LinearInterpolator;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.karolskora.msorgranizer.R;
 import com.karolskora.msorgranizer.activities.InjectionActivity;
@@ -22,7 +25,10 @@ import java.util.Calendar;
 public class ToInjectionFragment extends Fragment implements View.OnClickListener{
     private Injection lastInjection;
     private Notification notification;
-
+    private ObjectAnimator animation;
+    private long timeToInjection;
+    private int seconds = 0;
+    private boolean firstRun = true;
     public static String MANUAL_INJECTION_EXTRA_MESSAGE = "manualInjectionExtraMessage";
 
     @Override
@@ -44,12 +50,17 @@ public class ToInjectionFragment extends Fragment implements View.OnClickListene
         if(textView!=null) {
                 String name = "Witaj " + DatabaseQueries.getUser(getActivity()).getName() + ", do następnego zastrzyku pozostało:";
                 textView.setText(name);
+            setTimeToInjection();
             runTimer();
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 
-    private String getTimeToInjection(){
+    private void setTimeToInjection(){
         Calendar calendar=Calendar.getInstance();
         if(lastInjection == null) {
             calendar.setTimeInMillis(notification.getInjectionTime());
@@ -58,7 +69,6 @@ public class ToInjectionFragment extends Fragment implements View.OnClickListene
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
             int minute = calendar.get(Calendar.MINUTE);
             int AM_PM = calendar.get(Calendar.AM_PM);
-
             calendar.setTimeInMillis(lastInjection.getTimeInMilis() + 48 *60 * 60 * 1000);
             calendar.set(Calendar.HOUR_OF_DAY, hour);
             calendar.set(Calendar.MINUTE, minute);
@@ -69,22 +79,23 @@ public class ToInjectionFragment extends Fragment implements View.OnClickListene
 
         if(postponedInectionTime>0)
         {
-            Long timeToInjection =  postponedInectionTime-Calendar.getInstance().getTimeInMillis();
-            if(timeToInjection <= 0 ) {
-                return "Wykonaj zastrzyk teraz";
-            }
-            int hours = (int) (timeToInjection / (1000 * 60 * 60));
-            int minutes = (int) ((timeToInjection - (hours * 60 * 60 * 1000)) / (60  * 1000));
-            String time=hours+"h:"+minutes+"min";
-            return time;
+            timeToInjection =  postponedInectionTime-Calendar.getInstance().getTimeInMillis();
         }
         else{
-            Long timeToInjection = calendar.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
+            timeToInjection = calendar.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
+        }
+        if(firstRun) {
+            calendar.setTimeInMillis(timeToInjection);
+            seconds = calendar.get(Calendar.SECOND);
+        }
+    }
+
+    private String getTimeToInjectionString(){
             int hours = (int) (timeToInjection / (1000 * 60 * 60));
             int minutes = (int) ((timeToInjection - (hours * 60 * 60 * 1000)) / (60 * 1000));
-            String time;
+        String time;
             if(timeToInjection <= 0 ) {
-                return "Wykonaj zastrzyk teraz";
+                return "Wykonaj\nzastrzyk";
             }
             if(timeToInjection>48*60*60*1000)
             {
@@ -104,7 +115,6 @@ public class ToInjectionFragment extends Fragment implements View.OnClickListene
                 time = hours + "godzin\n" + minutes + "minut";
             }
             return time;
-        }
     }
 
     public void onButtonInjectClick() {
@@ -128,16 +138,45 @@ public class ToInjectionFragment extends Fragment implements View.OnClickListene
     }
 
     private void runTimer() {
-        final TextView timeTextView = (TextView)getActivity().findViewById(R.id.timeToInjectionTextView);
+        final TextView timeTextView = (TextView)getActivity().findViewById(R.id.timeTextView);
+        final ProgressBar progressBar = (ProgressBar)getActivity().findViewById(R.id.progressBar);
         final Handler handler = new Handler();
         handler.post(new Runnable() {
             @Override
             public void run() {
-                timeTextView.setText(getTimeToInjection());
-                handler.postDelayed(this, 1000);
+                timeTextView.setText(getTimeToInjectionString());
+                if(timeToInjection <= 0) {
+                    int color = ContextCompat.getColor(getActivity().getApplicationContext(),R.color.red_color);
+                    ProgressBar progressBar = (ProgressBar)getActivity().findViewById(R.id.progressBar);
+                    progressBar.setProgress(60);
+                    timeTextView.setTextColor(color);
+                    progressBar.getProgressDrawable().setColorFilter(color, android.graphics.PorterDuff.Mode.SRC_IN);
+                }else {
+                    if (firstRun) {
+                        handler.postDelayed(this, 60000 - seconds * 1000);
+                        animate(progressBar);
+                        Log.d(this.getClass().toString(), "firstRun, seconds: " +(60000 - seconds * 1000));
+                        firstRun = false;
+                        timeToInjection -= (60000 - seconds * 1000);
+                        seconds = 0;
+                    } else {
+                        handler.postDelayed(this, 60000);
+                        animate(progressBar);
+                        Log.d(this.getClass().toString(), "next run, seconds: " +(60000 - seconds * 1000));
+                        timeToInjection -=60000;
+                    }
+                }
             }
         });
-
     }
+
+    private void animate(ProgressBar progressBar) {
+        animation = ObjectAnimator.ofInt (progressBar, "progress", seconds, 60);
+        animation.setDuration (60000 - seconds*1000);
+        animation.setInterpolator (new LinearInterpolator());
+        Log.d(this.getClass().toString(), "animate, duration: " +(60000 - seconds*1000));
+        animation.start();
+    }
+
 }
 
