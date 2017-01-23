@@ -74,5 +74,4 @@ dependencies {
     compile 'com.github.ViksaaSkool:AwesomeSplash:v1.0.0'
     compile 'com.heinrichreimersoftware:material-intro:1.4'
     compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
-    compile 'com.github.jakob-grabner:Circle-Progress-View:v1.3'
 }
