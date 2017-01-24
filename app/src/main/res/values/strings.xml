@@ -76,7 +76,6 @@
     <string name="invalid_email_message">Podaj prawidłowy email</string>
     <string name="characters_not_allowed_title"></string>
     <string name="characters_not_allowed_message">Użyłeś niedozwolonych znaków</string>
-
-
+    <string name="manual_injection_time_alert_message">Jesteś pewny, że chcesz wykonać zastrzyk długo przed docelowym czasem?</string>
 
 </resources>

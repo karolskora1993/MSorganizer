@@ -22,6 +22,12 @@ public class AlertOrganizer {
         alertDialog.show();
     }
 
+    public static void showCancelableAlert(Context context, String title, String message, DialogInterface.OnClickListener listener){
+        AlertDialog alertDialog = buildCancelableMessageDialog(context,title,message, listener);
+
+        alertDialog.show();
+    }
+
     private static AlertDialog buildMessageDialog(Context context, String title, String message, DialogInterface.OnClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setCancelable(false);
@@ -36,6 +42,28 @@ public class AlertOrganizer {
         }
         builder.setPositiveButton("Ok", listener);
 
+        return builder.create();
+    }
+
+    private static AlertDialog buildCancelableMessageDialog(Context context, String title, String message, DialogInterface.OnClickListener listener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        if (listener == null) {
+            listener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                }
+            };
+        }
+        builder.setPositiveButton("Ok", listener);
+        builder.setNegativeButton("powrót", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
         return builder.create();
     }
 }
